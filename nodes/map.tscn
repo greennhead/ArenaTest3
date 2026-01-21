@@ -1,26 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dly618ctmgujq"]
+[gd_scene load_steps=2 format=3 uid="uid://dly618ctmgujq"]
 
 [ext_resource type="Script" uid="uid://cfrkn4gclejx6" path="res://nodes/map.gd" id="1_o7unc"]
-[ext_resource type="Texture2D" uid="uid://d15c0xihhxqnc" path="res://images/atlasDefault.png" id="1_sknwi"]
-[ext_resource type="VoxelBlockyLibrary" uid="uid://dwvjnescjb7up" path="res://tres/blocks.tres" id="2_5ibb1"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sknwi"]
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("1_sknwi")
-texture_filter = 0
-
-[sub_resource type="VoxelGeneratorScript" id="VoxelGeneratorScript_sknwi"]
-
-[sub_resource type="VoxelMesherBlocky" id="VoxelMesherBlocky_o7unc"]
-library = ExtResource("2_5ibb1")
 
 [node name="mapLoader" type="Node3D"]
 script = ExtResource("1_o7unc")
-
-[node name="Terrain" type="VoxelTerrain" parent="."]
-material_override = SubResource("StandardMaterial3D_sknwi")
-area_edit_notification_enabled = true
-generator = SubResource("VoxelGeneratorScript_sknwi")
-mesher = SubResource("VoxelMesherBlocky_o7unc")
-
-[node name="VoxelTerrainMultiplayerSynchronizer" type="VoxelTerrainMultiplayerSynchronizer" parent="Terrain"]
