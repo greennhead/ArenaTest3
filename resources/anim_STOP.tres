@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EightDirectionalAnimationFrameBased" load_steps=2 format=3 uid="uid://q454q3obiwbw"]
+
+[ext_resource type="Script" uid="uid://bbrf1cbmyep5q" path="res://nodes/EightDirAnimFrameBased.gd" id="1_wdg3w"]
+
+[resource]
+script = ExtResource("1_wdg3w")
+onlyFront = false
+front = Array[int]([0])
+front_right = Array[int]([1])
+right = Array[int]([2])
+back_right = Array[int]([3])
+back = Array[int]([4])
+back_left = Array[int]([5])
+left = Array[int]([6])
+front_left = Array[int]([7])
+metadata/_custom_type_script = "uid://bbrf1cbmyep5q"

@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=2 format=3 uid="uid://nmeia76l8vfc"]
+
+[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_kgjw7"]
+
+[resource]
+script = ExtResource("1_kgjw7")
+name = "SMG"
+attackSpeed = 5
+projectile = ""
+projectileSpread = 0
+projectileAmount = 1
+Ammo = 50
+maxAmmo = 50
+ammoRegen = false
+ammoRegenRate = 0
+selfKnockback = -5
+damage = 10
+DamageSpreads = false
+Knockback = -40
+IdleAnimationRotation = Array[float]([0.0])
+IdleAnimationHand1Position = Array[Vector3]([Vector3(0.61, -0.176, -0.997)])
+IdleAnimationHand2 = Array[Vector3]([Vector3(-0.43, -0.2, -0.333)])
+FireAnimationRotation = Array[float]([45.0, 0.0])
+FireAnimationHand1Position = Array[Vector3]([Vector3(0.548, 0.176, 0.2), Vector3(0, 0, 0)])
+FireAnimationHand2 = Array[Vector3]([Vector3(-0.43, -0.2, -0.333), Vector3(-0.43, -0.2, -0.333)])
+sprite = ""
+SpriteSheetAnimationSpeed = 0.0
+SpriteSheetFrames = 0
+hasCrosshair = true
+canZoom = false
+zoomFOV = 0
+zoomCircle = false
+tracerColor = Color(1, 1, 0, 1)
+speed = 10.0
+onHitExplosion = false
+onKillExposion = false
+grav = 0
+Lifetime = 555
+acceleration = 0.0
+hitbox = Vector3(0.4, 0.4, 0.4)
+phantom = false
+piercing = false
+IsHoming = false
+HomingSpeed = 0
+Bounce = false
+MaxBounceAmount = 0
+BounceAcceleration = 0.0
+Sprite = ""
+ProjectileSpriteSheetAnimationSpeed = 0.0
+ProjectileSpriteSheetFrames = 0
+metadata/_custom_type_script = "uid://5u6ynrpschfs"

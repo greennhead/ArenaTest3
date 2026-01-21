@@ -1,0 +1,168 @@
+[gd_scene load_steps=20 format=3 uid="uid://btxit2c61roca"]
+
+[ext_resource type="Script" uid="uid://clw0wc20p7jyy" path="res://nodes/projectile.gd" id="1_7le2g"]
+[ext_resource type="Script" uid="uid://1x57ieeou01d" path="res://nodes/trail.gd" id="2_d025v"]
+[ext_resource type="Texture2D" uid="uid://bdjsmkf5v5aw3" path="res://textures/+.png" id="3_pk6pb"]
+[ext_resource type="Texture2D" uid="uid://bfppgo8jrccv8" path="res://icon.svg" id="4_mdias"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mdias"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3aid6"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_abh4u"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d025v"]
+cull_mode = 2
+shading_mode = 0
+billboard_mode = 1
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_mdias"]
+
+[sub_resource type="Gradient" id="Gradient_d025v"]
+offsets = PackedFloat32Array(0.017094, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mdias"]
+gradient = SubResource("Gradient_d025v")
+
+[sub_resource type="Curve" id="Curve_mdias"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3aid6"]
+curve = SubResource("Curve_mdias")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dtwlh"]
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_3aid6")
+color_ramp = SubResource("GradientTexture1D_mdias")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dtwlh"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_pk6pb")
+texture_filter = 0
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 6
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_o6vob"]
+material = SubResource("StandardMaterial3D_dtwlh")
+size = Vector2(0.1, 0.1)
+orientation = 2
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_pk6pb"]
+properties/0/path = NodePath(".:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mdias"]
+albedo_color = Color(0, 1, 0, 1)
+albedo_texture = ExtResource("4_mdias")
+uv1_scale = Vector3(2, 2, 2)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_3aid6"]
+material = SubResource("StandardMaterial3D_mdias")
+
+[node name="Projectile" type="Area3D" groups=["clearMe", "projectile"]]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_7le2g")
+
+[node name="wallBounceArea" type="Area3D" parent="."]
+collision_layer = 12
+collision_mask = 12
+
+[node name="wallBounceHitbox" type="CollisionShape3D" parent="wallBounceArea"]
+shape = SubResource("BoxShape3D_mdias")
+debug_color = Color(0, 0.637175, 0.395498, 0.42)
+
+[node name="bounceArea" type="Area3D" parent="."]
+collision_layer = 12
+collision_mask = 12
+
+[node name="BounceHitbox" type="CollisionShape3D" parent="bounceArea"]
+shape = SubResource("BoxShape3D_3aid6")
+debug_color = Color(0.959961, 0, 0.518711, 0.42)
+
+[node name="checksRay" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, 0)
+collision_mask = 3
+collide_with_areas = true
+
+[node name="hitbox" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_abh4u")
+debug_color = Color(0, 0.635294, 0, 0.419608)
+
+[node name="trail" type="MeshInstance3D" parent="."]
+visible = false
+material_override = SubResource("StandardMaterial3D_d025v")
+mesh = SubResource("ImmediateMesh_mdias")
+script = ExtResource("2_d025v")
+
+[node name="sprite" type="Sprite3D" parent="."]
+pixel_size = 0.05
+billboard = 2
+texture_filter = 0
+
+[node name="bounceray" type="RayCast3D" parent="."]
+visible = false
+target_position = Vector3(0, -1.5, 0)
+collision_mask = 3
+
+[node name="bouncewallray" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 3.32577, 0, 0, 0, 1, 0, 0, 0)
+target_position = Vector3(0, 0, 1.5)
+collision_mask = 3
+debug_shape_custom_color = Color(0.36341, 0.615873, 1.92523e-07, 1)
+debug_shape_thickness = 5
+
+[node name="trail2" type="GPUParticles3D" parent="." groups=["clearMe"]]
+emitting = false
+amount = 800
+lifetime = 0.3
+process_material = SubResource("ParticleProcessMaterial_dtwlh")
+draw_pass_1 = SubResource("PlaneMesh_o6vob")
+
+[node name="instaray" type="RayCast3D" parent="."]
+visible = false
+target_position = Vector3(0, 0, -100)
+collision_mask = 3
+collide_with_areas = true
+
+[node name="trail_guide" type="Node3D" parent="."]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 1.0
+replication_config = SubResource("SceneReplicationConfig_pk6pb")
+
+[node name="hitwallcheck" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, 0)
+collision_mask = 3
+collide_with_areas = true
+debug_shape_custom_color = Color(0, 0.564722, 0.863946, 1)
+debug_shape_thickness = 5
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("BoxMesh_3aid6")
+
+[node name="loopSound" type="AudioStreamPlayer3D" parent="."]
+max_db = 2.0
+doppler_tracking = 1
+
+[connection signal="finished" from="loopSound" to="." method="_on_loop_sound_finished"]

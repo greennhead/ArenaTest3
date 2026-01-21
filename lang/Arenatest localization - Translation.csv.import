@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://ciyfafigbxa62"
+
+[deps]
+
+files=["res://lang/Arenatest localization - Translation.en.translation", "res://lang/Arenatest localization - Translation.ru.translation", "res://lang/Arenatest localization - Translation.pl.translation", "res://lang/Arenatest localization - Translation.pirate.translation"]
+
+source_file="res://lang/Arenatest localization - Translation.csv"
+dest_files=["res://lang/Arenatest localization - Translation.en.translation", "res://lang/Arenatest localization - Translation.ru.translation", "res://lang/Arenatest localization - Translation.pl.translation", "res://lang/Arenatest localization - Translation.pirate.translation"]
+
+[params]
+
+compress=true
+delimiter=0

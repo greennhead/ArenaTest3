@@ -1,0 +1,4 @@
+[gd_resource type="VoxelBlockyModelCube" format=3 uid="uid://cbd78h8fctyn0"]
+
+[resource]
+atlas_size_in_tiles = Vector2i(20, 20)

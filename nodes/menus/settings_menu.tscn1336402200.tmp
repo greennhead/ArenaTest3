@@ -1,0 +1,158 @@
+[gd_scene load_steps=5 format=3 uid="uid://ck0wm62oh6llt"]
+
+[ext_resource type="Theme" uid="uid://d8dvt0loqsul" path="res://resources/gametheme.tres" id="1_72qjk"]
+[ext_resource type="Script" uid="uid://clvab0t1kjj3s" path="res://nodes/menus/settings_menu.gd" id="2_840kt"]
+[ext_resource type="Script" uid="uid://f4iptahj6fn7" path="res://nodes/menus/nameColorPreview.gd" id="2_g022k"]
+[ext_resource type="Script" uid="uid://dl4hlobl6n7tn" path="res://nodes/menus/volume.gd" id="3_v00rd"]
+
+[node name="settingsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -344.0
+offset_bottom = -472.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_72qjk")
+script = ExtResource("2_840kt")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 328.0
+offset_bottom = 192.0
+theme = ExtResource("1_72qjk")
+
+[node name="close" type="Button" parent="."]
+layout_mode = 0
+offset_left = 316.0
+offset_right = 328.0
+offset_bottom = 13.0
+text = "X"
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 328.0
+offset_bottom = 192.0
+theme = ExtResource("1_72qjk")
+text = "Settings"
+
+[node name="volumeSound" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 24.0
+offset_right = 88.0
+offset_bottom = 32.0
+theme = ExtResource("1_72qjk")
+value = 50.0
+rounded = true
+
+[node name="Def" type="Label" parent="volumeSound"]
+layout_mode = 0
+offset_left = 88.0
+offset_right = 216.0
+offset_bottom = 8.0
+text = "Sound Volume"
+script = ExtResource("3_v00rd")
+
+[node name="StepSound" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 36.0
+offset_right = 88.0
+offset_bottom = 44.0
+tooltip_text = "Volume of step sounds."
+theme = ExtResource("1_72qjk")
+value = 50.0
+rounded = true
+
+[node name="Def" type="Label" parent="StepSound"]
+layout_mode = 0
+offset_left = 88.0
+offset_right = 208.0
+offset_bottom = 8.0
+text = "Step Volume"
+script = ExtResource("3_v00rd")
+
+[node name="NameColor" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 48.0
+offset_right = 88.0
+offset_bottom = 64.0
+tooltip_text = "The color of your nickname, in hex code."
+theme = ExtResource("1_72qjk")
+text = "red"
+placeholder_text = "red"
+
+[node name="Def" type="Label" parent="NameColor"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 4.0
+offset_right = 216.0
+offset_bottom = 12.0
+text = "Nickname Color"
+script = ExtResource("2_g022k")
+
+[node name="DefaultSkin" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 64.0
+offset_right = 88.0
+offset_bottom = 80.0
+tooltip_text = "The skin that you will have automatically aplied when joining a game. 
+File should be located in SKINS folder."
+theme = ExtResource("1_72qjk")
+placeholder_text = "skin.png"
+
+[node name="Def" type="Label" parent="DefaultSkin"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 4.0
+offset_right = 216.0
+offset_bottom = 12.0
+text = "Default Skin"
+
+[node name="myName" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 80.0
+offset_right = 88.0
+offset_bottom = 96.0
+tooltip_text = "The skin that you will have automatically aplied when joining a game. 
+File should be located in SKINS folder."
+theme = ExtResource("1_72qjk")
+text = "Player"
+placeholder_text = "Player"
+
+[node name="Def" type="Label" parent="myName"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 4.0
+offset_right = 216.0
+offset_bottom = 12.0
+text = "Player Name"
+
+[node name="Palette" type="CheckButton" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 96.0
+offset_right = 146.0
+offset_bottom = 112.0
+theme = ExtResource("1_72qjk")
+button_pressed = true
+text = "Use Palette"
+
+[node name="SillyLanguages" type="CheckButton" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 112.0
+offset_right = 146.0
+offset_bottom = 128.0
+tooltip_text = "This will add more languages that may not be so helpful."
+theme = ExtResource("1_72qjk")
+text = "Silly Languages"
+
+[connection signal="pressed" from="close" to="." method="_on_close_pressed"]

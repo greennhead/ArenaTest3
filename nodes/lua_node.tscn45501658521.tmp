@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsgv03ertclj"]
+
+[ext_resource type="Script" uid="uid://cmqq07s2sjdkk" path="res://nodes/lua_node.gd" id="1_4w5us"]
+[ext_resource type="Texture2D" uid="uid://7g38e14rkehr" path="res://images/default.png" id="2_jgjrk"]
+
+[node name="luaNode" type="Node3D"]
+script = ExtResource("1_4w5us")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.05
+billboard = 2
+texture_filter = 0
+texture = ExtResource("2_jgjrk")
+hframes = 8
+vframes = 5

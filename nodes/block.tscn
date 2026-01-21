@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://40xk4twvnc3y"]
+
+[ext_resource type="Texture2D" uid="uid://dmso3r0cho4s5" path="res://images/brick.png" id="1_4wur5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4cbk7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rjbrf"]
+shading_mode = 2
+specular_mode = 2
+albedo_texture = ExtResource("1_4wur5")
+uv1_triplanar = true
+uv2_triplanar = true
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_sxbgk"]
+material = SubResource("StandardMaterial3D_rjbrf")
+
+[node name="block" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_4cbk7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_sxbgk")

@@ -1,0 +1,7 @@
+[gd_resource type="VoxelBlockyModelMesh" load_steps=2 format=3 uid="uid://cdp3fi3xdwo8d"]
+
+[ext_resource type="ArrayMesh" uid="uid://lks6e0wvk4s8" path="res://models/slope.obj" id="1_b7e01"]
+
+[resource]
+mesh = ExtResource("1_b7e01")
+collision_enabled_0 = true

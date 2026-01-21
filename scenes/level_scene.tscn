@@ -1,0 +1,43 @@
+[gd_scene load_steps=9 format=3 uid="uid://54v3nflwpa6k"]
+
+[ext_resource type="Script" uid="uid://dy7t3b2raq826" path="res://scenes/level_scene.gd" id="1_c8xsp"]
+[ext_resource type="PackedScene" uid="uid://dly618ctmgujq" path="res://nodes/map.tscn" id="2_bl4ss"]
+[ext_resource type="Texture2D" uid="uid://bsaw6jipjhbr" path="res://images/sky.png" id="3_a74lg"]
+[ext_resource type="PackedScene" uid="uid://d1xo4y86517pi" path="res://nodes/player.tscn" id="4_fkwfp"]
+
+[sub_resource type="VoxelGeneratorFlat" id="VoxelGeneratorFlat_c8xsp"]
+channel = 0
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_c8xsp"]
+panorama = ExtResource("3_a74lg")
+filter = false
+
+[sub_resource type="Sky" id="Sky_p6dhs"]
+sky_material = SubResource("PanoramaSkyMaterial_c8xsp")
+radiance_size = 0
+
+[sub_resource type="Environment" id="Environment_fkwfp"]
+background_mode = 2
+sky = SubResource("Sky_p6dhs")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 1
+
+[node name="levelScene" type="Node3D" node_paths=PackedStringArray("voxelTerrain")]
+script = ExtResource("1_c8xsp")
+voxelTerrain = NodePath("mapLoader/Terrain")
+
+[node name="player" parent="." instance=ExtResource("4_fkwfp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2748976, 344.78152, -3.3244524)
+
+[node name="mapLoader" parent="." node_paths=PackedStringArray("world", "terrain") instance=ExtResource("2_bl4ss")]
+world = NodePath("../WorldEnvironment")
+terrain = NodePath("Terrain")
+
+[node name="Terrain" parent="mapLoader" index="0"]
+generator = SubResource("VoxelGeneratorFlat_c8xsp")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fkwfp")
+
+[editable path="mapLoader"]
