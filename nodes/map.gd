@@ -28,12 +28,18 @@ func _ready() -> void:
 	getMapList()
 	loadMap(mapList[1])
 
+
 func loadMap(map):
 	var path = map + "/map.json"
 	var materials = {}
 	mappath = path
 	mapname = path.get_file()
-	world.environment.sky.sky_material.set("panorama",load_image(map + "/Skybox.png"))
+	if FileAccess.file_exists(map + "/palette.png"):
+		Palleterizer.set_palette(load_image(map + "/palette.png"))
+	else:
+		Palleterizer.set_palette(null)
+	if world != null && FileAccess.file_exists(map + "/Skybox.png"):
+		world.environment.sky.sky_material.set("panorama",load_image(map + "/Skybox.png"))
 	if not FileAccess.file_exists(path):
 		print("FILE DOESNT EXIST")
 		return # Error! We don't have a save to load.

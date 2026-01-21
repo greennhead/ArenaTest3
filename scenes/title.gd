@@ -3,7 +3,7 @@ extends Node3D
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
 
 @onready var settingsMenu = preload("res://nodes/menus/settings_menu.tscn")
-
+@export var levelScene : PackedScene
 
 func _physics_process(delta: float) -> void:
 	$Control/MarginContainer/Control2/pirate.visible = Settings.bonusLanguages
@@ -32,3 +32,11 @@ func _on_pirate_pressed() -> void:
 
 func _on_settings_pressed() -> void:
 	add_child(settingsMenu.instantiate())
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()
+
+
+func _on_testmode_pressed() -> void:
+	get_tree().change_scene_to_packed(levelScene)
