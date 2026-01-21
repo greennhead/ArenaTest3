@@ -1,10 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://40xk4twvnc3y"]
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://brd7idt0uaobr"]
 
-[ext_resource type="Script" uid="uid://osiv12rbvtwg" path="res://nodes/block.gd" id="1_4cbk7"]
-[ext_resource type="Texture2D" uid="uid://dmso3r0cho4s5" path="res://images/brick.png" id="1_4wur5"]
-[ext_resource type="Material" uid="uid://brd7idt0uaobr" path="res://resources/mat.tres" id="3_rjbrf"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_4cbk7"]
+[ext_resource type="Texture2D" uid="uid://dmso3r0cho4s5" path="res://images/brick.png" id="1_hrvmp"]
 
 [sub_resource type="Shader" id="Shader_4cbk7"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.5.1.stable's StandardMaterial3D.
@@ -77,11 +73,11 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sxbgk"]
+[resource]
 render_priority = 0
 shader = SubResource("Shader_4cbk7")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/texture_albedo = ExtResource("1_4wur5")
+shader_parameter/texture_albedo = ExtResource("1_hrvmp")
 shader_parameter/albedo_texture_size = Vector2i(24, 24)
 shader_parameter/point_size = 1.0
 shader_parameter/roughness = 1.0
@@ -93,16 +89,3 @@ shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0.5, 0.5, 0.5)
 shader_parameter/uv2_scale = Vector3(2, 2, 2)
 shader_parameter/uv2_offset = Vector3(1, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_sxbgk"]
-material = ExtResource("3_rjbrf")
-
-[node name="block" type="StaticBody3D"]
-script = ExtResource("1_4cbk7")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_4cbk7")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-material_override = SubResource("ShaderMaterial_sxbgk")
-mesh = SubResource("BoxMesh_sxbgk")

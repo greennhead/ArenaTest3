@@ -1,51 +1,68 @@
 extends Node3D
 var folder
 @export var world : WorldEnvironment
-@export var terrain : VoxelTerrain
 @export var mapList = []
 var mapname = ""
 var mappath 
 var ends = 0
 var rand = 0
-const gen = preload("uid://ct6pyiwelx5ka")
-func load_image(path: String):
-	var image = Image.load_from_file(path)
-	var texture = ImageTexture.create_from_image(image)
-	return texture
+
+@onready var BLOCK = preload("res://nodes/block.tscn")
+
+
+
+func load_image(path: String, blockify : bool = false):
+	var image = load(path)
+	if image == null:
+		return load("res://images/failedblock.png")
+	if blockify:
+		var img = image.get_image()
+		img.resize(24,24,Image.INTERPOLATE_NEAREST)
+		return ImageTexture.create_from_image(img)
+	return image
+	#var image = Image.load_from_file(path)
+	#var texture = ImageTexture.create_from_image(image)
+	#return texture
 
 func _ready() -> void:
-	await get_tree().create_timer(1.0).timeout
-	terrain.generator = gen.new()
 	getMapList()
-	loadMap(mapList[0])
+	loadMap(mapList[1])
 
 func loadMap(map):
-		var path = map + "/map.json"
-		mappath = path
-		mapname = path.get_file()
-		world.environment.sky.sky_material.set("panorama",load_image(map + "/Skybox.png"))
-		if not FileAccess.file_exists(path):
-			print("FILE DOESNT EXIST")
-			return # Error! We don't have a save to load.
-		var save_nodes = get_tree().get_nodes_in_group("editorObject")
-		for i in save_nodes:
-			i.queue_free()
-		var save_file = FileAccess.open(path, FileAccess.READ)
-		var progress = 0
-		while save_file.get_position() < save_file.get_length():
-			var json_string = save_file.get_line()
-			var json = JSON.new()
-			var parse_result = json.parse(json_string)
-			if not parse_result == OK:
-				print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
-				continue
-			var node_data = json.data
-			if node_data["filename"] == "res://nodes/spawn_point.tscn":
-				$"../player".position = Vector3(node_data["pos_x"], node_data["pos_y"],node_data["pos_z"])
-			if node_data["filename"] == "res://nodes/block.tscn":
-				terrain.generator.blocks.append(Vector3i(node_data["pos_x"], node_data["pos_y"],node_data["pos_z"]))
-			progress += 1
-
+	var path = map + "/map.json"
+	var materials = {}
+	mappath = path
+	mapname = path.get_file()
+	world.environment.sky.sky_material.set("panorama",load_image(map + "/Skybox.png"))
+	if not FileAccess.file_exists(path):
+		print("FILE DOESNT EXIST")
+		return # Error! We don't have a save to load.
+	var save_nodes = get_tree().get_nodes_in_group("editorObject")
+	for i in save_nodes:
+		i.queue_free()
+	var save_file = FileAccess.open(path, FileAccess.READ)
+	var progress = 0
+	while save_file.get_position() < save_file.get_length():
+		var json_string = save_file.get_line()
+		var json = JSON.new()
+		var parse_result = json.parse(json_string)
+		if not parse_result == OK:
+			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
+			continue
+		var node_data = json.data
+		if node_data["filename"] == "res://nodes/spawn_point.tscn":
+			$"../player".position = Vector3(node_data["pos_x"], node_data["pos_y"],node_data["pos_z"])
+		if node_data["filename"] == "res://nodes/block.tscn":
+			var b = BLOCK.instantiate()
+			b.position = Vector3(node_data["pos_x"], node_data["pos_y"],node_data["pos_z"])
+			add_child(b)
+			if !materials.has(str(node_data["texture"])):
+				b.mesh.material_override = b.mesh.material_override.duplicate()
+				b.mesh.material_override.set("shader_parameter/texture_albedo",load_image(map + "/blockTextures/" + str(node_data["texture"]),true)) 
+				materials.set(str(node_data["texture"]),b.mesh.material_override)
+			else:
+				b.mesh.material_override = materials.get(str(node_data["texture"]))
+		progress += 1
 
 
 
