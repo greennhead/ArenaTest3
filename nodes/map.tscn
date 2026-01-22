@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dly618ctmgujq"]
+[gd_scene load_steps=3 format=3 uid="uid://dly618ctmgujq"]
 
 [ext_resource type="Script" uid="uid://cfrkn4gclejx6" path="res://nodes/map.gd" id="1_o7unc"]
 
+[sub_resource type="MeshLibrary" id="MeshLibrary_gk0av"]
+
 [node name="mapLoader" type="Node3D"]
 script = ExtResource("1_o7unc")
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = SubResource("MeshLibrary_gk0av")
+cell_size = Vector3(1, 1, 1)
