@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=67 format=4 uid="uid://d8dvt0loqsul"]
+[gd_resource type="Theme" load_steps=68 format=4 uid="uid://d8dvt0loqsul"]
 
 [ext_resource type="Texture2D" uid="uid://derxkgqyruoxo" path="res://images/button.png" id="1_b6m0n"]
 [ext_resource type="FontFile" uid="uid://cjbxi8elr5y2e" path="res://images/PressStart2P-Regular.ttf" id="1_dv0st"]
@@ -157,10 +157,6 @@ expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcaup"]
 bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hatrp"]
@@ -1174,6 +1170,8 @@ content_margin_bottom = 0.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_joc72"]
 
+[sub_resource type="ImageTexture" id="ImageTexture_5po1u"]
+
 [resource]
 default_font = ExtResource("1_dv0st")
 default_font_size = 8
@@ -1356,3 +1354,14 @@ SpinBox/styles/up_background_disabled = SubResource("StyleBoxEmpty_rvmdk")
 SpinBox/styles/up_background_hovered = SubResource("StyleBoxEmpty_li5cr")
 SpinBox/styles/up_background_pressed = SubResource("StyleBoxEmpty_bhlr6")
 SpinBox/styles/up_down_buttons_separator = SubResource("StyleBoxEmpty_joc72")
+VScrollBar/icons/decrement = SubResource("ImageTexture_5po1u")
+VScrollBar/icons/decrement_highlight = SubResource("ImageTexture_5po1u")
+VScrollBar/icons/decrement_pressed = SubResource("ImageTexture_5po1u")
+VScrollBar/icons/increment = SubResource("ImageTexture_5po1u")
+VScrollBar/icons/increment_highlight = SubResource("ImageTexture_5po1u")
+VScrollBar/icons/increment_pressed = SubResource("ImageTexture_5po1u")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_tcaup")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_tcaup")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_tcaup")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_hatrp")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_hatrp")

@@ -36,6 +36,12 @@ window/stretch/scale_mode="integer"
 
 editorOnly="Shows up only in the editor."
 
+[gui]
+
+theme/default_font_antialiasing=0
+theme/custom="uid://d8dvt0loqsul"
+theme/custom_font="uid://cjbxi8elr5y2e"
+
 [importer_defaults]
 
 texture={

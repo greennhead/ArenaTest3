@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://54v3nflwpa6k"]
 
-[ext_resource type="Script" uid="uid://dy7t3b2raq826" path="res://modes/dmdefault/level_scene.gd" id="1_c8xsp"]
-[ext_resource type="PackedScene" uid="uid://dly618ctmgujq" path="res://nodes/map.tscn" id="2_bl4ss"]
-[ext_resource type="Texture2D" uid="uid://bsaw6jipjhbr" path="res://images/sky.png" id="3_a74lg"]
-[ext_resource type="PackedScene" uid="uid://d1xo4y86517pi" path="res://nodes/player.tscn" id="4_fkwfp"]
+[ext_resource type="Script" uid="uid://dy7t3b2raq826" path="res://modes/deathmatch/level_scene.gd" id="1_jwg5s"]
+[ext_resource type="PackedScene" uid="uid://d1xo4y86517pi" path="res://nodes/player.tscn" id="2_q5r7y"]
+[ext_resource type="PackedScene" uid="uid://dly618ctmgujq" path="res://nodes/map.tscn" id="3_rw4aa"]
+[ext_resource type="Texture2D" uid="uid://bsaw6jipjhbr" path="res://images/sky.png" id="4_mribs"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_c8xsp"]
-panorama = ExtResource("3_a74lg")
+panorama = ExtResource("4_mribs")
 filter = false
 
 [sub_resource type="Sky" id="Sky_s87lg"]
@@ -19,7 +19,7 @@ sky = SubResource("Sky_s87lg")
 reflected_light_source = 2
 
 [node name="levelScene" type="Node3D"]
-script = ExtResource("1_c8xsp")
+script = ExtResource("1_jwg5s")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
@@ -28,10 +28,10 @@ directional_shadow_mode = 0
 directional_shadow_max_distance = 1.0
 sky_mode = 1
 
-[node name="player" parent="." instance=ExtResource("4_fkwfp")]
+[node name="player" parent="." instance=ExtResource("2_q5r7y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2748976, 344.78152, -3.3244524)
 
-[node name="mapLoader" parent="." node_paths=PackedStringArray("world") instance=ExtResource("2_bl4ss")]
+[node name="mapLoader" parent="." node_paths=PackedStringArray("world") instance=ExtResource("3_rw4aa")]
 world = NodePath("../WorldEnvironment")
 mapList = null
 

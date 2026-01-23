@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dg5c27hh8jsnt"
-path="res://.godot/imported/skybox.png-6faaf64068e7d7906f7be88c6958b2d2.ctex"
+uid="uid://d0rp67kdf54yr"
+path="res://.godot/imported/preview.png-d7b637b6dfebbfc3ebbde84d8c03a83d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://maps/ghd352_ytpmap/skybox.png"
-dest_files=["res://.godot/imported/skybox.png-6faaf64068e7d7906f7be88c6958b2d2.ctex"]
+source_file="res://maps/sam_favela/preview.png"
+dest_files=["res://.godot/imported/preview.png-d7b637b6dfebbfc3ebbde84d8c03a83d.ctex"]
 
 [params]
 

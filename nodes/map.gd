@@ -16,9 +16,11 @@ var blockNum := 0
 @onready var spawnPoint = preload("res://nodes/spawn_point.tscn")
 @onready var slopeCollision = preload("res://resources/slopeCollision.tres")
 func load_image(path: String, blockify : bool = false):
-	var image = load(path)
+	var image = ResourceLoader.load(path)
 	if image == null:
+		print_rich("[color=red]Failed loading: " +path)
 		return load("res://images/brick.png")
+	print_rich("[color=green]Loaded texture: " +path)
 	if blockify:
 		var img = image.get_image()
 		img.resize(24,24,Image.INTERPOLATE_NEAREST)
@@ -52,15 +54,11 @@ func loadMap(map):
 	mappath = path
 	mapname = path.get_file()
 	GameManager.mapName = map
-	if FileAccess.file_exists(map + "/palette.png"):
+	if ResourceLoader.exists(map + "/palette.png"):
 		Palleterizer.set_palette(load_image(map + "/palette.png"))
-	else:
-		Palleterizer.set_palette(null)
-	if world != null && FileAccess.file_exists(map + "/skybox.png"):
-		world.environment.sky.sky_material.set("panorama",load_image(map + "/skybox.png"))
-	if not FileAccess.file_exists(path):
-		print("FILE DOESNT EXIST")
-		return # Error! We don't have a save to load.
+	world.environment.sky.sky_material.set("panorama",load_image(map + "/skybox.png"))
+	if world.environment.sky.sky_material.get("panorama") == load("res://images/brick.png"):
+		world.environment.sky.sky_material.set("panorama",load_image(map + "/Skybox.png"))
 	var save_nodes = get_tree().get_nodes_in_group("editorObject")
 	for i in save_nodes:
 		i.queue_free()

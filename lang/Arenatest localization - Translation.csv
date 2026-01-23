@@ -11,12 +11,12 @@ DEATH_FALL,%s falls off and dies.,%s падает и умирает.,%s spada i 
 DEATH_GENERIC1,%s was killed by %s.,%s был убит %s.,%s został zabity przez %s.,%s was plundered by %s.
 DEATH_GENERIC2,%s is dead thanks to %s.,%s мертв благодаря %s.,"%s nie żyje, dzięki %s.",%s got marooned by %s.
 DEATH_GENERIC3,%s dies from %s.,%s умирает от %s.,%s umiera z powodu %s.,%s got scuttled by %s.
-DEATH_GIBBED,%s gets turned into mush by %s.,%s превращается в кашу с помощью %s.,%s zostaje zamieniony w papkę przez %s.,%s is shark bait.
-DEATH_BURNT,%s gets turned into ash by %s.,%s превращается в пепел %s.,%s zostaje zamieniony w popiół przez %s.,%s is in Davy Jones' Locker.
-DEATH_SLICED,%s was sliced in half by %s.,%s был разрезан пополам %s.,%s został przecięty na pół przez %s.,%s is in Davy Jones' Locker.
+DEATH_GIBBED,%s gets turned into mush by %s.,%s превращается в кашу под действием %s.,%s zostaje zamieniony w papkę przez %s.,%s is shark bait.
+DEATH_BURNT,%s gets turned into ash by %s.,%s превращается в пепел под действием %s.,%s zostaje zamieniony w popiół przez %s.,%s is in Davy Jones' Locker.
+DEATH_SLICED,%s was sliced in half by %s.,%s был разрезан пополам на %s.,%s został przecięty na pół przez %s.,%s is in Davy Jones' Locker.
 SCORE_POINTS,Points,Очков,Punkty,Doubloons
 SCORE_DEATH,Deaths,Смертей,Śmierci,Planks Walked
-SCORE_KILLS,Kills,Убийств,Zabicia,Pillages
+SCORE_KILLS,Kills,Убивает,Zabicia,Pillages
 SCORE_PING,Ping,Пинг,Ping,Grog
 HUD_HP,Health,Жизнь,Życie,Rum
 HUD_AMMO,Ammo,Пули,Amunicja,Rounds
@@ -31,13 +31,13 @@ PROJECTILE_GENERIC,Projectile,Снаряд,Pocisk,Cannonball
 BULLET_GENERIC,Bullet,Пуля,Kula,Bullet
 SKIPMAP_GENERIC,The host skipped the map!,Ведущий пропустил карту!,Gospodarz pominął mapę!,Batten Down The Hatches
 SKIN_GENERIC,Skin,Скин,Skórka,Buccaneer
-DEATH_MAP,%s died to a map projectile.,%s погиб от снаряда карты.,%s zginął od pocisku mapy.,%s is feeding the fishes.
+DEATH_MAP,%s died to a map projectile.,"%s погиб от снаряда, попавшего в карту.",%s zginął od pocisku mapy.,%s is feeding the fishes.
 DEATH_ENV,%s died to %s.,%s умер от %s.,%s umarł od %s.,%s was plundered by %s.
-DEATH_FALLDAMAGE,%s gets squished.,%s раздавливается.,%s zostaje zmiażdżony.,%s OW!!!
+DEATH_FALLDAMAGE,%s gets squished.,%s сжимается.,%s zostaje zmiażdżony.,%s OW!!!
 DEATH_SUDDENDEATH,%s took too long.,%s заняло слишком много времени.,%s nie robi się młodszy.,%s was mutinied.
-DEATH_HEADSHOT,%s had their head blown off by %s,%s оторвал голову %s,"%s stracił głowę, dzięki %s",%s plunders %s.
-HOST_RESETSKIN,%s's skin was reset by the host.,Скин %s был сброшен хостом.,Skórka %s została zresetowana przez gospodarza.,%s's buccaneer was blown down by the captain.
-HOST_KICK,%s was kicked from the game.,%s был выкинут из игры.,%s został wyrzucony z gry.,%s was blown down by the captain.
+DEATH_HEADSHOT,%s had their head blown off by %s,%s лишились головы от рук %s,"%s stracił głowę, dzięki %s",%s plunders %s.
+HOST_RESETSKIN,%s's skin was reset by the host.,Скин пользователя %s был сброшен хостом.,Skórka %s została zresetowana przez gospodarza.,%s's buccaneer was blown down by the captain.
+HOST_KICK,%s was kicked from the game.,%s был удален с поля.,%s został wyrzucony z gry.,%s was blown down by the captain.
 Settings,Settings,Настройки,Ustawienia,Set Things
 Sound Volume,Sound Volume,Громкость Звуков,Głośność dźwięku,Volume of the sea
 Step Volume,Step Volume,Громкость Шагов,Objętość kroku,Volume of me walking
@@ -46,7 +46,7 @@ Silly Languages,Silly Languages,Глупые языки,Głupie języki,True Pir
 Volume of step sounds.,Volume of step sounds.,Громкость звуков шагов.,Głośność dźwięków kroków.,This is how loud me walk
 "The color of your nickname, in hex code.","The color of your nickname, in hex code.",Цвет вашего никнейма в шестнадцатеричном коде.,Kolor Twojego pseudonimu w kodzie szesnastkowym.,
 Use Palette,Use Palette,Палитра,Użyj palety,Scallywag
-This will add more languages that may not be so helpful.,This will add more languages that may not be so helpful.,"Это добавит больше языков, которые могут быть не столь полезны.","Spowoduje to dodanie większej liczby języków, które mogą nie być zbyt pomocne.",
+This will add more languages that may not be so helpful.,This will add more languages that may not be so helpful.,"Это добавит больше языков, которые могут оказаться не столь полезными.","Spowoduje to dodanie większej liczby języków, które mogą nie być zbyt pomocne.",
 Default Skin,Default Skin,Скин по умолчанию,Domyślna skórka,Seadog
 "The skin that you will have automatically aplied when joining a game. 
 File should be located in SKINS folder.","The skin that you will have automatically aplied when joining a game. 
@@ -55,3 +55,9 @@ File should be located in SKINS folder.","Скин, который будет а
 Plik powinien znajdować się w folderze SKINS.",
 Player Name,Player Name,Имя игрока,Nazwa gracza,Yer Name
 Fullscreen,Fullscreen,Полноэкранный,Pełny ekran,Big Pirate
+MENU_PICKMAP,Map picker,Выбор карты,Wybór mapy,Sea Picker
+MENU_Switch,Load Map...,Загрузить карту...,Załaduj mapę...,Venture..
+MENU_ToggleInPool,Include,Включать,Włączać,
+MENU_Author,Author,Автор,Autor,Captain
+MENU_Gamemode,Gamemode,Игровой режим,Tryb gry,Plundermode
+MENU_ToggleAll,Toggle All,Показать все,Przełącz wszystko,All
