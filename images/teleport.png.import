@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3mfs82pkklwo"
-path="res://.godot/imported/exampleGun.png-dde01743cac928c67a2efc7bded3de5e.ctex"
+uid="uid://3ivchhh0388c"
+path="res://.godot/imported/teleport.png-7b2e56ca86c1216d205751b75cf5a779.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/exampleGun.png"
-dest_files=["res://.godot/imported/exampleGun.png-dde01743cac928c67a2efc7bded3de5e.ctex"]
+source_file="res://images/teleport.png"
+dest_files=["res://.godot/imported/teleport.png-7b2e56ca86c1216d205751b75cf5a779.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

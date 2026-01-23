@@ -3,18 +3,31 @@ extends Node
 var godotPath = !false
 var mapName := ""
 var gmName := "Default"
-var mappath = ""
+var mappath := ""
 var Players={}
 var myPlayer = null
-var debug = !false
+var debug := false
 var tree
 var oldmappath 
-var preloadskin = ""
-var globalMaplist = []
-var num = 0
+var preloadskin := ""
+var globalMaplist := []
+var num := 0
 var level 
+var customObjects : Array[mapObject]
 
-func _process(delta):
+const modsPath := "user://mods/" 
+
+var mods = []
+
+func _ready() -> void:
+	var path = "res://objects/"
+	var resources = ResourceLoader.list_directory(path)
+	for res in resources:
+		if res.ends_with(".tres"): 
+			print("Loaded custom object: "+ res) 
+			customObjects.append(load(path+res))
+
+func _physics_process(delta: float) -> void:
 	if mappath != oldmappath:
 		oldmappath = mappath
 		if mappath != "" && mappath != null:

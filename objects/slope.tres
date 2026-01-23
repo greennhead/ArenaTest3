@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="mapObject" load_steps=2 format=3 uid="uid://b5eobuh2sq13c"]
+
+[ext_resource type="Script" uid="uid://bld5rh45v32di" path="res://resources/mapObject.gd" id="1_2e15y"]
+
+[resource]
+script = ExtResource("1_2e15y")
+properties = {
+"rotation": Vector3(0, 0, 0),
+"texture": "res://images/brick.png"
+}
+node = "uid://cmjhe6631cweq"
+name = "Slope"
+metadata/_custom_type_script = "uid://bld5rh45v32di"

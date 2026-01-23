@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="mapObject" load_steps=2 format=3 uid="uid://14j788j78fgx"]
+
+[ext_resource type="Script" uid="uid://bld5rh45v32di" path="res://resources/mapObject.gd" id="1_n0hty"]
+
+[resource]
+script = ExtResource("1_n0hty")
+properties = {
+"weaponName": "weapon"
+}
+node = "uid://dw0vj8wygaf0a"
+name = "weapon_pickup"
+unlisted = true
+metadata/_custom_type_script = "uid://bld5rh45v32di"

@@ -3,6 +3,9 @@ class_name Player
 
 @onready var head: Node3D = $head
 
+@onready var playerName: Label3D = $playerName
+
+
 @export var hp := 100
 @onready var camera: Camera3D = $head/Camera3D
 
@@ -42,6 +45,8 @@ var state = STATES.NORMAL
 var dead := false
 var moving := false
 func _ready() -> void:
+	if mulSync.get_multiplayer_authority() == multiplayer.get_unique_id():
+		playerName.hide()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func deltaify(v,delta):

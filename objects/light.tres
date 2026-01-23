@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="mapObject" load_steps=2 format=3 uid="uid://bbeni12kllx1s"]
+
+[ext_resource type="Script" uid="uid://bld5rh45v32di" path="res://resources/mapObject.gd" id="1_5p3ix"]
+
+[resource]
+script = ExtResource("1_5p3ix")
+properties = {
+"color_b": 0.0,
+"color_g": 0.0,
+"color_r": 0.0
+}
+node = "uid://c7perj2o3pkrm"
+name = "Light"
+metadata/_custom_type_script = "uid://bld5rh45v32di"

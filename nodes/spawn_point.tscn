@@ -5,6 +5,5 @@
 
 [node name="spawnPoint" type="Node3D" groups=["spawnPoint"]]
 
-[node name="DirectionalBillboard" parent="." instance=ExtResource("1_54p64")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
+[node name="DirectionalBillboard" parent="." groups=["editorOnly"] instance=ExtResource("1_54p64")]
 animation = ExtResource("2_5wlnr")

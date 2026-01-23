@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="mapObject" load_steps=2 format=3 uid="uid://b0a7xhjof0ld8"]
+
+[ext_resource type="Script" uid="uid://bld5rh45v32di" path="res://resources/mapObject.gd" id="1_h4ugy"]
+
+[resource]
+script = ExtResource("1_h4ugy")
+node = "uid://cmjuetg2jki1s"
+name = "spawn_point"
+metadata/_custom_type_script = "uid://bld5rh45v32di"

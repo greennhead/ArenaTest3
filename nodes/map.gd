@@ -51,6 +51,7 @@ func loadMap(map):
 	var indexes = {}
 	mappath = path
 	mapname = path.get_file()
+	GameManager.mapName = map
 	if FileAccess.file_exists(map + "/palette.png"):
 		Palleterizer.set_palette(load_image(map + "/palette.png"))
 	else:
@@ -73,27 +74,44 @@ func loadMap(map):
 			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
 			continue
 		var node_data = json.data
-		if node_data["name"] == "spawn_point":
-			var sp = spawnPoint.instantiate()
-			sp.position = Vector3(node_data["pos_x"], node_data["pos_y"],node_data["pos_z"])
-			add_child(sp)
-		if node_data["name"] == "slope":
-			if !materials.has(str(node_data["texture"]) + "_slope"):
-				var meshmat  = smesh.duplicate()
-				meshmat.set("surface_0/material",meshmat.get("surface_0/material").duplicate()) 
-				meshmat.get("surface_0/material").set("albedo_texture",load_image(map + "/blockTextures/" + str(node_data["texture"]),true)) 
-				materials.set(str(node_data["texture"])+ "_slope",meshmat.get("surface_0/material"))
-				indexes.set(str(node_data["texture"])+ "_slope",meshLib.get_last_unused_item_id())
-				meshLib.create_item(meshLib.get_last_unused_item_id())
-				meshLib.set_item_mesh(meshLib.get_last_unused_item_id()-1,meshmat)
-				meshLib.set_item_name(meshLib.get_last_unused_item_id()-1,str(node_data["texture"]))
-				meshLib.set_item_shapes(meshLib.get_last_unused_item_id()-1,[slopeCollision])
-				gridMap.mesh_library = meshLib
-				var rot = gridMap.get_orthogonal_index_from_basis(Quaternion(rad_to_deg(node_data["rotation_x"]/90),1,rad_to_deg(node_data["rotation_z"]/90),node_data["rotation_y"]))
-				gridMap.set_cell_item(Vector3(node_data["pos_x"], node_data["pos_y"],node_data["pos_z"]),meshLib.get_last_unused_item_id()-1,rot)
-			else:
-				var rot = gridMap.get_orthogonal_index_from_basis(Quaternion(rad_to_deg(node_data["rotation_x"]/90),1,rad_to_deg(node_data["rotation_z"]/90),node_data["rotation_y"]))
-				gridMap.set_cell_item(Vector3(node_data["pos_x"], node_data["pos_y"],node_data["pos_z"]),indexes[str(node_data["texture"])+ "_slope"],rot)
+		for i in GameManager.customObjects:
+			if i.name.to_lower() == node_data["name"].to_lower():
+				var b = load(i.node).instantiate()
+				if node_data.has("pos_x") && node_data.has("pos_y") && node_data.has("pos_z"):
+					b.position = Vector3(node_data["pos_x"], node_data["pos_y"],node_data["pos_z"])
+				add_child(b)
+				for ii in i.properties:
+					if i.properties[ii] is Vector2:
+						b.set(ii,Vector2(node_data[str(ii) + "_x"],node_data[str(ii) + "_y"]))
+					elif i.properties[ii] is Vector3:
+						b.set(ii,Vector3(node_data[str(ii) + "_x"],node_data[str(ii) + "_y"],node_data[str(ii) + "_z"]))
+					elif i.properties[ii] is Vector4:
+						b.set(ii,Vector4(node_data[str(ii) + "_x"],node_data[str(ii) + "_y"],node_data[str(ii) + "_z"],node_data[str(ii) + "_w"]))
+					else:
+						if node_data.has(str(ii)):
+							b.set(ii,node_data[str(ii)])
+				if b.has_method("post_ready"):
+					b.post_ready()
+				for ch in b.get_children():
+					if ch.is_in_group("editorOnly"):
+						ch.hide()
+		#if node_data["name"] == "slope":
+			#if !materials.has(str(node_data["texture"]) + "_slope"):
+				#var meshmat  = smesh.duplicate()
+				#meshmat.set("surface_0/material",meshmat.get("surface_0/material").duplicate()) 
+				#meshmat.get("surface_0/material").set("albedo_texture",load_image(map + "/blockTextures/" + str(node_data["texture"]),true)) 
+				#materials.set(str(node_data["texture"])+ "_slope",meshmat.get("surface_0/material"))
+				#indexes.set(str(node_data["texture"])+ "_slope",meshLib.get_last_unused_item_id())
+				#meshLib.create_item(meshLib.get_last_unused_item_id())
+				#meshLib.set_item_mesh(meshLib.get_last_unused_item_id()-1,meshmat)
+				#meshLib.set_item_name(meshLib.get_last_unused_item_id()-1,str(node_data["texture"]))
+				#meshLib.set_item_shapes(meshLib.get_last_unused_item_id()-1,[slopeCollision])
+				#gridMap.mesh_library = meshLib
+				#var rot = gridMap.get_orthogonal_index_from_basis(Quaternion(rad_to_deg(node_data["rotation_x"]/90),1,rad_to_deg(node_data["rotation_z"]/90),node_data["rotation_y"]))
+				#gridMap.set_cell_item(Vector3(node_data["pos_x"], node_data["pos_y"],node_data["pos_z"]),meshLib.get_last_unused_item_id()-1,rot)
+			#else:
+				#var rot = gridMap.get_orthogonal_index_from_basis(Quaternion(rad_to_deg(node_data["rotation_x"]/90),1,rad_to_deg(node_data["rotation_z"]/90),node_data["rotation_y"]))
+				#gridMap.set_cell_item(Vector3(node_data["pos_x"], node_data["pos_y"],node_data["pos_z"]),indexes[str(node_data["texture"])+ "_slope"],rot)
 		if node_data["name"] == "block":
 			if !materials.has(str(node_data["texture"])):
 				var meshmat  = mesh.duplicate()

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7perj2o3pkrm"]
+
+[ext_resource type="Script" uid="uid://cxos8yru0y1ae" path="res://nodes/light.gd" id="1_5vjy0"]
+[ext_resource type="Texture2D" uid="uid://mrkht3u8kov" path="res://images/light.png" id="1_vdb4q"]
+
+[node name="light" type="OmniLight3D"]
+light_energy = 3.0
+light_indirect_energy = 2.0
+script = ExtResource("1_5vjy0")
+
+[node name="editor" type="Sprite3D" parent="." groups=["editorOnly"]]
+pixel_size = 0.05
+billboard = 2
+texture_filter = 0
+texture = ExtResource("1_vdb4q")

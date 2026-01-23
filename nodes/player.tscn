@@ -56,6 +56,7 @@ properties/13/spawn = true
 properties/13/replication_mode = 2
 
 [node name="player" type="CharacterBody3D"]
+floor_constant_speed = true
 script = ExtResource("1_hqdnm")
 
 [node name="head" type="Node3D" parent="."]
@@ -68,7 +69,6 @@ fov = 110.0
 
 [node name="DirectionalBillboard" parent="." instance=ExtResource("1_bms3g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
-vframes = 6
 animationSpeed = 0.0
 animation = ExtResource("2_me0cc")
 
