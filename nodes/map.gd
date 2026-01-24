@@ -143,6 +143,10 @@ func loadMap(map):
 
 @rpc("reliable","call_local")
 func getMapList():
+	if GameManager.testMap != "":
+		mapList = []
+		mapList.append(GameManager.testMap)
+		return
 	var path = "res://maps/"
 	var dir = DirAccess.open(path)
 	if dir:
@@ -150,7 +154,11 @@ func getMapList():
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
-				GameManager.globalMaplist.append(file_name)
+				var config = ConfigFile.new()
+				var err = config.load(path + file_name + "/config.cfg")
+				if err == OK:
+					if config.get_value("data","gamemode") == GameManager.gmName:
+						GameManager.globalMaplist.append(file_name)
 			file_name = dir.get_next()
 	mapList = []
 	var seed = rand

@@ -3,7 +3,11 @@ extends Node3D
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
 
 @onready var settingsMenu = preload("res://nodes/menus/settings_menu.tscn")
+@onready var mapMenu = preload("res://nodes/menus/mapPicker.tscn")
 @export var levelScene : PackedScene
+
+func _ready() -> void:
+	GameManager.testMap = ""
 
 func _physics_process(delta: float) -> void:
 	$Control/MarginContainer/Control2/pirate.visible = Settings.bonusLanguages
@@ -38,5 +42,27 @@ func _on_quit_pressed() -> void:
 	get_tree().quit()
 
 
+
+func mapPickedTestMode(gamemode,map):
+	var path = "res://modes/"
+	var ppath
+	var dir = DirAccess.open(path)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			print(file_name)
+			if dir.current_is_dir():
+				if file_name == gamemode:
+					ppath = path + file_name + "/mode.tres"
+			file_name = dir.get_next()
+	if ppath != null:
+		GameManager.testMap = map
+		print(map)
+		get_tree().change_scene_to_file(load(ppath).levelScene)
+
 func _on_testmode_pressed() -> void:
-	get_tree().change_scene_to_packed(levelScene)
+	var m = mapMenu.instantiate()
+	add_child(m)
+	m.mapPicked.connect(mapPickedTestMode)
+	#get_tree().change_scene_to_packed(levelScene)

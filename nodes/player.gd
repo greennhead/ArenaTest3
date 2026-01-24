@@ -68,6 +68,17 @@ func _physics_process(delta: float) -> void:
 	moving = !(is_on_floor() && round(velocity.x) == 0 && round(velocity.y) == 0 && round(velocity.z) == 0)
 	cursorLock()
 	doState(state,delta)
+	if mulSync.get_multiplayer_authority() != multiplayer.get_unique_id():
+		return
+	playerName.hide()
+	time += 1
+	billb.rotation = head.rotation
+	billb.rotation.x = camera.rotation.x/1.2
+	billb.pixel_size = 0
+	camera.current = true
+	hand1.no_depth_test = true
+	hand2.no_depth_test = true
+	camera.fov = Settings.fov
 
 func doState(state,delta):
 	if state == STATES.NORMAL:
@@ -77,13 +88,6 @@ func normalState(delta):
 	if mulSync.get_multiplayer_authority() != multiplayer.get_unique_id():
 		billb.animation = load(animation)
 		return
-	time += 1
-	billb.rotation = head.rotation
-	billb.rotation.x = camera.rotation.x/1.2
-	billb.pixel_size = 0
-	camera.current = true
-	hand1.no_depth_test = true
-	hand2.no_depth_test = true
 	bop_head(delta,0.2,0.15)
 	if stepDelay > 0:
 		stepDelay -= 60*delta
@@ -126,12 +130,6 @@ func emitSound(sound : String,pos,volume,pitch):
 	get_tree().current_scene.add_child(s)
 	s.global_position = pos
 
-@rpc("any_peer","reliable","call_local")
-func emitSoundOgg(sound ,pos):
-	var s = snd.instantiate()
-	s.stream = sound
-	get_tree().current_scene.add_child(s)
-	s.global_position = pos
 
 func bop_head(delta,frequency,amplitude):
 	if round(velocity) != Vector3(0,0,0) && is_on_floor():

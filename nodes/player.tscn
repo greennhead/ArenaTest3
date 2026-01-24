@@ -59,6 +59,12 @@ properties/13/replication_mode = 2
 floor_constant_speed = true
 script = ExtResource("1_hqdnm")
 
+[node name="playerName" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2847004, 0)
+billboard = 2
+text = "PlayerName"
+font = ExtResource("5_7lbay")
+
 [node name="head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
@@ -108,9 +114,3 @@ shape = SubResource("BoxShape3D_me0cc")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_hqdnm")
-
-[node name="playerName" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2847004, 0)
-billboard = 2
-text = "PlayerName"
-font = ExtResource("5_7lbay")

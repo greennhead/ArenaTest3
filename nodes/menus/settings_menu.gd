@@ -14,11 +14,12 @@ func _ready() -> void:
 	$SillyLanguages.button_pressed = Settings.bonusLanguages
 	$Sensitivity.value = Settings.senstivity
 	$Fullscreen.button_pressed = Settings.fullscreen
+	$fov.value = Settings.fov
 
 func _process(delta: float) -> void:
 	if stepDelay > 0:
 		stepDelay -= 1
-	global_position = get_viewport_rect().size/2 - size/2
+	global_position = get_viewport_rect().size/2.0 - size/2.0
 	Settings.soundVolume = $volumeSound.value
 	Settings.stepVolume = $StepSound.value
 	Settings.nameColor = $NameColor.text
@@ -27,6 +28,7 @@ func _process(delta: float) -> void:
 	Settings.bonusLanguages = $SillyLanguages.button_pressed
 	Settings.senstivity = $Sensitivity.value
 	Settings.fullscreen = $Fullscreen.button_pressed
+	Settings.fov = $fov.value
 
 
 func _on_step_sound_value_changed(value: float) -> void:

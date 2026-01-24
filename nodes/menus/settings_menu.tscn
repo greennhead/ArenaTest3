@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://clvab0t1kjj3s" path="res://nodes/menus/settings_menu.gd" id="2_840kt"]
 [ext_resource type="Script" uid="uid://f4iptahj6fn7" path="res://nodes/menus/nameColorPreview.gd" id="2_g022k"]
 [ext_resource type="Script" uid="uid://dl4hlobl6n7tn" path="res://nodes/menus/volume.gd" id="3_v00rd"]
-[ext_resource type="AudioStream" uid="uid://t83wigr42c6t" path="res://sounds/ct_footstep_1.ogg" id="5_bbhr1"]
+[ext_resource type="AudioStream" uid="uid://bbjqa23op0w7c" path="res://sounds/ct_footstep_1.ogg" id="5_bbhr1"]
 [ext_resource type="AudioStream" uid="uid://cahe6aoof8h1j" path="res://sounds/hurt.ogg" id="5_hjqyu"]
 
 [node name="settingsMenu" type="Control"]
@@ -45,9 +45,9 @@ text = "Settings"
 
 [node name="volumeSound" type="HSlider" parent="."]
 layout_mode = 0
-offset_left = 8.0
+offset_left = 10.0
 offset_top = 24.0
-offset_right = 88.0
+offset_right = 90.0
 offset_bottom = 32.0
 theme = ExtResource("1_72qjk")
 value = 50.0
@@ -63,9 +63,9 @@ script = ExtResource("3_v00rd")
 
 [node name="StepSound" type="HSlider" parent="."]
 layout_mode = 0
-offset_left = 8.0
+offset_left = 10.0
 offset_top = 36.0
-offset_right = 88.0
+offset_right = 90.0
 offset_bottom = 44.0
 tooltip_text = "Volume of step sounds."
 theme = ExtResource("1_72qjk")
@@ -82,9 +82,9 @@ script = ExtResource("3_v00rd")
 
 [node name="Sensitivity" type="HSlider" parent="."]
 layout_mode = 0
-offset_left = 8.0
+offset_left = 10.0
 offset_top = 48.0
-offset_right = 88.0
+offset_right = 90.0
 offset_bottom = 56.0
 tooltip_text = "Volume of step sounds."
 theme = ExtResource("1_72qjk")
@@ -101,12 +101,34 @@ text = "SETTINGS_SENSITIVITY"
 script = ExtResource("3_v00rd")
 usePercent = false
 
-[node name="NameColor" type="LineEdit" parent="."]
+[node name="fov" type="HSlider" parent="."]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 60.0
 offset_right = 90.0
-offset_bottom = 76.0
+offset_bottom = 68.0
+tooltip_text = "Volume of step sounds."
+theme = ExtResource("1_72qjk")
+min_value = 60.0
+max_value = 150.0
+value = 110.0
+rounded = true
+
+[node name="Def" type="Label" parent="fov"]
+layout_mode = 0
+offset_left = 88.0
+offset_right = 388.0
+offset_bottom = 8.0
+text = "SETTINGS_FOV"
+script = ExtResource("3_v00rd")
+usePercent = false
+
+[node name="NameColor" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 72.0
+offset_right = 90.0
+offset_bottom = 88.0
 tooltip_text = "The color of your nickname, in hex code."
 theme = ExtResource("1_72qjk")
 text = "red"
@@ -124,9 +146,9 @@ script = ExtResource("2_g022k")
 [node name="DefaultSkin" type="LineEdit" parent="."]
 layout_mode = 0
 offset_left = 10.0
-offset_top = 76.0
+offset_top = 88.0
 offset_right = 90.0
-offset_bottom = 92.0
+offset_bottom = 104.0
 tooltip_text = "The skin that you will have automatically aplied when joining a game. 
 File should be located in SKINS folder."
 theme = ExtResource("1_72qjk")
@@ -143,9 +165,9 @@ text = "Default Skin"
 [node name="myName" type="LineEdit" parent="."]
 layout_mode = 0
 offset_left = 10.0
-offset_top = 92.0
+offset_top = 104.0
 offset_right = 90.0
-offset_bottom = 108.0
+offset_bottom = 120.0
 tooltip_text = "The skin that you will have automatically aplied when joining a game. 
 File should be located in SKINS folder."
 theme = ExtResource("1_72qjk")
@@ -164,9 +186,9 @@ text = "Player Name"
 [node name="Palette" type="CheckButton" parent="."]
 layout_mode = 0
 offset_left = 4.0
-offset_top = 108.0
+offset_top = 120.0
 offset_right = 190.0
-offset_bottom = 124.0
+offset_bottom = 136.0
 theme = ExtResource("1_72qjk")
 button_pressed = true
 text = "Use Palette"
@@ -174,9 +196,9 @@ text = "Use Palette"
 [node name="SillyLanguages" type="CheckButton" parent="."]
 layout_mode = 0
 offset_left = 4.0
-offset_top = 139.0
+offset_top = 151.0
 offset_right = 190.0
-offset_bottom = 155.0
+offset_bottom = 167.0
 tooltip_text = "This will add more languages that may not be so helpful."
 theme = ExtResource("1_72qjk")
 text = "Silly Languages"
@@ -184,13 +206,12 @@ text = "Silly Languages"
 [node name="Fullscreen" type="CheckButton" parent="."]
 layout_mode = 0
 offset_left = 4.0
-offset_top = 123.0
+offset_top = 135.0
 offset_right = 190.0
-offset_bottom = 139.0
+offset_bottom = 151.0
 tooltip_text = "This will add more languages that may not be so helpful."
 theme = ExtResource("1_72qjk")
-text = "Fullscreen
-"
+text = "Fullscreen"
 
 [node name="step" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_bbhr1")

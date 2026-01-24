@@ -1,3 +1,0 @@
-name=Youtube Poop
-author=greenhead352
-gamemode=deathmatch

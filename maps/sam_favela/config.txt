@@ -1,3 +1,0 @@
-name=Favela
-author=Sam
-gamemode=deathmatch

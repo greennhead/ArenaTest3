@@ -12,6 +12,7 @@ var playerName := "Player"
 var nameColor := "red"
 var language := ""
 var senstivity := 4
+var fov := 110
 var fullscreen := false
 func _process(delta: float) -> void:
 	AudioServer.set_bus_volume_db(0,linear_to_db(soundVolume/100.0))
@@ -29,7 +30,7 @@ func _ready() -> void:
 		language = OS.get_locale()
 
 func getvar(vari,file):
-	print(vari)
+	print_rich("[color=yellow]Loading setting " + vari)
 	var varr = file.get_var()
 	if varr != null:
 		set(vari,varr)
@@ -47,8 +48,9 @@ func saveSettings():
 	file.store_var(language)
 	file.store_var(senstivity)
 	file.store_var(fullscreen)
+	file.store_var(fov)
 	file.close()
-	print("saved settings!")
+	print_rich("[color=green]Saved settings!")
 
 func loadSettings():
 	if FileAccess.file_exists(savePath):
@@ -63,6 +65,7 @@ func loadSettings():
 		getvar("language",file)
 		getvar("senstivity",file)
 		getvar("fullscreen",file)
+		getvar("fov",file)
 		TranslationServer.set_locale(language)
-		print("loaded settings!")
+		print_rich("[color=green]Loaded settings!")
 		file.close()
