@@ -1,4 +1,4 @@
-extends Control
+extends MenuWindow
 var stepDelay = 5
 
 func _on_close_pressed() -> void:
@@ -17,9 +17,9 @@ func _ready() -> void:
 	$fov.value = Settings.fov
 
 func _process(delta: float) -> void:
+	super(delta)
 	if stepDelay > 0:
 		stepDelay -= 1
-	global_position = get_viewport_rect().size/2.0 - size/2.0
 	Settings.soundVolume = $volumeSound.value
 	Settings.stepVolume = $StepSound.value
 	Settings.nameColor = $NameColor.text
@@ -43,3 +43,7 @@ func _on_volume_sound_value_changed(value: float) -> void:
 	if stepDelay == 0:
 		$hurt.play()
 		stepDelay = 4
+
+
+func _on_dir_open_pressed() -> void:
+	OS.shell_open(OS.get_user_data_dir())

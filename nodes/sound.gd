@@ -5,7 +5,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if source != null:
-		position = source.position
+		global_position = source.global_position
 
 func _on_finished() -> void:
 	queue_free()

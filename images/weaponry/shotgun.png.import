@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ub3522ks6rp"
-path="res://.godot/imported/gameicon.png-014a0841b856fb248761d467e63645ba.ctex"
+uid="uid://bdu4g6cgofqle"
+path="res://.godot/imported/shotgun.png-09581291c1d2e4b42c9ed53c51af76f0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/gameicon.png"
-dest_files=["res://.godot/imported/gameicon.png-014a0841b856fb248761d467e63645ba.ctex"]
+source_file="res://images/weaponry/shotgun.png"
+dest_files=["res://.godot/imported/shotgun.png-09581291c1d2e4b42c9ed53c51af76f0.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

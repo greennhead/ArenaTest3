@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://wijglfjr1n0s"]
+
+[ext_resource type="Script" uid="uid://c8sxy2h2ahy5g" path="res://nodes/projectiles/example_ray.gd" id="1_eh8ix"]
+
+[node name="exampleRay" type="RayCast3D"]
+target_position = Vector3(0, 0, 30)
+collision_mask = 6
+script = ExtResource("1_eh8ix")

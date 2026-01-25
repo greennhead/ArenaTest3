@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=2 format=3 uid="uid://h8iedfulj4ql"]
+
+[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_gt2r5"]
+
+[resource]
+script = ExtResource("1_gt2r5")
+name = "Shotgun"
+attackSpeed = 70
+Ammo = 4
+selfKnockback = -30
+metadata/_custom_type_script = "uid://5u6ynrpschfs"

@@ -1,0 +1,118 @@
+[gd_scene load_steps=18 format=3 uid="uid://cphu867rn2xef"]
+
+[ext_resource type="Texture2D" uid="uid://cwlvj32whclxm" path="res://textures/bloodmist.png" id="1_om6mb"]
+[ext_resource type="Script" uid="uid://c5ga55wuu0arg" path="res://nodes/gib_effect.gd" id="2_dh4l4"]
+[ext_resource type="Texture2D" uid="uid://c02bfb0jnpsql" path="res://textures/gibs.png" id="2_g8i82"]
+
+[sub_resource type="Curve" id="Curve_dh4l4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fuokv"]
+curve = SubResource("Curve_dh4l4")
+
+[sub_resource type="Curve" id="Curve_obwtg"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_feebb"]
+curve = SubResource("Curve_obwtg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xupwk"]
+lifetime_randomness = 1.0
+emission_shape = 3
+emission_box_extents = Vector3(0.2, 0.2, 0.2)
+spread = 180.0
+initial_velocity_max = 3.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_feebb")
+alpha_curve = SubResource("CurveTexture_fuokv")
+turbulence_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nkkti"]
+transparency = 1
+albedo_texture = ExtResource("1_om6mb")
+texture_filter = 0
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qlmvs"]
+material = SubResource("StandardMaterial3D_nkkti")
+size = Vector2(1, 1)
+orientation = 2
+
+[sub_resource type="Curve" id="Curve_hwghk"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 20.2247), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mdo2k"]
+curve = SubResource("Curve_hwghk")
+
+[sub_resource type="Curve" id="Curve_om6mb"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.769231, 1), 0.0, 0.0, 0, 0, Vector2(0.988166, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_g8i82"]
+curve = SubResource("Curve_om6mb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n167v"]
+lifetime_randomness = 0.24
+angle_min = -32.0
+angle_max = 32.0
+angle_curve = SubResource("CurveTexture_mdo2k")
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 12.0
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_g8i82")
+anim_offset_max = 1.0
+collision_mode = 1
+collision_friction = 0.46
+collision_bounce = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7xbgx"]
+transparency = 1
+albedo_texture = ExtResource("2_g8i82")
+texture_filter = 0
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0u5i2"]
+material = SubResource("StandardMaterial3D_7xbgx")
+size = Vector2(0.5, 0.5)
+orientation = 2
+
+[node name="gibEffect" type="GPUParticles3D" groups=["clearMe"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.092, 0)
+emitting = false
+amount = 32
+lifetime = 4.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_xupwk")
+draw_pass_1 = SubResource("PlaneMesh_qlmvs")
+script = ExtResource("2_dh4l4")
+
+[node name="bones" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0287575, 0)
+emitting = false
+amount = 24
+lifetime = 4.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_n167v")
+draw_pass_1 = SubResource("PlaneMesh_0u5i2")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

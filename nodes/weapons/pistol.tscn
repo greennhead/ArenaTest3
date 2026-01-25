@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://c0k3c4rn8gi4n"]
+
+[ext_resource type="Texture2D" uid="uid://7g38e14rkehr" path="res://images/default.png" id="1_30jkp"]
+[ext_resource type="Script" uid="uid://c7xpxbbe4erim" path="res://nodes/weapons/pistol.gd" id="1_jsu7s"]
+[ext_resource type="Resource" uid="uid://bwji2no2t48i2" path="res://nodes/weapons/pistol.tres" id="2_cusu8"]
+[ext_resource type="Texture2D" uid="uid://d3mfs82pkklwo" path="res://images/exampleGun.png" id="3_iklph"]
+[ext_resource type="AudioStream" uid="uid://ck8y2ovmmkkbr" path="res://sounds/supersniper.ogg" id="5_sn87g"]
+[ext_resource type="AudioStream" uid="uid://dfkh66dpgmgdf" path="res://sounds/uimess.ogg" id="6_lhl7a"]
+
+[node name="pistol" type="Node3D"]
+script = ExtResource("1_jsu7s")
+weapon = ExtResource("2_cusu8")
+pickupSound = ExtResource("6_lhl7a")
+shootSound = ExtResource("5_sn87g")
+
+[node name="hand" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.436636, -0.166306, -0.3019)
+pixel_size = 0.05
+texture_filter = 0
+texture = ExtResource("1_30jkp")
+region_enabled = true
+region_rect = Rect2(4, 111, 7, 7)
+
+[node name="hand2" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.448981, -0.163248, -0.304825)
+pixel_size = 0.05
+texture_filter = 0
+texture = ExtResource("1_30jkp")
+region_enabled = true
+region_rect = Rect2(4, 101, 7, 7)
+
+[node name="gunSprite" type="Sprite3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.36769682, 0.07040885, -1.0585258)
+pixel_size = 0.05
+texture_filter = 0
+texture = ExtResource("3_iklph")
+region_rect = Rect2(4, 101, 7, 7)

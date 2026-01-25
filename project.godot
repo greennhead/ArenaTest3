@@ -127,6 +127,12 @@ tab={
 
 locale/translations=PackedStringArray("res://lang/Arenatest localization - Translation.en.translation", "res://lang/Arenatest localization - Translation.pl.translation", "res://lang/Arenatest localization - Translation.ru.translation", "res://lang/Arenatest localization - Translation.pirate.translation")
 
+[layer_names]
+
+3d_physics/layer_1="Solids"
+3d_physics/layer_2="Players"
+3d_physics/layer_3="MiscHittableBullet"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

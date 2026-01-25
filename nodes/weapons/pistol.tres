@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=2 format=3 uid="uid://bwji2no2t48i2"]
+
+[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_m1luy"]
+
+[resource]
+script = ExtResource("1_m1luy")
+name = "Test Pistol"
+attackSpeed = 5
+Ammo = 16
+selfKnockback = -2
+canZoom = true
+zoomFOV = 30
+metadata/_custom_type_script = "uid://5u6ynrpschfs"

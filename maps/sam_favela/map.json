@@ -20776,8 +20776,6 @@
 {"name":"block","pos_x":-103.0,"pos_y":0.0,"pos_z":0.0,"texture":"bars.png"}
 {"name":"block","pos_x":-103.0,"pos_y":0.0,"pos_z":-1.0,"texture":"bars.png"}
 {"name":"block","pos_x":-103.0,"pos_y":0.0,"pos_z":-2.0,"texture":"bars.png"}
-{"exit":true,"name":"teleport","id":1.0,"pos_x":-103.0,"pos_y":-2.0,"pos_z":0.0,"sound":""}
-{"exit":false,"name":"teleport","id":1.0,"pos_x":18.0,"pos_y":9.0,"pos_z":-46.0,"sound":""}
 {"name":"block","pos_x":18.0,"pos_y":9.0,"pos_z":-44.0,"texture":"bars.png"}
 {"name":"block","pos_x":18.0,"pos_y":9.0,"pos_z":-47.0,"texture":"bars.png"}
 {"name":"block","pos_x":18.0,"pos_y":9.0,"pos_z":-48.0,"texture":"bars.png"}

@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1xo4y86517pi"]
+[gd_scene load_steps=12 format=3 uid="uid://d1xo4y86517pi"]
 
 [ext_resource type="PackedScene" uid="uid://bxm2lcfofpi46" path="res://nodes/directional_billboard.tscn" id="1_bms3g"]
 [ext_resource type="Script" uid="uid://dn6uhe2hb3m6k" path="res://nodes/player.gd" id="1_hqdnm"]
 [ext_resource type="Resource" uid="uid://b3lm5ujgvoea6" path="res://resources/anim_WALK.tres" id="2_me0cc"]
 [ext_resource type="Texture2D" uid="uid://7g38e14rkehr" path="res://images/default.png" id="3_me0cc"]
 [ext_resource type="FontFile" uid="uid://cjbxi8elr5y2e" path="res://images/PressStart2P-Regular.ttf" id="5_7lbay"]
+[ext_resource type="Script" uid="uid://ctlbdoxhklqhy" path="res://nodes/bullet_detector.gd" id="6_2wrp4"]
+[ext_resource type="Texture2D" uid="uid://bwc022qf4aql6" path="res://images/crosshairs.png" id="7_46y3y"]
+[ext_resource type="Script" uid="uid://dm0ouu470n0hx" path="res://nodes/crosshair.gd" id="8_ejohg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bms3g"]
 size = Vector3(0.8, 0.8, 0.8)
@@ -56,6 +59,7 @@ properties/13/spawn = true
 properties/13/replication_mode = 2
 
 [node name="player" type="CharacterBody3D"]
+collision_layer = 2
 floor_constant_speed = true
 script = ExtResource("1_hqdnm")
 
@@ -105,8 +109,9 @@ shape = SubResource("BoxShape3D_bms3g")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.632164, 0)
 
 [node name="bulletDetector" type="Area3D" parent="."]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 6
+collision_mask = 0
+script = ExtResource("6_2wrp4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="bulletDetector"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.552231, 0)
@@ -114,3 +119,11 @@ shape = SubResource("BoxShape3D_me0cc")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_hqdnm")
+
+[node name="CROSSHAIR" type="CanvasLayer" parent="."]
+
+[node name="crosshair" type="Sprite2D" parent="CROSSHAIR"]
+position = Vector2(320, 240)
+texture = ExtResource("7_46y3y")
+hframes = 8
+script = ExtResource("8_ejohg")

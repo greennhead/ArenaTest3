@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="mapObject" load_steps=2 format=3 uid="uid://b0it65npk7exu"]
+
+[ext_resource type="Script" uid="uid://bld5rh45v32di" path="res://resources/mapObject.gd" id="1_3lci0"]
+
+[resource]
+script = ExtResource("1_3lci0")
+properties = {
+"exit": false,
+"id": 0,
+"randomExit": false
+}
+node = "uid://b41brvwsymhau"
+name = "teleport"
+metadata/_custom_type_script = "uid://bld5rh45v32di"

@@ -1,4 +1,4 @@
-extends Control
+extends MenuWindow
 @export var togglerMode := false
 #@export var canLoad := false
 @export var gamemodeRestriction := ""
@@ -21,8 +21,7 @@ func _ready() -> void:
 	getMapList()
 
 
-func _process(delta: float) -> void:
-	global_position = get_viewport_rect().size/2.0 - size/2.0
+
 
 func getMapList():
 	var path = "res://maps/"
