@@ -4,7 +4,6 @@ extends StaticBody3D
 var texture = "res://images/brick.png"
 func post_ready() -> void:
 	var map = GameManager.mapName
-	
 	var txtr
 	if texture == null:
 		txtr = load("res://images/brick.png")

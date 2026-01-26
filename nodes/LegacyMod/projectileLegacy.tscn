@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://btxit2c61roca"]
 
-[ext_resource type="Script" path="res://nodes/projectileLegacy.gd" id="1_kn0mi"]
+[ext_resource type="Script" uid="uid://cgsqnkb3mrblm" path="res://nodes/LegacyMod/projectile_legacy.gd" id="1_p1biq"]
 [ext_resource type="Texture2D" uid="uid://7twneyubhg7g" path="res://icon.svg" id="2_xcydp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mdias"]
@@ -69,7 +69,7 @@ material = SubResource("StandardMaterial3D_mdias")
 [node name="Projectile" type="Area3D" groups=["clearMe", "projectile"]]
 collision_layer = 3
 collision_mask = 3
-script = ExtResource("1_kn0mi")
+script = ExtResource("1_p1biq")
 
 [node name="wallBounceArea" type="Area3D" parent="."]
 collision_layer = 12

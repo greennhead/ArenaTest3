@@ -1,32 +1,9 @@
+# WARNING This is a really bad projectile script from an older version of the game
+# and its not good dont use it
+# unless youre porting something
 extends Area3D
 class_name LegacyProjectile
-var luaFields = ["tracerColor",
-"speed",
-"grav",
-"Lifetime",
-"acceleration",
-"hitbox",
-"phantom",
-"piercing",
-"Bounce",
-"MaxBounceAmount",
-"BounceAcceleration",
-"SpriteSheetAnimationSpeed",
-"SpriteSheetFrames",
-"explosive",
-"explosionDamage",
-"explosionKnockback",
-"explosionRadius",
-"infiniteLifetimeOnStick",
-"raycast",
-"raycast_dist",
-"Stick",
-"knockback",
-"releaseClusters",
-"oldPhysics",
-"gravAcceleration",
-"rotation"
-]
+
 @export var tracerColor : Color
 @export var speed : float
 @export var onHitExplosion : bool
@@ -123,7 +100,6 @@ func  _ready() -> void:
 	$instaray.target_position.z = -raycast_dist
 	hitboxNode.shape = hitboxNode.shape.duplicate()
 	hitboxNode.shape.size = hitbox
-	trail.material_override.albedo_color = tracerColor
 	trail2.draw_pass_1.material.albedo_color = tracerColor
 	bounceray.target_position.y = hitbox.y * -1.5
 	bouncewallray.target_position.z = hitbox.z * 1.5
@@ -189,11 +165,6 @@ func _physics_process(delta: float) -> void:
 		instaray.enabled = false
 	if raycast && !spawnedRay:
 		spawnedRay = true
-		var p = ray.instantiate()
-		p.position = oldpos
-		p.oldpos = oldpos
-		p.goalPos = instaray.target_position
-		get_tree().current_scene.add_child(p)
 	if hitdelay > 0:
 		hitdelay -= 60*delta
 	if hitdelay < 0:
@@ -267,11 +238,11 @@ func move_new(delta):
 	checks_ray.force_raycast_update()
 	$bounceArea.global_rotation = Vector3.ZERO
 	if checks_ray.is_colliding():
-		if checks_ray.get_collider() is Block:
+		if checks_ray.get_collider() is GridMap:
 			if Bounce && bounces < MaxBounceAmount:
 				seed(int(name)^2 + wallbounces)
 				rotation_degrees.y += 180 + randi_range(-wallBounceSpread,wallBounceSpread)
-		if checks_ray.get_collider() is Block && !phantom:
+		if checks_ray.get_collider() is GridMap && !phantom:
 				position = checks_ray.get_collision_point()
 				checkcol()
 		if checks_ray.get_collider() is BulletCollider:
@@ -285,13 +256,13 @@ func move_new(delta):
 	var bCol = false
 	bounce_hitbox.shape.size.y =  (ysp+2)*0.01
 	for i in bounce_area.get_overlapping_bodies():
-		if i is Block && Bounce && bounces < MaxBounceAmount:
+		if i is GridMap && Bounce && bounces < MaxBounceAmount:
 			bounces += 1
 			ysp = -BounceAcceleration/10
 			bCol = true
 	if bCol && phantom:
 		for i in bounce_area.get_overlapping_bodies():
-			if i is Block:
+			if i is GridMap:
 				if position.y < i.position.y+1:
 					position.y += 0.1
 					print("pushup")
@@ -372,7 +343,7 @@ func hit(body):
 		return
 	if !piercing:
 		trail2.reparent(get_tree().current_scene)
-		if explosive && ExplodeOnHitBlock && body is Block:
+		if explosive && ExplodeOnHitBlock && body is GridMap:
 			explode(position)
 		if explosive && ExplodeOnHitPlayer && body is Player:
 			explode(position)
@@ -422,7 +393,7 @@ func shoot(id ,pos : Vector3,owner,rotation,amount,shootSound,spreadArr,alt : bo
 	var idx = 0
 	print(spreadArr)
 	for x in amount:
-		var proj : Projectile = load("res://nodes/projectile.tscn").instantiate()
+		var proj : LegacyProjectile = load("res://nodes/projectile.tscn").instantiate()
 		proj.rotation = rotation + Vector3(deg_to_rad(spreadArr[idx].x),deg_to_rad(spreadArr[idx].y),deg_to_rad(spreadArr[idx].z))
 		idx += 1
 		var own

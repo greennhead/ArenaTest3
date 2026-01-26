@@ -5,7 +5,10 @@
 [resource]
 script = ExtResource("1_gt2r5")
 name = "Shotgun"
-attackSpeed = 70
-Ammo = 4
-selfKnockback = -30
+attackSpeed = 75
+projectile = "uid://wijglfjr1n0s"
+projectileSpread = 4
+projectileAmount = 5
+Ammo = 5
+selfKnockback = -15
 metadata/_custom_type_script = "uid://5u6ynrpschfs"

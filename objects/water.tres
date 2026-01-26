@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="mapObject" load_steps=2 format=3 uid="uid://bcy1mwtul6jb5"]
+
+[ext_resource type="Script" uid="uid://bld5rh45v32di" path="res://resources/mapObject.gd" id="1_winim"]
+
+[resource]
+script = ExtResource("1_winim")
+properties = {
+"ladder": false,
+"texture": ""
+}
+node = "uid://chgpum6ip4od5"
+name = "water"
+metadata/_custom_type_script = "uid://bld5rh45v32di"

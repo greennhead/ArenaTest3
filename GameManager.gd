@@ -27,18 +27,18 @@ func _ready() -> void:
 			print_rich("[color=green]Loaded custom object: "+ res) 
 			customObjects.append(load(path+res))
 
-func _physics_process(delta: float) -> void:
-	if mappath != oldmappath:
-		oldmappath = mappath
-		if mappath != "" && mappath != null:
-			var folder = mappath.replace(".json","")
-			if !DirAccess.dir_exists_absolute(folder):
-				Palleterizer.texture = load("uid://c6i0rbaomcv3u")
-				return
-			if FileAccess.file_exists(folder + "/palette.png"):
-				Palleterizer.texture = load_image(folder + "/palette.png")
-			else:
-				Palleterizer.texture = load("uid://c6i0rbaomcv3u")
+#func _physics_process(delta: float) -> void:
+	#if mappath != oldmappath:
+		#oldmappath = mappath
+		#if mappath != "" && mappath != null:
+			#var folder = mappath.replace(".json","")
+			#if !DirAccess.dir_exists_absolute(folder):
+				#Palleterizer.texture = load("uid://c6i0rbaomcv3u")
+				#return
+			#if FileAccess.file_exists(folder + "/palette.png"):
+				#Palleterizer.texture = load_image(folder + "/palette.png")
+			#else:
+				#Palleterizer.texture = load("uid://c6i0rbaomcv3u")
 
 func load_image(path: String):
 	var image = Image.load_from_file(path)

@@ -6,6 +6,7 @@
 script = ExtResource("1_m1luy")
 name = "Test Pistol"
 attackSpeed = 5
+projectile = "uid://wijglfjr1n0s"
 Ammo = 16
 selfKnockback = -2
 canZoom = true

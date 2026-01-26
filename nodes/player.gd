@@ -11,8 +11,11 @@ class_name Player
 
 @onready var snd = preload("res://nodes/sound.tscn")
 
+var coyote := 0 
+@export var maxCoyote := 4
 var id := 1
-
+var ouchTime := 0
+var smirkTime := 0
 @export var canMoveMouse := true
 
 @export_file("*.tres") var animation : String =  "res://resources/anim_WALK.tres"
@@ -45,13 +48,16 @@ var stepDelay = 0
 var state = STATES.NORMAL
 var dead := false
 var moving := false
+var taunting := false
+
 
 func _ready() -> void:
 	sensetivity = Settings.senstivity *0.001
 	camera.fov = Settings.fov
-	giveWeapon(load("res://nodes/weapons/shotgun.tscn"))
+	giveWeapon(load("res://nodes/weapons/arcabe_gold.tscn"))
 	if mulSync.get_multiplayer_authority() == multiplayer.get_unique_id():
 		playerName.hide()
+		GameManager.myPlayer = self
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
@@ -67,6 +73,7 @@ func removeWeapon():
 
 @rpc("any_peer","call_local","reliable")
 func giveWeapon(newweapon):
+	smirkTime = 120
 	var wep = newweapon.instantiate()
 	billb.add_child(wep)
 	weapon = wep
@@ -86,12 +93,21 @@ func cursorLock():
 		cursorLocked = false
 		return
 
+@onready var crosshairIndicator: Sprite2D = $CROSSHAIR/crosshairIndicator
+@onready var crosshair: Sprite2D = $CROSSHAIR/crosshair
+
 func _physics_process(delta: float) -> void:
+	if ouchTime > 0:
+		ouchTime -= 1
+	if smirkTime > 0:
+		smirkTime -= 1
 	moving = !(is_on_floor() && round(velocity.x) == 0 && round(velocity.y) == 0 && round(velocity.z) == 0)
 	cursorLock()
 	doState(state,delta)
 	if mulSync.get_multiplayer_authority() != multiplayer.get_unique_id():
 		return
+	blood.modulate.a = lerp(blood.modulate.a,0.0,0.05)
+	crosshairIndicator.modulate.a = lerp(crosshairIndicator.modulate.a,0.0,0.1)
 	playerName.hide()
 	time += 1
 	billb.rotation = head.rotation
@@ -144,7 +160,12 @@ func normalState(delta):
 		stepDelay -= 60*delta
 	if not is_on_floor():
 		velocity += grav * delta
-	if Input.is_action_just_pressed("jump") && is_on_floor():
+		if coyote > 0:
+			coyote -= 1
+	else:
+		coyote = maxCoyote
+	if Input.is_action_just_pressed("jump") && coyote > 0:
+		coyote = 0
 		velocity.y = JUMP_VELOCITY
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -176,8 +197,42 @@ func emitSound(sound : String,pos,volume,pitch):
 	s.global_position = pos
 
 
+@onready var blood: ColorRect = $CROSSHAIR/blood
+
+func hurt(damage,knockback = -5,source = null):
+	emitSound.rpc(load("res://sounds/hurt.ogg"),position)
+	ouchTime = 60
+	var dmg = damage
+	hp -= dmg
+	if source.Owner != null:
+		damageIndicate.rpc_id(source.Owner.id,source.Owner.id,dmg*-1)
+	if blood.modulate.a < 1:
+		blood.modulate.a += 0.2
+	if blood.modulate.a > 0.5:
+		blood.modulate.a  = 0.5
+	var k = global_position.direction_to(source.global_position)
+	velocity += k*knockback
+
 func bop_head(delta,frequency,amplitude):
 	if round(velocity) != Vector3(0,0,0) && is_on_floor():
 		camera.position.y =  lerp(camera.position.y,(cos(time * deltaify(frequency,delta)) * amplitude),(0.1*60)*delta)
 	else:
 		camera.position.y = lerp(camera.position.y,0.0,(0.1*60)*delta)
+
+@rpc("call_local","any_peer","reliable")
+func damageIndicate(owner,damage):
+	GameManager.myPlayer.showDmg(damage)
+
+@onready var damageIndicator: Label = $CROSSHAIR/damageIndicator
+@onready var crosshairCanvasLayer: CanvasLayer = $CROSSHAIR
+
+func showDmg(damage):
+	var p = damageIndicator.duplicate()
+	p.visible = true
+	p.text = str(int(damage))
+	p.time = 0
+	p.dmg = damage
+	p.position = crosshair.position + Vector2(0,8)
+	crosshairCanvasLayer.add_child(p)
+	p.add_to_group("damagelabel")
+	crosshairIndicator.modulate.a = 2

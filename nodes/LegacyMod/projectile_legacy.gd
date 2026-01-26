@@ -1,32 +1,6 @@
 extends Area3D
 class_name LegacyProjectile
-var luaFields = ["tracerColor",
-"speed",
-"grav",
-"Lifetime",
-"acceleration",
-"hitbox",
-"phantom",
-"piercing",
-"Bounce",
-"MaxBounceAmount",
-"BounceAcceleration",
-"SpriteSheetAnimationSpeed",
-"SpriteSheetFrames",
-"explosive",
-"explosionDamage",
-"explosionKnockback",
-"explosionRadius",
-"infiniteLifetimeOnStick",
-"raycast",
-"raycast_dist",
-"Stick",
-"knockback",
-"releaseClusters",
-"oldPhysics",
-"gravAcceleration",
-"rotation"
-]
+
 @export var tracerColor : Color
 @export var speed : float
 @export var onHitExplosion : bool
@@ -381,12 +355,12 @@ func hit(body):
 		queue_free()
 
 
-@rpc("any_peer","reliable","call_local")
-func emitSoundOgg(sound ,pos):
-	var s = load("res://nodes/sound.tscn").instantiate()
-	s.stream = sound
-	get_tree().current_scene.add_child(s)
-	s.global_position = pos
+#@rpc("any_peer","reliable","call_local")
+#func emitSoundOgg(sound ,pos):
+	#var s = load("res://nodes/sound.tscn").instantiate()
+	#s.stream = sound
+	#get_tree().current_scene.add_child(s)
+	#s.global_position = pos
 
 
 func explode(position):
@@ -402,10 +376,10 @@ func explode(position):
 	a.destroyTiles = explosionDestroyTiles
 	get_tree().current_scene.add_child(a) 
 	a.position = position
-	var path = OS.get_executable_path().replace("/arenatest.exe","") + "/SOUNDS/" + explodeSound + ".ogg"
-	if GameManager.debug:
-		path = 'E:/GodotExport/arenatest/SOUNDS/' + explodeSound + ".ogg"
-	emitSoundOgg(AudioStreamOggVorbis.load_from_file(path),position)
+	#var path = OS.get_executable_path().replace("/arenatest.exe","") + "/SOUNDS/" + explodeSound + ".ogg"
+	#if GameManager.debug:
+		#path = 'E:/GodotExport/arenatest/SOUNDS/' + explodeSound + ".ogg"
+	#emitSoundOgg(AudioStreamOggVorbis.load_from_file(path),position)
 
 
 func _on_loop_sound_finished() -> void:

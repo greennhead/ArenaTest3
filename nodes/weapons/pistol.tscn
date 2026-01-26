@@ -35,3 +35,6 @@ pixel_size = 0.05
 texture_filter = 0
 texture = ExtResource("3_iklph")
 region_rect = Rect2(4, 101, 7, 7)
+
+[node name="shootPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.599)

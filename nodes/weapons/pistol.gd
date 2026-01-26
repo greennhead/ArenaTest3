@@ -10,12 +10,13 @@ var delay := 0
 @onready var ammo := weapon.Ammo
 @export var pickupSound : AudioStream
 @export var shootSound : AudioStream
-
+@onready var projectile = load(weapon.projectile)
+@onready var shootPoint: Node3D = $shootPoint
 
 ## WEAPON MAKING
 ## --------
 ## To make a really simple weapon like old arenatest, base it off of the Arenatest Legacy 
-## mod's "LegacyMagnum".
+## mod's weapons.
 ## From there, tweak all the export values just like AT2 editor
 ## TODO: Add source code link of the mod here.
 ## --------
@@ -33,6 +34,7 @@ var delay := 0
 ## -------
 ## WARNING: Only write code here if you know what you're doing.
 ## If you don't, then you messed up.
+
 
 func _ready() -> void:
 	emitSound(pickupSound)
@@ -64,11 +66,27 @@ func shoot():
 	player.velocity.x -= direction.x * weapon.selfKnockback
 	player.velocity.z -= direction.z * weapon.selfKnockback
 	player.velocity.y -= direction.y * weapon.selfKnockback/4
+	GameManager.num += 1
+	seed(GameManager.num)
+	var bullet
+	for i in weapon.projectileAmount:
+		bullet = projectile.instantiate()
+		bullet.rotation = player.camera.global_rotation
+		bullet.rotation_degrees.x += randf_range(-weapon.projectileSpread,weapon.projectileSpread)
+		bullet.rotation_degrees.y += randf_range(-weapon.projectileSpread,weapon.projectileSpread)
+		bullet.rotation_degrees.z += randf_range(-weapon.projectileSpread,weapon.projectileSpread)
+		bullet.Owner = player
+		bullet.position = shootPoint.global_position
+		preBullet(bullet)
+		get_tree().current_scene.add_child(bullet)
+		postShoot(bullet)
 	emitSound(shootSound)
-	postShoot()
+	
 
+func preBullet(bullet):
+	pass
 
-func postShoot():
+func postShoot(bullet):
 	pass # you can use this for animation
 
 func emitSound(sound : AudioStream,volume = 0.0,pitch = 1.0):
@@ -76,5 +94,5 @@ func emitSound(sound : AudioStream,volume = 0.0,pitch = 1.0):
 	s.stream = sound
 	s.volume_db = volume
 	s.pitch_scale = pitch + randf_range(0.1,-0.1)
-	get_tree().current_scene.add_child(s)
+	get_tree().current_scene.add_child.call_deferred(s)
 	s.source = self

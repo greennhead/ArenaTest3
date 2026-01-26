@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://54v3nflwpa6k"]
+[gd_scene load_steps=9 format=3 uid="uid://54v3nflwpa6k"]
 
 [ext_resource type="Script" uid="uid://dy7t3b2raq826" path="res://modes/deathmatch/level_scene.gd" id="1_jwg5s"]
 [ext_resource type="PackedScene" uid="uid://d1xo4y86517pi" path="res://nodes/player.tscn" id="2_q5r7y"]
 [ext_resource type="PackedScene" uid="uid://dly618ctmgujq" path="res://nodes/map.tscn" id="3_rw4aa"]
 [ext_resource type="Texture2D" uid="uid://bsaw6jipjhbr" path="res://images/sky.png" id="4_mribs"]
+[ext_resource type="PackedScene" uid="uid://dil13e833bxob" path="res://modes/deathmatch/hud.tscn" id="5_q5r7y"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_c8xsp"]
 panorama = ExtResource("4_mribs")
@@ -37,5 +38,7 @@ mapList = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_fkwfp")
+
+[node name="dmhud" parent="." instance=ExtResource("5_q5r7y")]
 
 [editable path="mapLoader"]
