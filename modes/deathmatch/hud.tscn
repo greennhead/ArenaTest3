@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dil13e833bxob"]
+[gd_scene format=3 uid="uid://dil13e833bxob"]
 
 [ext_resource type="Script" uid="uid://qvk4xkueyhad" path="res://modes/deathmatch/hud.gd" id="1_4b4ta"]
 [ext_resource type="Texture2D" uid="uid://dcbe80xd2dhrw" path="res://images/hud.png" id="2_ml6nh"]
@@ -6,34 +6,44 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_twpnc"]
 font_size = 8
+font_color = Color(1, 0, 0, 1)
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(2, 2)
 
-[node name="dmhud" type="CanvasLayer"]
+[node name="dmhud" type="CanvasLayer" unique_id=1717100198]
 script = ExtResource("1_4b4ta")
 
-[node name="hudPlate" type="TextureRect" parent="."]
-offset_left = 160.0
-offset_top = 120.0
-offset_right = 480.0
-offset_bottom = 360.0
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=277164784]
+offset_right = 640.0
+offset_bottom = 719.0
+
+[node name="hudPlate" type="TextureRect" parent="CenterContainer" unique_id=567655388]
+layout_mode = 2
 texture = ExtResource("2_ml6nh")
 
-[node name="hudFace" type="Sprite2D" parent="hudPlate"]
+[node name="hudFace" type="Sprite2D" parent="CenterContainer/hudPlate" unique_id=1806314644]
 position = Vector2(160, 224)
 texture = ExtResource("3_uu43c")
 hframes = 8
 region_enabled = true
 region_rect = Rect2(48, 96, 192, 24)
 
-[node name="hudText" type="Label" parent="hudPlate"]
+[node name="hudText" type="Label" parent="CenterContainer/hudPlate" unique_id=2090182210]
 layout_mode = 0
 offset_left = 3.0
-offset_top = 200.0
+offset_top = 209.0
 offset_right = 147.0
 offset_bottom = 240.0
-text = "
-test"
+text = "test"
+label_settings = SubResource("LabelSettings_twpnc")
+
+[node name="hudText2" type="Label" parent="CenterContainer/hudPlate" unique_id=763997895]
+layout_mode = 0
+offset_left = 181.0
+offset_top = 209.0
+offset_right = 325.0
+offset_bottom = 240.0
+text = "test"
 label_settings = SubResource("LabelSettings_twpnc")

@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://brd7idt0uaobr"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://brd7idt0uaobr"]
 
 [ext_resource type="Texture2D" uid="uid://dmso3r0cho4s5" path="res://images/brick.png" id="1_hrvmp"]
 

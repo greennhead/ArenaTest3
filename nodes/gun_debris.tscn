@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://uih2aae30ilr"]
+
+[ext_resource type="Script" uid="uid://bs6hq5jv4wpyg" path="res://nodes/gun_debris.gd" id="1_htmhn"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_t2hjq"]
+friction = 0.31
+bounce = 0.32
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_htmhn"]
+size = Vector3(0.5, 0.5, 0.05)
+
+[node name="gunDebris" type="RigidBody3D" unique_id=491336782]
+collision_layer = 0
+mass = 1.03
+physics_material_override = SubResource("PhysicsMaterial_t2hjq")
+gravity_scale = 2.425
+script = ExtResource("1_htmhn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1718837776]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02146396, 0)
+shape = SubResource("BoxShape3D_htmhn")
+
+[node name="gunSprite" type="Sprite3D" parent="." unique_id=1321155309]
+pixel_size = 0.05
+texture_filter = 0
+region_rect = Rect2(4, 101, 7, 7)

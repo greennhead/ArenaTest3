@@ -15,13 +15,18 @@ var time = 0
 var explosionAffectsShooterOnly = false
 @onready var rubble = preload("res://nodes/LegacyMod/tile_rubble.tscn")
 func _ready() -> void:
-	c.shape.radius = radius
+	if radius <= 0:
+		c.queue_free()
+	else:
+		c.shape.radius = radius
 	if sprite != "":
 		var textureBase = sprite
 		var img = Image.new()
 		img.load_png_from_buffer(Marshalls.base64_to_raw(textureBase))
 		$Sprite3D.texture = ImageTexture.create_from_image(img)
 		$Sprite3D.hframes = frames
+
+
 
 #@rpc("reliable","authority","call_local")
 #func breakTile(position):
@@ -68,4 +73,5 @@ func _process(delta: float) -> void:
 
 
 func _on_timer_timeout() -> void:
-	c.disabled = true
+	if c != null:
+		c.disabled = true

@@ -1,3 +1,6 @@
+# WARNING This is a really bad projectile script from an older version of the game
+# and its not good dont use it
+# unless youre porting something
 extends Area3D
 class_name LegacyProjectile
 
@@ -34,7 +37,7 @@ var explosionDamage = 0
 var infiniteLifetimeOnStick = false
 var explosionKnockback = 0
 var explosionRadius = 0
-var explodeSound = ""
+var explodeSound 
 var explosionSprite = ""
 var explosionDestroyTiles = false
 var hurtDelay = 0
@@ -60,6 +63,8 @@ var ysp = 0
 var bouncedelay = 0
 @onready var instaray: RayCast3D = $instaray
 @onready var trail_guide: Node3D = $trail_guide
+
+
 
 @onready var posList = [position,position]
 @onready var boom = preload("res://nodes/LegacyMod/explosionLegacy.tscn")
@@ -104,7 +109,7 @@ func  _ready() -> void:
 		var img = Image.new()
 		img.load_png_from_buffer(Marshalls.base64_to_raw(Sprite))
 		sprite.texture = ImageTexture.create_from_image(img)
-		sprite.hframes = SpriteSheetFrames
+		sprite.hframes = clamp(SpriteSheetFrames,1,9999)
 	if eightDirectional:
 		dir()
 
@@ -311,7 +316,7 @@ func checkcol():
 			hurtDelay = 10
 			break
 	for body in get_overlapping_bodies():
-		if !phantom && body is StaticBody3D && hitdelay == 0:
+		if !phantom && (body is StaticBody3D || body is GridMap) && hitdelay == 0:
 			if Stick:
 				sticked = true
 				phantom = true
@@ -376,11 +381,21 @@ func explode(position):
 	a.destroyTiles = explosionDestroyTiles
 	get_tree().current_scene.add_child(a) 
 	a.position = position
+	emitSound(explodeSound,position,0.0,randf_range(0.9,1.1))
 	#var path = OS.get_executable_path().replace("/arenatest.exe","") + "/SOUNDS/" + explodeSound + ".ogg"
 	#if GameManager.debug:
 		#path = 'E:/GodotExport/arenatest/SOUNDS/' + explodeSound + ".ogg"
 	#emitSoundOgg(AudioStreamOggVorbis.load_from_file(path),position)
+@onready var snd = preload("res://nodes/sound.tscn")
 
+@rpc("any_peer","reliable","call_local")
+func emitSound(sound : String,pos,volume,pitch):
+	var s = snd.instantiate()
+	s.stream = load(sound)
+	s.volume_db = volume
+	s.pitch_scale = pitch
+	get_tree().current_scene.add_child(s)
+	s.global_position = pos
 
 func _on_loop_sound_finished() -> void:
 	$loopSound.play()

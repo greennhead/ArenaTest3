@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cvlax7d10oj0v"]
+[gd_scene format=3 uid="uid://cvlax7d10oj0v"]
 
 [ext_resource type="PackedScene" uid="uid://c0k3c4rn8gi4n" path="res://nodes/weapons/pistol.tscn" id="1_f60bl"]
 [ext_resource type="Script" uid="uid://bpimaxjrv8cqm" path="res://nodes/LegacyMod/legacy_gun.gd" id="2_d3ykv"]
 [ext_resource type="AudioStream" uid="uid://b4ujgee5ae7ij" path="res://sounds/legacyMod/hl2_magnum_hit.ogg" id="4_s2lfe"]
 
-[node name="legacyGun" instance=ExtResource("1_f60bl")]
+[node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_f60bl")]
 script = ExtResource("2_d3ykv")
 oldPhysics = true
 damage = 0
@@ -47,5 +47,5 @@ eightRotational = false
 weapon = null
 shootSound = ExtResource("4_s2lfe")
 
-[node name="hand" parent="." index="0"]
+[node name="hand" parent="." index="0" unique_id=974286624]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.436636, -0.166306, -0.6948898)

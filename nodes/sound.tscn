@@ -1,11 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://df7ij5gbsrhtr"]
+[gd_scene format=3 uid="uid://cwp8gg1g2u57r"]
 
-[ext_resource type="Script" uid="uid://8ffljqub5ska" path="res://nodes/sound.gd" id="1_fvwwk"]
+[ext_resource type="Script" uid="uid://d1jdc5kcgvraa" path="res://nodes/sound.gd" id="1_fvwwk"]
 
-[node name="Sound" type="AudioStreamPlayer3D" groups=["clearMe"]]
+[node name="Sound" type="AudioStreamPlayer3D" unique_id=1280865524 groups=["clearMe"]]
 volume_db = -4.444
 unit_size = 5.0
 panning_strength = 0.66
+bus = &"Sound"
 doppler_tracking = 1
 script = ExtResource("1_fvwwk")
 

@@ -1,6 +1,8 @@
 extends CharacterBody3D
 class_name Player
 
+signal changedSkin
+
 @onready var head: Node3D = $head
 
 @onready var playerName: Label3D = $playerName
@@ -50,11 +52,10 @@ var dead := false
 var moving := false
 var taunting := false
 
-
+@export var displayName := "Player"
 func _ready() -> void:
 	sensetivity = Settings.senstivity *0.001
 	camera.fov = Settings.fov
-	giveWeapon(load("res://nodes/weapons/arcabe_gold.tscn"))
 	if mulSync.get_multiplayer_authority() == multiplayer.get_unique_id():
 		playerName.hide()
 		GameManager.myPlayer = self
@@ -67,6 +68,7 @@ func _ready() -> void:
 @rpc("any_peer","call_local","reliable")
 func removeWeapon():
 	if weapon != null:
+		weapon.preThrow()
 		weapon.queue_free()
 		weapon = null
 
@@ -97,6 +99,7 @@ func cursorLock():
 @onready var crosshair: Sprite2D = $CROSSHAIR/crosshair
 
 func _physics_process(delta: float) -> void:
+	playerName.text = displayName
 	if ouchTime > 0:
 		ouchTime -= 1
 	if smirkTime > 0:
@@ -114,6 +117,8 @@ func _physics_process(delta: float) -> void:
 	billb.rotation.x = camera.rotation.x/1.2
 	billb.pixel_size = 0
 	camera.current = true
+	hand1.texture = billb.texture
+	hand2.texture = billb.texture
 	hand1.no_depth_test = true
 	hand2.no_depth_test = true
 	if weapon == null:
@@ -135,6 +140,9 @@ func normalState(delta):
 		hand1.position = lerp(hand1.position,weapon.handGuide1.position,0.7)
 		hand2.position = lerp(hand2.position,weapon.handGuide2.position,0.7)
 		var shoot = Input.is_action_just_pressed("fire")
+		if Input.is_action_just_pressed("throw") && weapon.canBeThrown:
+			removeWeapon()
+			return
 		if weapon.weapon.autofire:
 			shoot = Input.is_action_pressed("fire")
 		if shoot:

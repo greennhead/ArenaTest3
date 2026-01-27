@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ex8onx7eb7go"]
+[gd_scene format=3 uid="uid://ex8onx7eb7go"]
 
 [ext_resource type="Script" uid="uid://cco5mi3jwsvr5" path="res://nodes/weapons/shotgun.gd" id="1_0puqd"]
 [ext_resource type="Resource" uid="uid://h8iedfulj4ql" path="res://nodes/weapons/shotgun.tres" id="2_0bw51"]
@@ -141,13 +141,13 @@ _data = {
 &"shoot": SubResource("Animation_pgfnf")
 }
 
-[node name="shotgun" type="Node3D"]
+[node name="shotgun" type="Node3D" unique_id=1680542607]
 script = ExtResource("1_0puqd")
 weapon = ExtResource("2_0bw51")
 pickupSound = ExtResource("3_lqykj")
 shootSound = ExtResource("5_kcm7e")
 
-[node name="hand" type="Sprite3D" parent="."]
+[node name="hand" type="Sprite3D" parent="." unique_id=1603870614]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5251446, 0.07611878, -1.4204216)
 pixel_size = 0.05
 texture_filter = 0
@@ -155,7 +155,7 @@ texture = ExtResource("5_04ild")
 region_enabled = true
 region_rect = Rect2(4, 111, 7, 7)
 
-[node name="hand2" type="Sprite3D" parent="."]
+[node name="hand2" type="Sprite3D" parent="." unique_id=1822313744]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37618774, -0.045187563, -0.7255088)
 pixel_size = 0.05
 texture_filter = 0
@@ -163,7 +163,7 @@ texture = ExtResource("5_04ild")
 region_enabled = true
 region_rect = Rect2(4, 101, 7, 7)
 
-[node name="gunSprite" type="Sprite3D" parent="."]
+[node name="gunSprite" type="Sprite3D" parent="." unique_id=1873096472]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.36769682, 0.07040885, -1.0585258)
 pixel_size = 0.05
 texture_filter = 0
@@ -171,10 +171,8 @@ texture = ExtResource("4_0bw51")
 hframes = 2
 region_rect = Rect2(4, 101, 7, 7)
 
-[node name="shootPoint" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.599)
+[node name="shootPoint" type="Node3D" parent="." unique_id=1607160607]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35460198, 0.14366174, -1.8065461)
 
-[node name="animation" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_lqykj")
-}
+[node name="animation" type="AnimationPlayer" parent="." unique_id=826335541]
+libraries/ = SubResource("AnimationLibrary_lqykj")

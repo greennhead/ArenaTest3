@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dck5dqnvv4lgw"]
+[gd_scene format=3 uid="uid://dck5dqnvv4lgw"]
 
 [ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://nodes/LegacyMod/legacyGun.tscn" id="1_h8y5f"]
 [ext_resource type="AudioStream" uid="uid://321qrlhbtj1j" path="res://sounds/legacyMod/arcabe_goldget.ogg" id="2_ats5i"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b2hbphpberxou" path="res://images/weaponry/legacyMod/arcabe_gold.png" id="2_t1y16"]
 [ext_resource type="AudioStream" uid="uid://bui0nbhh5s83g" path="res://sounds/legacyMod/arcabe_goldshoot.ogg" id="3_hw7hh"]
 
-[node name="legacyGun" instance=ExtResource("1_h8y5f")]
+[node name="legacyGun" unique_id=15249170 instance=ExtResource("1_h8y5f")]
 damage = 15
 knockback = -4.0
 FireAnimationRotation = 50.0
@@ -19,14 +19,14 @@ weapon = ExtResource("2_hw7hh")
 pickupSound = ExtResource("2_ats5i")
 shootSound = ExtResource("3_hw7hh")
 
-[node name="hand" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.43418983, -0.166306, -0.7736475)
+[node name="hand" parent="." index="0" unique_id=974286624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.544965, -0.166306, -0.7736475)
 
-[node name="hand2" parent="." index="1"]
+[node name="hand2" parent="." index="1" unique_id=915277237]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20988512, -0.080212474, -1.2045224)
 
-[node name="gunSprite" parent="." index="2"]
+[node name="gunSprite" parent="." index="2" unique_id=1094739627]
 texture = ExtResource("2_t1y16")
 
-[node name="shootPoint" parent="." index="3"]
+[node name="shootPoint" parent="." index="3" unique_id=762613811]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38290846, 0.1606412, -1.7975392)

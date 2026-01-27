@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://btxit2c61roca"]
+[gd_scene format=3 uid="uid://btxit2c61roca"]
 
 [ext_resource type="Script" uid="uid://cgsqnkb3mrblm" path="res://nodes/LegacyMod/projectile_legacy.gd" id="1_p1biq"]
 [ext_resource type="Texture2D" uid="uid://7twneyubhg7g" path="res://icon.svg" id="2_xcydp"]
@@ -66,86 +66,85 @@ uv1_triplanar = true
 [sub_resource type="BoxMesh" id="BoxMesh_3aid6"]
 material = SubResource("StandardMaterial3D_mdias")
 
-[node name="Projectile" type="Area3D" groups=["clearMe", "projectile"]]
-collision_layer = 3
-collision_mask = 3
+[node name="Projectile" type="Area3D" unique_id=279019013 groups=["clearMe", "projectile"]]
+collision_layer = 8
+collision_mask = 7
 script = ExtResource("1_p1biq")
 
-[node name="wallBounceArea" type="Area3D" parent="."]
-collision_layer = 12
-collision_mask = 12
+[node name="wallBounceArea" type="Area3D" parent="." unique_id=736554538]
+collision_layer = 0
+collision_mask = 7
 
-[node name="wallBounceHitbox" type="CollisionShape3D" parent="wallBounceArea"]
+[node name="wallBounceHitbox" type="CollisionShape3D" parent="wallBounceArea" unique_id=1152748599]
 shape = SubResource("BoxShape3D_mdias")
 debug_color = Color(0, 0.637175, 0.395498, 0.42)
 
-[node name="bounceArea" type="Area3D" parent="."]
-collision_layer = 12
-collision_mask = 12
+[node name="bounceArea" type="Area3D" parent="." unique_id=1727920825]
+collision_layer = 0
+collision_mask = 7
 
-[node name="BounceHitbox" type="CollisionShape3D" parent="bounceArea"]
+[node name="BounceHitbox" type="CollisionShape3D" parent="bounceArea" unique_id=554054020]
 shape = SubResource("BoxShape3D_3aid6")
 debug_color = Color(0.959961, 0, 0.518711, 0.42)
 
-[node name="checksRay" type="RayCast3D" parent="."]
+[node name="checksRay" type="RayCast3D" parent="." unique_id=1025665331]
 target_position = Vector3(0, 0, 0)
-collision_mask = 3
+collision_mask = 7
 collide_with_areas = true
 
-[node name="hitbox" type="CollisionShape3D" parent="."]
+[node name="hitbox" type="CollisionShape3D" parent="." unique_id=1319550243]
 shape = SubResource("BoxShape3D_abh4u")
 debug_color = Color(0, 0.635294, 0, 0.419608)
 
-[node name="sprite" type="Sprite3D" parent="."]
+[node name="sprite" type="Sprite3D" parent="." unique_id=1088682638]
 pixel_size = 0.05
 billboard = 2
 texture_filter = 0
 
-[node name="bounceray" type="RayCast3D" parent="."]
+[node name="bounceray" type="RayCast3D" parent="." unique_id=974575114]
 visible = false
 target_position = Vector3(0, -1.5, 0)
-collision_mask = 3
+collision_mask = 7
 
-[node name="bouncewallray" type="RayCast3D" parent="."]
+[node name="bouncewallray" type="RayCast3D" parent="." unique_id=1937686057]
 transform = Transform3D(1, 0, 0, 0, 3.32577, 0, 0, 0, 1, 0, 0, 0)
 target_position = Vector3(0, 0, 1.5)
-collision_mask = 3
 debug_shape_custom_color = Color(0.36341, 0.615873, 1.92523e-07, 1)
 debug_shape_thickness = 5
 
-[node name="trail2" type="GPUParticles3D" parent="." groups=["clearMe"]]
+[node name="trail2" type="GPUParticles3D" parent="." unique_id=99580505 groups=["clearMe"]]
 emitting = false
 amount = 800
 lifetime = 0.3
 process_material = SubResource("ParticleProcessMaterial_dtwlh")
 draw_pass_1 = SubResource("PlaneMesh_o6vob")
 
-[node name="instaray" type="RayCast3D" parent="."]
+[node name="instaray" type="RayCast3D" parent="." unique_id=986900564]
 visible = false
 target_position = Vector3(0, 0, -100)
-collision_mask = 3
+collision_mask = 7
 collide_with_areas = true
 
-[node name="trail_guide" type="Node3D" parent="."]
+[node name="trail_guide" type="Node3D" parent="." unique_id=858459127]
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1394085455]
 replication_interval = 1.0
 replication_config = SubResource("SceneReplicationConfig_pk6pb")
 
-[node name="hitwallcheck" type="RayCast3D" parent="."]
+[node name="hitwallcheck" type="RayCast3D" parent="." unique_id=1910485324]
 target_position = Vector3(0, 0, 0)
 collision_mask = 3
 collide_with_areas = true
 debug_shape_custom_color = Color(0, 0.564722, 0.863946, 1)
 debug_shape_thickness = 5
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="Node3D" type="Node3D" parent="." unique_id=779520248]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=835702169]
 visible = false
 mesh = SubResource("BoxMesh_3aid6")
 
-[node name="loopSound" type="AudioStreamPlayer3D" parent="."]
+[node name="loopSound" type="AudioStreamPlayer3D" parent="." unique_id=461586908]
 max_db = 2.0
 doppler_tracking = 1
 

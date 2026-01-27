@@ -1,4 +1,4 @@
-[gd_resource type="BoxMesh" load_steps=3 format=3 uid="uid://cto7t5u44xepq"]
+[gd_resource type="BoxMesh" format=3 uid="uid://cto7t5u44xepq"]
 
 [ext_resource type="Texture2D" uid="uid://dmso3r0cho4s5" path="res://images/brick.png" id="1_kwtw8"]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d1xo4y86517pi"]
+[gd_scene format=3 uid="uid://d1xo4y86517pi"]
 
 [ext_resource type="PackedScene" uid="uid://bxm2lcfofpi46" path="res://nodes/directional_billboard.tscn" id="1_bms3g"]
 [ext_resource type="Script" uid="uid://dn6uhe2hb3m6k" path="res://nodes/player.gd" id="1_hg0js"]
@@ -59,32 +59,35 @@ properties/12/replication_mode = 2
 properties/13/path = NodePath(".:hp")
 properties/13/spawn = true
 properties/13/replication_mode = 2
+properties/14/path = NodePath(".:displayName")
+properties/14/spawn = true
+properties/14/replication_mode = 2
 
-[node name="player" type="CharacterBody3D"]
+[node name="player" type="CharacterBody3D" unique_id=2026852342]
 collision_layer = 2
 floor_constant_speed = true
 script = ExtResource("1_hg0js")
 
-[node name="playerName" type="Label3D" parent="."]
+[node name="playerName" type="Label3D" parent="." unique_id=1177703077]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2847004, 0)
 billboard = 2
 text = "PlayerName"
 font = ExtResource("5_7lbay")
 
-[node name="head" type="Node3D" parent="."]
+[node name="head" type="Node3D" parent="." unique_id=1122821998]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
-[node name="Camera3D" type="Camera3D" parent="head"]
+[node name="Camera3D" type="Camera3D" parent="head" unique_id=1404310638]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
 current = true
 fov = 110.0
 
-[node name="DirectionalBillboard" parent="." instance=ExtResource("1_bms3g")]
+[node name="DirectionalBillboard" parent="." unique_id=1810198451 instance=ExtResource("1_bms3g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 animationSpeed = 0.0
 animation = ExtResource("2_me0cc")
 
-[node name="hand" type="Sprite3D" parent="DirectionalBillboard"]
+[node name="hand" type="Sprite3D" parent="DirectionalBillboard" unique_id=37006881]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.436636, -0.166306, -0.3019)
 pixel_size = 0.05
 texture_filter = 0
@@ -92,7 +95,7 @@ texture = ExtResource("3_me0cc")
 region_enabled = true
 region_rect = Rect2(4, 111, 7, 7)
 
-[node name="hand2" type="Sprite3D" parent="DirectionalBillboard"]
+[node name="hand2" type="Sprite3D" parent="DirectionalBillboard" unique_id=213622631]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.448981, -0.163248, -0.304825)
 pixel_size = 0.05
 texture_filter = 0
@@ -100,42 +103,42 @@ texture = ExtResource("3_me0cc")
 region_enabled = true
 region_rect = Rect2(4, 101, 7, 7)
 
-[node name="shootPoint" type="Node3D" parent="DirectionalBillboard"]
+[node name="shootPoint" type="Node3D" parent="DirectionalBillboard" unique_id=2018593923]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0134102, -1)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=67485229]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.390935, 0)
 shape = SubResource("BoxShape3D_bms3g")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1801434504]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.632164, 0)
 
-[node name="bulletDetector" type="Area3D" parent="."]
+[node name="bulletDetector" type="Area3D" parent="." unique_id=759032621]
 collision_layer = 6
 collision_mask = 0
 script = ExtResource("6_2wrp4")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="bulletDetector"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bulletDetector" unique_id=1447612569]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.552231, 0)
 shape = SubResource("BoxShape3D_me0cc")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1426240757]
 replication_config = SubResource("SceneReplicationConfig_hqdnm")
 
-[node name="CROSSHAIR" type="CanvasLayer" parent="."]
+[node name="CROSSHAIR" type="CanvasLayer" parent="." unique_id=122563698]
 
-[node name="crosshair" type="Sprite2D" parent="CROSSHAIR"]
+[node name="crosshair" type="Sprite2D" parent="CROSSHAIR" unique_id=626508452]
 position = Vector2(320, 240)
 texture = ExtResource("7_46y3y")
 script = ExtResource("8_ejohg")
 
-[node name="crosshairIndicator" type="Sprite2D" parent="CROSSHAIR"]
+[node name="crosshairIndicator" type="Sprite2D" parent="CROSSHAIR" unique_id=273968792]
 modulate = Color(1, 1, 1, 0)
 position = Vector2(320, 240)
 texture = ExtResource("9_qbdof")
 script = ExtResource("8_ejohg")
 
-[node name="blood" type="ColorRect" parent="CROSSHAIR"]
+[node name="blood" type="ColorRect" parent="CROSSHAIR" unique_id=98105833]
 modulate = Color(1, 1, 1, 0)
 offset_left = -5000.0
 offset_top = -5000.0
@@ -143,7 +146,7 @@ offset_right = 5000.0
 offset_bottom = 5000.0
 color = Color(1, 0, 0, 1)
 
-[node name="damageIndicator" type="Label" parent="CROSSHAIR"]
+[node name="damageIndicator" type="Label" parent="CROSSHAIR" unique_id=1714641931]
 visible = false
 modulate = Color(1, 0, 0, 1)
 offset_right = 40.0

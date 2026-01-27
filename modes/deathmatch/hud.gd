@@ -1,14 +1,54 @@
 extends CanvasLayer
-@onready var hudText: Label = $hudPlate/hudText
-@onready var hudPlate: TextureRect = $hudPlate
-@onready var hudFace: Sprite2D = $hudPlate/hudFace
+@onready var hudText: Label = $CenterContainer/hudPlate/hudText
+@onready var hudPlate: TextureRect = $CenterContainer/hudPlate
+@onready var hudFace: Sprite2D = $CenterContainer/hudPlate/hudFace
+@onready var centerContainer: CenterContainer = $CenterContainer
+
+@onready var hudText2: Label = $CenterContainer/hudPlate/hudText2
 
 
-func _physics_process(delta: float) -> void:
+func getMostUsedColor(img : Texture2D):
+	var arr = []
+	var imag = img.get_image()
+	for x in imag.get_width():
+		for y in imag.get_height():
+			arr.append(imag.get_pixel(x,y))
+	var dicts = {}
+	for i in arr:
+		if !dicts.has(i):
+			dicts.set(i,0)
+		else:
+			dicts.set(i,dicts[i] + 1)
+	var most = 0
+	var mostUsedColor : Color
+	for i in dicts:
+		if dicts[i] > most && (i.r + i.g + i.b)/3 > 0.1 && i.a > 0.5:
+			most = dicts[i]
+			mostUsedColor = i
+	if mostUsedColor == null:
+		mostUsedColor = Color.WHITE
+	mostUsedColor.a = 1.0
+	print_rich("[color=" + str(mostUsedColor) + "]The player's most used color is " + str(mostUsedColor) + "!")
+	return mostUsedColor
+
+func _ready() -> void:
+	changeColor()
+	var p : Player = GameManager.myPlayer
+	p.changedSkin.connect(changeColor)
+
+func changeColor():
 	var p : Player = GameManager.myPlayer
 	if p != null:
+		hudText.label_settings.font_color = getMostUsedColor(p.billb.texture)
+
+func _physics_process(delta: float) -> void:
+	centerContainer.size = get_viewport().get_visible_rect().size
+	centerContainer.size.y *= 1.5
+	var p : Player = GameManager.myPlayer
+	if p != null:
+		hudText2.text = ""
 		hudFace.texture = p.billb.texture
-		hudText.text = ""
+		hudText.text = p.displayName
 		hudText.text += "\nHealth: " + str(p.hp) + "\n"
 		hudFace.frame = 0
 		if p.ouchTime > 0:
@@ -18,4 +58,4 @@ func _physics_process(delta: float) -> void:
 		if p.taunting:
 			hudFace.frame = 3
 		if p.weapon != null:
-			hudText.text += p.weapon.weapon.name + " (" + str(p.weapon.ammo) + ")"
+			hudText2.text += p.weapon.weapon.name + "\n" + str(p.weapon.ammo) + " ammo"

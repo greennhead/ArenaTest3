@@ -1,5 +1,6 @@
 extends Node3D
 class_name HeldWeapon
+@export var canBeThrown := true
 @onready var handGuide1: Sprite3D = $hand
 @onready var handGuide2: Sprite3D = $hand2
 @export var weapon : Weapon
@@ -12,7 +13,7 @@ var delay := 0
 @export var shootSound : AudioStream
 @onready var projectile = load(weapon.projectile)
 @onready var shootPoint: Node3D = $shootPoint
-
+@onready var debris = preload("res://nodes/gun_debris.tscn")
 ## WEAPON MAKING
 ## --------
 ## To make a really simple weapon like old arenatest, base it off of the Arenatest Legacy 
@@ -69,6 +70,9 @@ func shoot():
 	GameManager.num += 1
 	seed(GameManager.num)
 	var bullet
+	if projectile == null:
+		printerr("gun has no projectile!")
+		return
 	for i in weapon.projectileAmount:
 		bullet = projectile.instantiate()
 		bullet.rotation = player.camera.global_rotation
@@ -88,6 +92,16 @@ func preBullet(bullet):
 
 func postShoot(bullet):
 	pass # you can use this for animation
+
+func preThrow():
+	var oldp = sprite.global_position
+	var debr = debris.instantiate()
+	get_tree().current_scene.add_child(debr)
+	debr.global_position = sprite.global_position
+	debr.global_rotation = sprite.global_rotation
+	debr.texture = sprite.texture
+	debr.hframes = sprite.hframes
+	debr.vframes = sprite.vframes
 
 func emitSound(sound : AudioStream,volume = 0.0,pitch = 1.0):
 	var s = snd.instantiate()
