@@ -1,5 +1,8 @@
 extends Node3D
 class_name HeldWeapon
+@export var weaponDropEffect := true
+@export var weaponDropEffectOnAmmoDepletion := true
+
 @export var canBeThrown := true
 @onready var handGuide1: Sprite3D = $hand
 @onready var handGuide2: Sprite3D = $hand2
@@ -94,19 +97,25 @@ func postShoot(bullet):
 	pass # you can use this for animation
 
 func preThrow():
+	if weaponDropEffect == false:
+		return
+	if weaponDropEffectOnAmmoDepletion == false && ammo <= 0:
+		return
 	var oldp = sprite.global_position
 	var debr = debris.instantiate()
-	get_tree().current_scene.add_child(debr)
-	debr.global_position = sprite.global_position
-	debr.global_rotation = sprite.global_rotation
 	debr.texture = sprite.texture
 	debr.hframes = sprite.hframes
 	debr.vframes = sprite.vframes
+	get_tree().current_scene.add_child(debr)
+	debr.global_position = sprite.global_position
+	debr.global_rotation = sprite.global_rotation
+
 
 func emitSound(sound : AudioStream,volume = 0.0,pitch = 1.0):
 	var s = snd.instantiate()
 	s.stream = sound
+	s.position = shootPoint.global_position
 	s.volume_db = volume
 	s.pitch_scale = pitch + randf_range(0.1,-0.1)
 	get_tree().current_scene.add_child.call_deferred(s)
-	s.source = self
+	s.source = shootPoint

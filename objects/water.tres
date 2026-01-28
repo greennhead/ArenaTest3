@@ -1,6 +1,13 @@
-[gd_resource type="Resource" script_class="mapObject" load_steps=2 format=3 uid="uid://bcy1mwtul6jb5"]
+[gd_resource type="Resource" script_class="mapObject" format=3 uid="uid://bcy1mwtul6jb5"]
 
 [ext_resource type="Script" uid="uid://bld5rh45v32di" path="res://resources/mapObject.gd" id="1_winim"]
+[ext_resource type="Script" uid="uid://ck7rara5dub31" path="res://resources/specialProperty.gd" id="2_8jwfq"]
+
+[sub_resource type="Resource" id="Resource_wsgd8"]
+script = ExtResource("2_8jwfq")
+name = "texture"
+picker = "Texture"
+metadata/_custom_type_script = "uid://ck7rara5dub31"
 
 [resource]
 script = ExtResource("1_winim")
@@ -10,4 +17,5 @@ properties = {
 }
 node = "uid://chgpum6ip4od5"
 name = "water"
+specials = Array[ExtResource("2_8jwfq")]([SubResource("Resource_wsgd8")])
 metadata/_custom_type_script = "uid://bld5rh45v32di"

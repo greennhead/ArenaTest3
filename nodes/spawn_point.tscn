@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cmjuetg2jki1s"]
+[gd_scene format=3 uid="uid://cmjuetg2jki1s"]
 
 [ext_resource type="PackedScene" uid="uid://bxm2lcfofpi46" path="res://nodes/directional_billboard.tscn" id="1_54p64"]
 [ext_resource type="Resource" uid="uid://q454q3obiwbw" path="res://resources/anim_STOP.tres" id="2_5wlnr"]
 
-[node name="spawnPoint" type="Node3D" groups=["spawnPoint"]]
+[node name="spawnPoint" type="Node3D" unique_id=1547123788 groups=["spawnPoint"]]
 
-[node name="DirectionalBillboard" parent="." groups=["editorOnly"] instance=ExtResource("1_54p64")]
+[node name="DirectionalBillboard" parent="." unique_id=1321149017 groups=["editorOnly"] instance=ExtResource("1_54p64")]
 animation = ExtResource("2_5wlnr")

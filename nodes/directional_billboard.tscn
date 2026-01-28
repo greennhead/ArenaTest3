@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bxm2lcfofpi46"]
+[gd_scene format=3 uid="uid://bxm2lcfofpi46"]
 
 [ext_resource type="Texture2D" uid="uid://7g38e14rkehr" path="res://images/default.png" id="1_krqmb"]
 [ext_resource type="Script" uid="uid://cn0cuo12s1c27" path="res://nodes/directional_billboard.gd" id="2_ig6rx"]
@@ -17,7 +17,7 @@ uv1_triplanar = true
 [sub_resource type="BoxMesh" id="BoxMesh_8j7vf"]
 material = SubResource("StandardMaterial3D_krqmb")
 
-[node name="DirectionalBillboard" type="Sprite3D"]
+[node name="DirectionalBillboard" type="Sprite3D" unique_id=632643348]
 pixel_size = 0.05
 billboard = 2
 texture_filter = 0
@@ -28,8 +28,8 @@ region_rect = Rect2(0, 0, 192, 24)
 script = ExtResource("2_ig6rx")
 animation = SubResource("Resource_l12lj")
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="Node3D" type="Node3D" parent="." unique_id=1460401015]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1528544144]
 visible = false
 mesh = SubResource("BoxMesh_8j7vf")

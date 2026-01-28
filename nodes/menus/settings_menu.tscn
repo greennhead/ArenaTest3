@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ck0wm62oh6llt"]
+[gd_scene format=3 uid="uid://ck0wm62oh6llt"]
 
 [ext_resource type="Theme" uid="uid://d8dvt0loqsul" path="res://resources/gametheme.tres" id="1_72qjk"]
 [ext_resource type="Script" uid="uid://clvab0t1kjj3s" path="res://nodes/menus/settings_menu.gd" id="2_840kt"]
@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://bbjqa23op0w7c" path="res://sounds/ct_footstep_1.ogg" id="5_bbhr1"]
 [ext_resource type="AudioStream" uid="uid://cahe6aoof8h1j" path="res://sounds/hurt.ogg" id="5_hjqyu"]
 
-[node name="settingsMenu" type="Control"]
+[node name="settingsMenu" type="Control" unique_id=789851602]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,20 +21,20 @@ grow_vertical = 2
 theme = ExtResource("1_72qjk")
 script = ExtResource("2_840kt")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=254374005]
 layout_mode = 0
 offset_right = 328.0
 offset_bottom = 192.0
 theme = ExtResource("1_72qjk")
 
-[node name="close" type="Button" parent="."]
+[node name="close" type="Button" parent="." unique_id=1703766905]
 layout_mode = 0
 offset_left = 316.0
 offset_right = 328.0
 offset_bottom = 13.0
 text = "X"
 
-[node name="Name" type="Label" parent="."]
+[node name="Name" type="Label" parent="." unique_id=1674605755]
 layout_mode = 0
 offset_left = 2.0
 offset_top = 3.0
@@ -43,7 +43,7 @@ offset_bottom = 192.0
 theme = ExtResource("1_72qjk")
 text = "Settings"
 
-[node name="volumeSound" type="HSlider" parent="."]
+[node name="volumeSound" type="HSlider" parent="." unique_id=1124284431]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 24.0
@@ -53,7 +53,7 @@ theme = ExtResource("1_72qjk")
 value = 50.0
 rounded = true
 
-[node name="Def" type="Label" parent="volumeSound"]
+[node name="Def" type="Label" parent="volumeSound" unique_id=2011347629]
 layout_mode = 0
 offset_left = 88.0
 offset_right = 216.0
@@ -61,7 +61,7 @@ offset_bottom = 8.0
 text = "Sound Volume"
 script = ExtResource("3_v00rd")
 
-[node name="StepSound" type="HSlider" parent="."]
+[node name="StepSound" type="HSlider" parent="." unique_id=318250698]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 36.0
@@ -72,7 +72,7 @@ theme = ExtResource("1_72qjk")
 value = 50.0
 rounded = true
 
-[node name="Def" type="Label" parent="StepSound"]
+[node name="Def" type="Label" parent="StepSound" unique_id=1467354281]
 layout_mode = 0
 offset_left = 88.0
 offset_right = 208.0
@@ -80,7 +80,7 @@ offset_bottom = 8.0
 text = "Step Volume"
 script = ExtResource("3_v00rd")
 
-[node name="Sensitivity" type="HSlider" parent="."]
+[node name="Sensitivity" type="HSlider" parent="." unique_id=644438518]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 48.0
@@ -92,7 +92,7 @@ max_value = 10.0
 value = 4.0
 rounded = true
 
-[node name="Def" type="Label" parent="Sensitivity"]
+[node name="Def" type="Label" parent="Sensitivity" unique_id=1491054555]
 layout_mode = 0
 offset_left = 88.0
 offset_right = 388.0
@@ -101,7 +101,7 @@ text = "SETTINGS_SENSITIVITY"
 script = ExtResource("3_v00rd")
 usePercent = false
 
-[node name="fov" type="HSlider" parent="."]
+[node name="fov" type="HSlider" parent="." unique_id=645357049]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 60.0
@@ -114,7 +114,7 @@ max_value = 150.0
 value = 110.0
 rounded = true
 
-[node name="Def" type="Label" parent="fov"]
+[node name="Def" type="Label" parent="fov" unique_id=423478471]
 layout_mode = 0
 offset_left = 88.0
 offset_right = 388.0
@@ -123,7 +123,7 @@ text = "SETTINGS_FOV"
 script = ExtResource("3_v00rd")
 usePercent = false
 
-[node name="NameColor" type="LineEdit" parent="."]
+[node name="NameColor" type="LineEdit" parent="." unique_id=1396289925]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 72.0
@@ -134,7 +134,7 @@ theme = ExtResource("1_72qjk")
 text = "red"
 placeholder_text = "red"
 
-[node name="Def" type="Label" parent="NameColor"]
+[node name="Def" type="Label" parent="NameColor" unique_id=1021155203]
 layout_mode = 0
 offset_left = 88.0
 offset_top = 4.0
@@ -143,7 +143,7 @@ offset_bottom = 12.0
 text = "Nickname Color"
 script = ExtResource("2_g022k")
 
-[node name="DefaultSkin" type="LineEdit" parent="."]
+[node name="DefaultSkin" type="LineEdit" parent="." unique_id=91487814]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 88.0
@@ -154,7 +154,7 @@ File should be located in SKINS folder."
 theme = ExtResource("1_72qjk")
 placeholder_text = "skin.png"
 
-[node name="Def" type="Label" parent="DefaultSkin"]
+[node name="Def" type="Label" parent="DefaultSkin" unique_id=464431843]
 layout_mode = 0
 offset_left = 88.0
 offset_top = 4.0
@@ -162,7 +162,7 @@ offset_right = 216.0
 offset_bottom = 12.0
 text = "Default Skin"
 
-[node name="myName" type="LineEdit" parent="."]
+[node name="myName" type="LineEdit" parent="." unique_id=1531658569]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 104.0
@@ -175,7 +175,7 @@ text = "Player"
 placeholder_text = "Player"
 max_length = 8
 
-[node name="Def" type="Label" parent="myName"]
+[node name="Def" type="Label" parent="myName" unique_id=1113647101]
 layout_mode = 0
 offset_left = 88.0
 offset_top = 4.0
@@ -183,7 +183,7 @@ offset_right = 216.0
 offset_bottom = 12.0
 text = "Player Name"
 
-[node name="Palette" type="CheckButton" parent="."]
+[node name="Palette" type="CheckButton" parent="." unique_id=1590560825]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 120.0
@@ -193,7 +193,7 @@ theme = ExtResource("1_72qjk")
 button_pressed = true
 text = "Use Palette"
 
-[node name="SillyLanguages" type="CheckButton" parent="."]
+[node name="SillyLanguages" type="CheckButton" parent="." unique_id=1595716806]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 151.0
@@ -203,7 +203,7 @@ tooltip_text = "This will add more languages that may not be so helpful."
 theme = ExtResource("1_72qjk")
 text = "Silly Languages"
 
-[node name="Fullscreen" type="CheckButton" parent="."]
+[node name="Fullscreen" type="CheckButton" parent="." unique_id=217090040]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 135.0
@@ -213,16 +213,16 @@ tooltip_text = "This will add more languages that may not be so helpful."
 theme = ExtResource("1_72qjk")
 text = "Fullscreen"
 
-[node name="step" type="AudioStreamPlayer" parent="."]
+[node name="step" type="AudioStreamPlayer" parent="." unique_id=2009172723]
 stream = ExtResource("5_bbhr1")
 bus = &"Sound"
 
-[node name="hurt" type="AudioStreamPlayer" parent="."]
+[node name="hurt" type="AudioStreamPlayer" parent="." unique_id=1270648271]
 stream = ExtResource("5_hjqyu")
 volume_db = 5.0
 bus = &"Sound"
 
-[node name="dirOpen" type="Button" parent="."]
+[node name="dirOpen" type="Button" parent="." unique_id=1788804958]
 layout_mode = 0
 offset_left = 140.0
 offset_top = 173.0

@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://crg2put3mt75o"]
+
+[ext_resource type="Script" uid="uid://b1v76ogmrr8uc" path="res://nodes/weapon_pickup.gd" id="1_u13pk"]
+[ext_resource type="Texture2D" uid="uid://d3mfs82pkklwo" path="res://images/exampleGun.png" id="2_kxwnd"]
+[ext_resource type="FontFile" uid="uid://cjbxi8elr5y2e" path="res://images/PressStart2P-Regular.ttf" id="5_llq07"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_u13pk"]
+properties/0/path = NodePath(".:delay")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:currdelay")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("Label3D:text")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("CollisionShape3D:disabled")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u13pk"]
+
+[node name="weapon_Pickup" type="Area3D" unique_id=668835680 groups=["editorObject", "syncMe"]]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_u13pk")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1525634795]
+replication_config = SubResource("SceneReplicationConfig_u13pk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1696194309]
+shape = SubResource("BoxShape3D_u13pk")
+
+[node name="sprite" type="Sprite3D" parent="." unique_id=1787089398]
+pixel_size = 0.05
+texture_filter = 0
+texture = ExtResource("2_kxwnd")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1955300443]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000668526, 0.592268, 0.000882149)
+visible = false
+billboard = 1
+texture_filter = 0
+text = "60"
+font = ExtResource("5_llq07")
+outline_size = 24
+
+[node name="Timer" type="Timer" parent="." unique_id=690322743]
+autostart = true
+
+[node name="Label3D2" type="Label3D" parent="." unique_id=1401930192]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.503625, 0)
+visible = false
+billboard = 1
+texture_filter = 0
+modulate = Color(1, 0, 0, 1)
+text = "Null weapon"
+font = ExtResource("5_llq07")
+outline_size = 24
+uppercase = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -32,18 +32,18 @@ region_rect = Rect2(48, 96, 192, 24)
 
 [node name="hudText" type="Label" parent="CenterContainer/hudPlate" unique_id=2090182210]
 layout_mode = 0
-offset_left = 3.0
-offset_top = 209.0
+offset_left = 8.0
+offset_top = 213.0
 offset_right = 147.0
-offset_bottom = 240.0
+offset_bottom = 244.0
 text = "test"
 label_settings = SubResource("LabelSettings_twpnc")
 
 [node name="hudText2" type="Label" parent="CenterContainer/hudPlate" unique_id=763997895]
 layout_mode = 0
-offset_left = 181.0
-offset_top = 209.0
+offset_left = 184.0
+offset_top = 213.0
 offset_right = 325.0
-offset_bottom = 240.0
+offset_bottom = 244.0
 text = "test"
 label_settings = SubResource("LabelSettings_twpnc")

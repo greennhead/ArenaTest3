@@ -1,7 +1,7 @@
 extends Node3D
 var weaponName := ""
 const weaponsPath = "res://nodes/weapons/"
-
+@onready var trueWeaponPickup = preload("res://nodes/weapon_pickup.tscn")
 func post_ready():
 	$name.text = weaponName 
 	var path = weaponsPath
@@ -15,6 +15,11 @@ func post_ready():
 				if load(path + "/" + file_name).instantiate().weapon.legacyName == weaponName:
 					print_rich("[color=lime]Found legacy weapon: " + weaponName)
 					queue_free()
+					var p = trueWeaponPickup.instantiate()
+					p.position = position
+					p.weapon = path + "/" + file_name
+					get_parent().add_child(p)
+					return
 			file_name = dir.get_next()
 
 

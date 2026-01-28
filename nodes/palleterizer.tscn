@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cst4447ymwdcy"]
+[gd_scene format=3 uid="uid://cst4447ymwdcy"]
 
 [ext_resource type="Shader" uid="uid://dv073t8jnxw65" path="res://shaders/colorpal.gdshader" id="1_fcidm"]
 [ext_resource type="Script" uid="uid://b2y16w28wvddr" path="res://nodes/palleterizer.gd" id="1_yphxt"]
@@ -8,11 +8,11 @@
 shader = ExtResource("1_fcidm")
 shader_parameter/palette = ExtResource("2_yphxt")
 
-[node name="palleterizer" type="CanvasLayer"]
+[node name="palleterizer" type="CanvasLayer" unique_id=849223279]
 layer = 16
 script = ExtResource("1_yphxt")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1444449915]
 material = SubResource("ShaderMaterial_5q4wp")
 anchors_preset = -1
 anchor_left = -3.7760003

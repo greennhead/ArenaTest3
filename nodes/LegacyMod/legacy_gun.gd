@@ -39,8 +39,10 @@ extends HeldWeapon
 @export var explosionDestroyTiles : bool = false
 @export var explosionAffectsShooterOnly : bool = false
 @export var eightRotational : bool = false
-@export var projectileSpread : float = 0
+
 func preBullet(bullet):
+	if bullet is not LegacyProjectile:
+		return
 	bullet.damage = damage
 	bullet.knockback = knockback
 	bullet.damageSpread = damageSpread
@@ -74,11 +76,11 @@ func preBullet(bullet):
 	bullet.ExplodeOnHitPlayer = ExplodeOnHitPlayer
 	bullet.ExplodeOnLifetimeEnd = ExplodeOnLifetimeEnd
 	bullet.explosionDestroyTiles = explosionDestroyTiles
+	bullet.explosionKnockback = explosionKnockback
 	bullet.explosionAffectsShooterOnly = explosionAffectsShooterOnly
 	bullet.eightDirectional = eightRotational
 	bullet.oldPhysics = oldPhysics
-	seed(GameManager.num)
-	bullet.rotation_degrees += Vector3(randf_range(-projectileSpread,projectileSpread),randf_range(-projectileSpread,projectileSpread),randf_range(-projectileSpread,projectileSpread))
+
 
 func postShoot(bullet):
 	sprite.rotation_degrees.z = FireAnimationRotation

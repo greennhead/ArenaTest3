@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://btxit2c61roca"]
 
 [ext_resource type="Script" uid="uid://cgsqnkb3mrblm" path="res://nodes/LegacyMod/projectile_legacy.gd" id="1_p1biq"]
+[ext_resource type="Texture2D" uid="uid://bnx8nxnqur202" path="res://images/+.png" id="2_8sb4u"]
 [ext_resource type="Texture2D" uid="uid://7twneyubhg7g" path="res://icon.svg" id="2_xcydp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mdias"]
@@ -39,6 +40,7 @@ anim_speed_max = 1.0
 transparency = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_8sb4u")
 texture_filter = 0
 billboard_mode = 3
 billboard_keep_scale = true

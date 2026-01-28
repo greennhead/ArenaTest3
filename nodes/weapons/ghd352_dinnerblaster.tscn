@@ -1,23 +1,10 @@
 [gd_scene format=3 uid="uid://t6b7qboo7y2m"]
 
 [ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://nodes/LegacyMod/legacyGun.tscn" id="1_j6ljx"]
-[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="2_8vnf1"]
+[ext_resource type="Resource" uid="uid://cmxntitxsgot1" path="res://nodes/weapons/ghd352_dinnerblaster.tres" id="2_dtmqj"]
 [ext_resource type="AudioStream" uid="uid://d4ewk57xwaptj" path="res://sounds/legacyMod/ghd352_dinnerblaster.ogg" id="3_dtmqj"]
 [ext_resource type="AudioStream" uid="uid://dns1f8rx7eo2f" path="res://sounds/legacyMod/ghd352_dinnerblastershoot.ogg" id="4_p4xeq"]
 [ext_resource type="Texture2D" uid="uid://blun1xjwornd5" path="res://images/weaponry/legacyMod/ghd352_dinnerblaster.png" id="5_dtmqj"]
-
-[sub_resource type="Resource" id="Resource_7vht2"]
-script = ExtResource("2_8vnf1")
-name = "Dinner Blaster"
-attackSpeed = 8
-autofire = true
-projectile = "uid://btxit2c61roca"
-Ammo = 30
-selfKnockback = -7
-canZoom = true
-zoomFOV = 45
-legacyName = "ghd352_dinnerblaster"
-metadata/_custom_type_script = "uid://5u6ynrpschfs"
 
 [node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_j6ljx")]
 damage = 25
@@ -35,16 +22,15 @@ explosionSprite = "iVBORw0KGgoAAAANSUhEUgAAAIAAAAAqCAYAAAB7uVNDAAAAAXNSR0IArs4c6
 explosionSpriteSpeed = 0.5
 explosionSpriteFrames = 4.0
 ExplodeOnLifetimeEnd = false
-projectileSpread = 10.0
-weapon = SubResource("Resource_7vht2")
+weapon = ExtResource("2_dtmqj")
 pickupSound = ExtResource("3_dtmqj")
 shootSound = ExtResource("4_p4xeq")
 
 [node name="hand" parent="." index="0" unique_id=974286624]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.602442, -0.166306, -0.6948898)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5348268, -0.166306, -0.93933904)
 
 [node name="hand2" parent="." index="1" unique_id=915277237]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16081154, 0.09364307, -1.4864205)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16081154, 0.15271708, -1.4864205)
 
 [node name="gunSprite" parent="." index="2" unique_id=1094739627]
 no_depth_test = true

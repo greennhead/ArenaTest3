@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://cmjhe6631cweq"]
+[gd_scene format=4 uid="uid://cmjhe6631cweq"]
 
 [ext_resource type="Script" uid="uid://bsdqas6jlwbju" path="res://nodes/slope.gd" id="1_fpkf5"]
 [ext_resource type="Texture2D" uid="uid://dmso3r0cho4s5" path="res://images/brick.png" id="2_fpkf5"]
@@ -54,12 +54,12 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_sl48x")
 
-[node name="slope" type="StaticBody3D"]
+[node name="slope" type="StaticBody3D" unique_id=1734500200 groups=["destructible"]]
 script = ExtResource("1_fpkf5")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=347443624]
 material_override = SubResource("StandardMaterial3D_srj8m")
 mesh = SubResource("ArrayMesh_srj8m")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=148573254]
 shape = ExtResource("3_mbc2i")

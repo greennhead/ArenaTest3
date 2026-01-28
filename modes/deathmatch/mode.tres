@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Gamemode" load_steps=2 format=3 uid="uid://dhscvq8tkuvux"]
+[gd_resource type="Resource" script_class="Gamemode" format=3 uid="uid://dhscvq8tkuvux"]
 
 [ext_resource type="Script" uid="uid://eore7nsvhk4" path="res://resources/gamemode.gd" id="1_gvj8a"]
 

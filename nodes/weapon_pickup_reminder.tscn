@@ -1,19 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://dw0vj8wygaf0a"]
+[gd_scene format=3 uid="uid://dw0vj8wygaf0a"]
 
 [ext_resource type="Script" uid="uid://bfknayrfeiul6" path="res://nodes/weapon_pickup_reminder.gd" id="1_swaiy"]
 [ext_resource type="FontFile" uid="uid://cjbxi8elr5y2e" path="res://images/PressStart2P-Regular.ttf" id="2_f4mpv"]
 [ext_resource type="Texture2D" uid="uid://cc615uqb6owol" path="res://images/failedblock.png" id="2_swaiy"]
 
-[node name="weaponPickupReminder" type="Node3D"]
+[node name="weaponPickupReminder" type="Node3D" unique_id=1158770710]
 script = ExtResource("1_swaiy")
 
-[node name="sprite" type="Sprite3D" parent="."]
+[node name="sprite" type="Sprite3D" parent="." unique_id=186920718]
 pixel_size = 0.05
 texture_filter = 0
 texture = ExtResource("2_swaiy")
 
-[node name="name" type="Label3D" parent="."]
+[node name="name" type="Label3D" parent="." unique_id=1050445099]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.70732474, 0)
 billboard = 2
+modulate = Color(1, 0, 0, 1)
 text = "Missing gun..."
 font = ExtResource("2_f4mpv")

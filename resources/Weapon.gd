@@ -11,4 +11,5 @@ class_name Weapon
 @export var canZoom : bool
 @export var zoomFOV : int
 
+@export var singularSprite : Texture2D
 @export var legacyName : String

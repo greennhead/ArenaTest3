@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://cphu867rn2xef"]
+[gd_scene format=3 uid="uid://dthub1w3vicct"]
 
-[ext_resource type="Texture2D" uid="uid://cwlvj32whclxm" path="res://textures/bloodmist.png" id="1_om6mb"]
-[ext_resource type="Script" uid="uid://c5ga55wuu0arg" path="res://nodes/gib_effect.gd" id="2_dh4l4"]
-[ext_resource type="Texture2D" uid="uid://c02bfb0jnpsql" path="res://textures/gibs.png" id="2_g8i82"]
+[ext_resource type="Script" uid="uid://cfypk7t5k7xw4" path="res://nodes/gib_effect.gd" id="2_dh4l4"]
+[ext_resource type="Texture2D" uid="uid://7g38e14rkehr" path="res://images/default.png" id="2_g8i82"]
 
 [sub_resource type="Curve" id="Curve_dh4l4"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -31,7 +30,7 @@ turbulence_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nkkti"]
 transparency = 1
-albedo_texture = ExtResource("1_om6mb")
+albedo_texture = ExtResource("2_g8i82")
 texture_filter = 0
 billboard_mode = 3
 billboard_keep_scale = true
@@ -89,7 +88,7 @@ material = SubResource("StandardMaterial3D_7xbgx")
 size = Vector2(0.5, 0.5)
 orientation = 2
 
-[node name="gibEffect" type="GPUParticles3D" groups=["clearMe"]]
+[node name="gibEffect" type="GPUParticles3D" unique_id=469430413 groups=["clearMe"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.092, 0)
 emitting = false
 amount = 32
@@ -100,7 +99,7 @@ process_material = SubResource("ParticleProcessMaterial_xupwk")
 draw_pass_1 = SubResource("PlaneMesh_qlmvs")
 script = ExtResource("2_dh4l4")
 
-[node name="bones" type="GPUParticles3D" parent="."]
+[node name="bones" type="GPUParticles3D" parent="." unique_id=2077508648]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0287575, 0)
 emitting = false
 amount = 24
@@ -110,7 +109,7 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_n167v")
 draw_pass_1 = SubResource("PlaneMesh_0u5i2")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=248398746]
 wait_time = 10.0
 one_shot = true
 autostart = true

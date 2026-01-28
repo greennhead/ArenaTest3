@@ -4,7 +4,8 @@ var py = -4
 var dmg = 0
 @onready var startposy = position.y
 func _ready() -> void:
-	startposy = get_viewport_rect().size.y/2.0 + 8
+	startposy = get_viewport_rect().size.y/2.0 - 16
+	position.x = get_viewport_rect().size.x/2 - size.x /2
 	if !visible:
 		remove_from_group("damagelabel")
 	for i in $"..".get_children():

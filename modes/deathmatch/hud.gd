@@ -49,7 +49,7 @@ func _physics_process(delta: float) -> void:
 		hudText2.text = ""
 		hudFace.texture = p.billb.texture
 		hudText.text = p.displayName
-		hudText.text += "\nHealth: " + str(p.hp) + "\n"
+		hudText.text += "\n" + tr("HUD_HP") + ": " + str(p.hp) + "\n"
 		hudFace.frame = 0
 		if p.ouchTime > 0:
 			hudFace.frame = 1
@@ -58,4 +58,6 @@ func _physics_process(delta: float) -> void:
 		if p.taunting:
 			hudFace.frame = 3
 		if p.weapon != null:
-			hudText2.text += p.weapon.weapon.name + "\n" + str(p.weapon.ammo) + " ammo"
+			hudText2.text += p.weapon.weapon.name + "\n" +  tr("HUD_AMMO")  + ": " + str(p.weapon.ammo) 
+		else:
+			hudText2.text +=  "\n" + tr("HUD_AMMO") + ": 0"

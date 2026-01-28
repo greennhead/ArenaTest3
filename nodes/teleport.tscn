@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b41brvwsymhau"]
+[gd_scene format=3 uid="uid://b41brvwsymhau"]
 
 [ext_resource type="Script" uid="uid://buwkgw81l53bv" path="res://nodes/teleport.gd" id="1_ddjov"]
 [ext_resource type="Texture2D" uid="uid://3ivchhh0388c" path="res://images/teleport.png" id="2_lf6u5"]
@@ -97,22 +97,22 @@ shader_parameter/uv2_offset = Vector3(0, 0, 0)
 
 [sub_resource type="BoxMesh" id="BoxMesh_owmvm"]
 
-[node name="teleport" type="Area3D" groups=["teleporter"]]
+[node name="teleport" type="Area3D" unique_id=2124945339 groups=["teleporter"]]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_ddjov")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=388224347]
 shape = SubResource("BoxShape3D_jeaqb")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["editorOnly"]]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=30819527 groups=["editorOnly"]]
 material_override = SubResource("ShaderMaterial_af8uh")
 cast_shadow = 0
 extra_cull_margin = 1.0
 gi_mode = 0
 mesh = SubResource("BoxMesh_owmvm")
 
-[node name="Label3D2" type="Label3D" parent="." groups=["editorOnly"]]
+[node name="Label3D2" type="Label3D" parent="." unique_id=1962410810 groups=["editorOnly"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.766612, 0)
 billboard = 1
 texture_filter = 0

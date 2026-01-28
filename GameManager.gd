@@ -16,7 +16,7 @@ var level
 var customObjects : Array[mapObject]
 var testMap := ""
 const modsPath := "user://mods/" 
-
+var myName := ""
 var mods = []
 
 func _ready() -> void:

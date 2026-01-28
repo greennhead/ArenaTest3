@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="mapObject" load_steps=2 format=3 uid="uid://bbeni12kllx1s"]
+[gd_resource type="Resource" script_class="mapObject" format=3 uid="uid://bbeni12kllx1s"]
 
 [ext_resource type="Script" uid="uid://bld5rh45v32di" path="res://resources/mapObject.gd" id="1_5p3ix"]
+[ext_resource type="Script" uid="uid://ck7rara5dub31" path="res://resources/specialProperty.gd" id="2_ekun0"]
 
 [resource]
 script = ExtResource("1_5p3ix")

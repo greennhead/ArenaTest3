@@ -52,6 +52,9 @@ var dead := false
 var moving := false
 var taunting := false
 
+var lasthitby = self
+var lasthitbytype = "player"
+
 @export var displayName := "Player"
 func _ready() -> void:
 	sensetivity = Settings.senstivity *0.001
@@ -59,6 +62,8 @@ func _ready() -> void:
 	if mulSync.get_multiplayer_authority() == multiplayer.get_unique_id():
 		playerName.hide()
 		GameManager.myPlayer = self
+		GameManager.myName = Settings.playerName
+		displayName = GameManager.myName
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
@@ -76,7 +81,11 @@ func removeWeapon():
 @rpc("any_peer","call_local","reliable")
 func giveWeapon(newweapon):
 	smirkTime = 120
-	var wep = newweapon.instantiate()
+	var wep
+	if newweapon is String:
+		wep = load(newweapon).instantiate()
+	else:
+		wep = newweapon.instantiate()
 	billb.add_child(wep)
 	weapon = wep
 	wep.player = self
@@ -196,7 +205,7 @@ func _input(event):
 			camera.rotation.x = clamp(camera.rotation.x,deg_to_rad(-86),deg_to_rad(86))
 
 @rpc("any_peer","reliable","call_local")
-func emitSound(sound : String,pos,volume,pitch):
+func emitSound(sound : String,pos,volume = 0,pitch = 1.0):
 	var s = snd.instantiate()
 	s.stream = load(sound)
 	s.volume_db = volume

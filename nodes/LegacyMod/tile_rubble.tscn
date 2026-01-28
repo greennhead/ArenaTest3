@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dsat22nybbv46"]
+[gd_scene format=3 uid="uid://dsat22nybbv46"]
 
 [ext_resource type="Texture2D" uid="uid://dmso3r0cho4s5" path="res://images/brick.png" id="1_oalsb"]
 [ext_resource type="Script" uid="uid://3y4f1vdit4x5" path="res://nodes/LegacyMod/tile_rubble.gd" id="2_dqgpt"]
@@ -125,7 +125,7 @@ material = SubResource("ShaderMaterial_igk0v")
 size = Vector2(1, 1)
 orientation = 2
 
-[node name="tileRubble" type="GPUParticles3D"]
+[node name="tileRubble" type="GPUParticles3D" unique_id=560463644]
 emitting = false
 amount = 4
 one_shot = true

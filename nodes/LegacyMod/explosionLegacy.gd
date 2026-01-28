@@ -28,8 +28,9 @@ func _ready() -> void:
 
 
 
-#@rpc("reliable","authority","call_local")
-#func breakTile(position):
+@rpc("reliable","authority","call_local")
+func breakTile(position,gridmap : GridMap):
+	gridmap.set_cell_item(Vector3i(position),-1)
 	#print(position)
 	#print("ID: " + str(GameManager.myPlayer.id))
 	#var i = null
@@ -47,9 +48,14 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if time == 0:
 		for i in get_overlapping_bodies():
-			#if i is Block && destroyTiles:
-				#if 1 == multiplayer.get_unique_id():
-					#breakTile.rpc(i.position)
+			if i.is_in_group("destructible"):
+				i.queue_free()
+			if i is GridMap && destroyTiles:
+				var p : GridMap = i
+				for cell in p.get_used_cells():
+					if p.to_global(cell).distance_to(global_position) < radius:
+						if multiplayer.get_unique_id() == 1:
+							breakTile.rpc(cell,p)
 			if i is Player:
 				if explosionAffectsShooterOnly && i != Owner:
 					return

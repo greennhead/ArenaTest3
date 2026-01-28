@@ -5,10 +5,15 @@ var hframes := 0
 var vframes := 0
 var texture = null
 func _ready() -> void:
+	if texture != null && sprite.texture == null:
+		sprite.texture = texture
+		sprite.hframes = hframes
+		sprite.vframes = vframes
 	apply_central_impulse(Vector3(randf_range(-4.5,4.5),3,randf_range(-4.5,4.5)))
 
 
 func _physics_process(delta: float) -> void:
+	sprite.no_depth_test = false
 	if texture != null && sprite.texture == null:
 		sprite.texture = texture
 		sprite.hframes = hframes

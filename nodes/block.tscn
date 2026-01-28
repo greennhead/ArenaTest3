@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://40xk4twvnc3y"]
+[gd_scene format=3 uid="uid://40xk4twvnc3y"]
 
 [ext_resource type="Script" uid="uid://osiv12rbvtwg" path="res://nodes/block.gd" id="1_4cbk7"]
 [ext_resource type="ArrayMesh" uid="uid://cker1ysb231ic" path="res://resources/slope.tres" id="2_4cbk7"]
@@ -6,14 +6,14 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4cbk7"]
 
-[node name="block" type="StaticBody3D"]
+[node name="block" type="StaticBody3D" unique_id=1029983314]
 script = ExtResource("1_4cbk7")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=310007505]
 shape = SubResource("BoxShape3D_4cbk7")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=23660914]
 mesh = ExtResource("2_4cbk7")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1511596636]
 shape = ExtResource("3_rjbrf")

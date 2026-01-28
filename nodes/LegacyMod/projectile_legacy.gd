@@ -103,6 +103,7 @@ func  _ready() -> void:
 	hitboxNode.shape = hitboxNode.shape.duplicate()
 	hitboxNode.shape.size = hitbox
 	trail2.draw_pass_1.material.albedo_color = tracerColor
+	trail2.emitting = true
 	bounceray.target_position.y = hitbox.y * -1.5
 	bouncewallray.target_position.z = hitbox.z * 1.5
 	if Sprite != "":
@@ -150,6 +151,7 @@ func set_sprite(fr):
 		frameOffset = 1
 
 func _physics_process(delta: float) -> void:
+	
 	if eightDirectional:
 		dir()
 	if hurtDelay > 0:
@@ -267,7 +269,6 @@ func move_new(delta):
 			if i is GridMap:
 				if position.y < i.position.y+1:
 					position.y += 0.1
-					print("pushup")
 	if !bCol:
 		ysp += (grav*6)*delta
 	position.y -= (ysp)*0.01
@@ -296,11 +297,8 @@ func move():
 		bouncewallray.force_raycast_update()
 		if Bounce && bouncewallray.is_colliding() && bouncewallray.get_collider() is not Player && bouncedelay == 0:
 			bouncedelay = 2
-			print(rotation_degrees)
 			seed(int(name)^2 + wallbounces)
 			rotation_degrees.y += 180 + randi_range(-wallBounceSpread,wallBounceSpread)
-			print("boing")
-			print(rotation_degrees)
 			a = false
 		trail2.emit_particle(transform, Vector3.ZERO, Color.WHITE, Color.WHITE, GPUParticles3D.EMIT_FLAG_POSITION)
 		if !a:
@@ -403,7 +401,6 @@ func _on_loop_sound_finished() -> void:
 @rpc("authority","reliable","call_local")
 func shoot(id ,pos : Vector3,owner,rotation,amount,shootSound,spreadArr,alt : bool = false):
 	var idx = 0
-	print(spreadArr)
 	for x in amount:
 		var proj : LegacyProjectile = load("res://nodes/LegacyMod/projectileLegacy.tscn").instantiate()
 		proj.rotation = rotation + Vector3(deg_to_rad(spreadArr[idx].x),deg_to_rad(spreadArr[idx].y),deg_to_rad(spreadArr[idx].z))

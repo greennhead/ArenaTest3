@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="mapObject" format=3 uid="uid://jjqwta572fdl"]
+
+[ext_resource type="Script" uid="uid://bld5rh45v32di" path="res://resources/mapObject.gd" id="1_74i4x"]
+[ext_resource type="Script" uid="uid://ck7rara5dub31" path="res://resources/specialProperty.gd" id="2_ob03w"]
+
+[sub_resource type="Resource" id="Resource_ob03w"]
+script = ExtResource("2_ob03w")
+name = "weapon"
+picker = "Weapon"
+metadata/_custom_type_script = "uid://ck7rara5dub31"
+
+[resource]
+script = ExtResource("1_74i4x")
+properties = {
+"currdelay": 0,
+"delay": 0,
+"weapon": ""
+}
+node = "uid://crg2put3mt75o"
+name = "weapon_pickup_3"
+specials = Array[ExtResource("2_ob03w")]([SubResource("Resource_ob03w")])
+metadata/_custom_type_script = "uid://bld5rh45v32di"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://wijglfjr1n0s"]
+[gd_scene format=3 uid="uid://wijglfjr1n0s"]
 
 [ext_resource type="Script" uid="uid://c8sxy2h2ahy5g" path="res://nodes/projectiles/example_ray.gd" id="1_eh8ix"]
 
@@ -8,12 +8,12 @@ shading_mode = 0
 [sub_resource type="BoxMesh" id="BoxMesh_5j068"]
 material = SubResource("StandardMaterial3D_eh8ix")
 
-[node name="exampleRay" type="RayCast3D"]
+[node name="exampleRay" type="RayCast3D" unique_id=727080518]
 target_position = Vector3(0, 0, -50)
 collision_mask = 7
 collide_with_areas = true
 script = ExtResource("1_eh8ix")
 
-[node name="trail" type="MeshInstance3D" parent="."]
+[node name="trail" type="MeshInstance3D" parent="." unique_id=2069990796]
 transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 3, 0, 0, -1.5923022)
 mesh = SubResource("BoxMesh_5j068")

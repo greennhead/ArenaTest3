@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://chgpum6ip4od5"]
+[gd_scene format=3 uid="uid://chgpum6ip4od5"]
 
 [ext_resource type="Script" uid="uid://dfip0vcb5mkca" path="res://nodes/water.gd" id="1_6crkd"]
 [ext_resource type="Shader" uid="uid://cpx2fxbyp4du" path="res://shaders/water.gdshader" id="2_6crkd"]
@@ -25,17 +25,17 @@ shader_parameter/uv2_offset = Vector3(0, 0, 0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k556b"]
 
-[node name="water" type="Area3D" groups=["editorObject"]]
+[node name="water" type="Area3D" unique_id=1655453871 groups=["editorObject"]]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_6crkd")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2079248225]
 material_override = SubResource("ShaderMaterial_ouvty")
 cast_shadow = 0
 extra_cull_margin = 1.0
 gi_mode = 0
 mesh = SubResource("BoxMesh_8laej")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1932960158]
 shape = SubResource("BoxShape3D_k556b")

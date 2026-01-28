@@ -63,7 +63,12 @@ properties/14/path = NodePath(".:displayName")
 properties/14/spawn = true
 properties/14/replication_mode = 2
 
-[node name="player" type="CharacterBody3D" unique_id=2026852342]
+[sub_resource type="LabelSettings" id="LabelSettings_hg0js"]
+font_size = 8
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="player" type="CharacterBody3D" unique_id=2026852342 groups=["player"]]
 collision_layer = 2
 floor_constant_speed = true
 script = ExtResource("1_hg0js")
@@ -151,4 +156,7 @@ visible = false
 modulate = Color(1, 0, 0, 1)
 offset_right = 40.0
 offset_bottom = 8.0
+label_settings = SubResource("LabelSettings_hg0js")
+horizontal_alignment = 1
+vertical_alignment = 1
 script = ExtResource("10_hg0js")
