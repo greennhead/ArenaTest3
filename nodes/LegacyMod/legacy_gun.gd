@@ -1,7 +1,7 @@
 extends HeldWeapon
 
 @export_category("LegacyProjectile properties")
-@export var oldPhysics := true
+@export var oldPhysics := false
 @export var damage : int
 @export var damageSpread : bool
 @export var knockback : float
@@ -43,6 +43,7 @@ extends HeldWeapon
 func preBullet(bullet):
 	if bullet is not LegacyProjectile:
 		return
+	bullet.oldPhysics = oldPhysics
 	bullet.damage = damage
 	bullet.knockback = knockback
 	bullet.damageSpread = damageSpread
@@ -79,7 +80,7 @@ func preBullet(bullet):
 	bullet.explosionKnockback = explosionKnockback
 	bullet.explosionAffectsShooterOnly = explosionAffectsShooterOnly
 	bullet.eightDirectional = eightRotational
-	bullet.oldPhysics = oldPhysics
+
 
 
 func postShoot(bullet):

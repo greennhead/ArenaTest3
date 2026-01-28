@@ -22,7 +22,7 @@ func _physics_process(delta: float) -> void:
 func check():
 	force_update_transform()
 	if is_colliding():
-		if get_collider() is Player or get_collider() is BulletCollider or get_collider().is_in_group("shootable"):
+		if get_collider() is BulletCollider or get_collider().is_in_group("shootable"):
 			var hit = get_collider()
 			if get_collider() is BulletCollider:
 				hit = get_collider().player

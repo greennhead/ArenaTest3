@@ -7,9 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://3t60h5m606ap" path="res://images/weaponry/legacyMod/ghd352_bombs.png" id="5_la67t"]
 
 [node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_xro6g")]
+oldPhysics = false
 knockback = -1.0
-tracerColor = Color(1, 0, 0, 1)
-speed = 5.0
+tracerColor = Color(0.99607843, 0.50980395, 0.007843138, 1)
+speed = 25.0
 grav = 5
 Lifetime = 120
 Sprite = "iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAQFJREFUKJGF0L9Kw3AQwPHvhea3BbF7oVXIX4uP0MaX8Q3ULYOTc95EcJUIvoBobUpdxNFNKxhSfucgrZWG9ODg4D4Hdwc7Qq+v0Fxmu9wvvtk71U9UL51lpw0aY+zb/bf0PuSVd3qy2fQ8j6qqLCCqShJGqCoPT48C4Kyg67p62B9oHIQSByFJGDEppwBkWfaHjTE2CaOtNYZxgojg+74CdABUVbYkYK3l9q4gHY0VEEdVEWm0AJyMxqy6TpqmrR/ZDKcoimUbOLs4X9cC0N3v6uJrQRyEjQOTckpd1+IAzF/mAvA8KxtxXdf/j8rzXI6PhmqMWedBf6A7D7HWNr7nB39LW2NoVsNnAAAAAElFTkSuQmCC"
@@ -32,4 +33,4 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.36
 texture = ExtResource("5_la67t")
 
 [node name="shootPoint" parent="." index="3" unique_id=762613811]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2195428, -0.7265203)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2195428, -0.43233404)

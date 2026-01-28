@@ -7,11 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://cjkb1ovx2q41l" path="res://images/weaponry/legacyMod/ghd352_toaster.png" id="5_l24ty"]
 
 [node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_vsr2l")]
+oldPhysics = false
 damage = 10
 knockback = -1.0
 FireAnimationRotation = 36.0
 tracerColor = Color(0, 0, 0, 0)
-speed = 6.0
+speed = 24.0
 grav = 6
 Lifetime = 130
 hitbox = Vector3(0.6, 0.6, 0.6)
@@ -33,3 +34,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25678343, -0.163248, -1.274
 
 [node name="gunSprite" parent="." index="2" unique_id=1094739627]
 texture = ExtResource("5_l24ty")
+
+[node name="shootPoint" parent="." index="3" unique_id=762613811]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37055653, 0, -0.99102044)

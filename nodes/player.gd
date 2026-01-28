@@ -3,6 +3,7 @@ class_name Player
 
 signal changedSkin
 
+@export var animationSpeed := 0.18
 @onready var head: Node3D = $head
 
 @onready var playerName: Label3D = $playerName
@@ -20,21 +21,26 @@ var ouchTime := 0
 var smirkTime := 0
 @export var canMoveMouse := true
 
-@export_file("*.tres") var animation : String =  "res://resources/anim_WALK.tres"
-@onready var normalAnim = preload("res://resources/anim_WALK.tres")
-@onready var deadAnim = preload("res://resources/anim_DEAD.tres")
-@onready var tauntAnim = preload("res://resources/anim_TAUNT.tres")
+@export var animation = "res://resources/anim_WALK.tres"
+@onready var normalAnim = "res://resources/anim_WALK.tres"
+@onready var deadAnim = "res://resources/anim_DEAD.tres"
+@onready var tauntAnim = "res://resources/anim_TAUNT.tres"
 
 @onready var billb: directionalBillboard = $DirectionalBillboard
 
 @onready var hand1: Sprite3D = $DirectionalBillboard/hand
 @onready var hand2: Sprite3D = $DirectionalBillboard/hand2
 
-@export var icyness := 0.9
+const DEATH_ZONE = -40
+const GIB_MARGIN = -49
+
 var time = 0
-const SPEED := 10.0
-const JUMP_VELOCITY := 6.5
+
+@export var SPEED := 10.0
+@export var JUMP_VELOCITY := 6.5
+@export var icyness := 0.9
 var sensetivity := 0.003
+
 @export var grav := Vector3(0,-14,0)
 var watergrav := Vector3(0,-4,0)
 
@@ -47,8 +53,9 @@ NORMAL,
 DEAD
 }
 var stepDelay = 0
-var state = STATES.NORMAL
+@export var state = STATES.NORMAL
 var dead := false
+var deadTime := 0
 var moving := false
 var taunting := false
 
@@ -56,7 +63,18 @@ var lasthitby = self
 var lasthitbytype = "player"
 
 @export var displayName := "Player"
+
+@export var mortal := true
+@export var invincible := false
+
+
+@export_file("*.ogg") var deathSound = "res://sounds/die.ogg"
+@export_file("*.ogg") var gibSound = "res://sounds/die_gib.ogg"
+
+@onready var gibEffect = preload("res://nodes/gib_effect.tscn")
+
 func _ready() -> void:
+	mulSync.set_multiplayer_authority(id)
 	sensetivity = Settings.senstivity *0.001
 	camera.fov = Settings.fov
 	if mulSync.get_multiplayer_authority() == multiplayer.get_unique_id():
@@ -108,6 +126,7 @@ func cursorLock():
 @onready var crosshair: Sprite2D = $CROSSHAIR/crosshair
 
 func _physics_process(delta: float) -> void:
+	billb.set_animation(animation)
 	playerName.text = displayName
 	if ouchTime > 0:
 		ouchTime -= 1
@@ -118,13 +137,23 @@ func _physics_process(delta: float) -> void:
 	doState(state,delta)
 	if mulSync.get_multiplayer_authority() != multiplayer.get_unique_id():
 		return
+	if position.y > DEATH_ZONE:
+		if not is_on_floor():
+			velocity += grav * delta
+			if coyote > 0:
+				coyote -= 1
+		else:
+			coyote = maxCoyote
 	blood.modulate.a = lerp(blood.modulate.a,0.0,0.05)
 	crosshairIndicator.modulate.a = lerp(crosshairIndicator.modulate.a,0.0,0.1)
 	playerName.hide()
 	time += 1
 	billb.rotation = head.rotation
 	billb.rotation.x = camera.rotation.x/1.2
-	billb.pixel_size = 0
+	if camera.current == true:
+		billb.pixel_size = 0
+	else:
+		billb.pixel_size = 0.05
 	camera.current = true
 	hand1.texture = billb.texture
 	hand2.texture = billb.texture
@@ -134,28 +163,86 @@ func _physics_process(delta: float) -> void:
 		sensetivity = Settings.senstivity *0.001
 		camera.fov = Settings.fov
 
+@onready var collisionshape: CollisionShape3D = $CollisionShape3D
+@onready var bulletDetector: BulletCollider = $bulletDetector
+@onready var bulletDetShape: CollisionShape3D = $bulletDetector/CollisionShape3D
+
+
 func doState(state,delta):
+	if state != STATES.DEAD:
+		billb.show(	)
+		bulletDetShape.disabled = false
+		dead = false
+		hand1.show()
+		hand2.show()
+		deadTime = 0
+		playerName.show()
 	if state == STATES.NORMAL:
 		normalState(delta)
 	elif state == STATES.DEAD:
-		if weapon != null:
-			removeWeapon.rpc()
+		bulletDetShape.disabled = true
+		dead = true
+		playerName.hide()
+		hand1.hide()
+		hand2.hide()
+		deathState(delta)
+
+func deathState(delta):
+	if mulSync.get_multiplayer_authority() != multiplayer.get_unique_id():
+		return
+	ouchTime = 10
+	var spd = icyness / 2.0
+	if !is_on_floor():
+		spd = icyness / 10.0
+	velocity.x = move_toward(velocity.x,0.0,deltaify(spd,delta))
+	velocity.z = move_toward(velocity.z,0.0,deltaify(spd,delta))
+	if weapon != null:
+		removeWeapon.rpc()
+	deadTime += 1
+	if deadTime == 1:
+		if hp > GIB_MARGIN:
+			blood.modulate.a = 0.6
+			emitSound.rpc(deathSound,position,0,randf_range(0.9,1.2))
+		else:
+			blood.modulate.a = 1.5
+			doGibEffect.rpc(position)
+			billb.hide()
+		velocity.y = JUMP_VELOCITY * 0.8
+	animation = deadAnim
+	move_and_slide()
+
+@rpc("call_local","any_peer","reliable")
+func doGibEffect(pos):
+	emitSound(gibSound,pos,0,randf_range(0.9,1.2))
+	var gib = gibEffect.instantiate()
+	gib.texture = billb.texture
+	gib.position = pos
+	billb.hide()
+	get_tree().current_scene.add_child(gib)
+
 
 func normalState(delta):
 	if mulSync.get_multiplayer_authority() != multiplayer.get_unique_id():
-		billb.animation = load(animation)
 		return
+	billb.show()
+	animation = normalAnim
+	if hp <= 0 && mortal:
+		state = STATES.DEAD
+		return
+	if position.y < DEATH_ZONE:
+		hurt(1,0)
+	rotation = Vector3.ZERO
 	if weapon != null:
 		hand1.position = lerp(hand1.position,weapon.handGuide1.position,0.7)
 		hand2.position = lerp(hand2.position,weapon.handGuide2.position,0.7)
 		var shoot = Input.is_action_just_pressed("fire")
 		if Input.is_action_just_pressed("throw") && weapon.canBeThrown:
-			removeWeapon()
+			removeWeapon.rpc()
 			return
 		if weapon.weapon.autofire:
 			shoot = Input.is_action_pressed("fire")
 		if shoot:
-			weapon.shoot.rpc()
+			weapon.shoot.rpc(camera.global_rotation)
 		if weapon.weapon.canZoom:
 			if Input.is_action_pressed("altfire"):
 				camera.fov = lerp(camera.fov,float(weapon.weapon.zoomFOV),0.2)
@@ -175,12 +262,6 @@ func normalState(delta):
 			emitSound.rpc("res://sounds/ct_footstep_" + str(randi_range(0,3))+ ".ogg",position,linear_to_db(Settings.stepVolume/100) ,randf_range(0.9,1.1))
 	if stepDelay > 0:
 		stepDelay -= 60*delta
-	if not is_on_floor():
-		velocity += grav * delta
-		if coyote > 0:
-			coyote -= 1
-	else:
-		coyote = maxCoyote
 	if Input.is_action_just_pressed("jump") && coyote > 0:
 		coyote = 0
 		velocity.y = JUMP_VELOCITY
@@ -188,9 +269,11 @@ func normalState(delta):
 	var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	var spd = icyness
 	if direction:
+		billb.animationSpeed = animationSpeed
 		velocity.x = move_toward(velocity.x,direction.x * SPEED,deltaify(spd,delta))
 		velocity.z = move_toward(velocity.z,direction.z * SPEED,deltaify(spd,delta))
 	else:
+		billb.animationSpeed = 0
 		velocity.x = move_toward(velocity.x,0.0,deltaify(spd,delta))
 		velocity.z = move_toward(velocity.z,0.0,deltaify(spd,delta))
 	move_and_slide()
@@ -217,18 +300,23 @@ func emitSound(sound : String,pos,volume = 0,pitch = 1.0):
 @onready var blood: ColorRect = $CROSSHAIR/blood
 
 func hurt(damage,knockback = -5,source = null):
-	emitSound.rpc(load("res://sounds/hurt.ogg"),position)
+	if invincible:
+		ouchTime = 15
+		return
+	emitSound.rpc("res://sounds/hurt.ogg",position)
 	ouchTime = 60
 	var dmg = damage
 	hp -= dmg
-	if source.Owner != null:
-		damageIndicate.rpc_id(source.Owner.id,source.Owner.id,dmg*-1)
+	if source != null:
+		if source.Owner != null:
+			damageIndicate.rpc_id(source.Owner.id,source.Owner.id,dmg*-1)
 	if blood.modulate.a < 1:
-		blood.modulate.a += 0.2
-	if blood.modulate.a > 0.5:
-		blood.modulate.a  = 0.5
-	var k = global_position.direction_to(source.global_position)
-	velocity += k*knockback
+		blood.modulate.a += 0.1
+	if blood.modulate.a > 0.4:
+		blood.modulate.a  = 0.4
+	if source != null:
+		var k = global_position.direction_to(source.global_position)
+		velocity += k*knockback
 
 func bop_head(delta,frequency,amplitude):
 	if round(velocity) != Vector3(0,0,0) && is_on_floor():

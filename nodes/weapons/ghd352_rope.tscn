@@ -27,4 +27,4 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.36
 texture = ExtResource("5_fkfxk")
 
 [node name="shootPoint" parent="." index="3" unique_id=762613811]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21567237, 0.24435544, -0.87640357)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21567237, 0.24435544, -0.59030044)

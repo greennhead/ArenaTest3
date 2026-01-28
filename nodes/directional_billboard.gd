@@ -10,7 +10,10 @@ var sprite_frame = 0
 @export var animationToSync = []
 var an = 0
 var currArr = []
-#THIS IS THE BILLBOARD SCRIPT DO NOT EDIT IT
+@onready var node: Node3D = $Node3D
+@onready var mesh: MeshInstance3D = $MeshInstance3D
+var legacy := false
+# WARNING THIS IS THE BILLBOARD SCRIPT DO NOT EDIT IT
 func _process(delta: float) -> void:
 	if get_viewport().get_camera_3d() == null:
 		return
@@ -20,10 +23,10 @@ func _process(delta: float) -> void:
 		Frame += 1
 	if global_transform.origin.is_equal_approx(get_viewport().get_camera_3d().global_position):
 		return
-	$Node3D.look_at(get_viewport().get_camera_3d().global_position)
-	$MeshInstance3D.look_at(get_viewport().get_camera_3d().global_position)
-	$MeshInstance3D.global_rotation.x = 0
-	sprite_frame = round($Node3D.rotation_degrees.y / 45)
+	node.look_at(get_viewport().get_camera_3d().global_position)
+	mesh.look_at(get_viewport().get_camera_3d().global_position)
+	mesh.global_rotation.x = 0
+	sprite_frame = round(node.rotation_degrees.y / 45)
 	flip_h = false
 	if Frame > currArr.size()-1:
 		Frame = 0
@@ -31,7 +34,9 @@ func _process(delta: float) -> void:
 
 func set_sprite(fr):
 	hframes = 8
-	vframes = 5
+	vframes = 6
+	if legacy:
+		vframes = 5
 	if animation.onlyFront:
 		frame = animation.front[Frame]
 		currArr = animation.front
@@ -63,14 +68,4 @@ func set_sprite(fr):
 
 func set_animation(anim):
 	Frame = 0
-	animation = anim
-
-func save():
-	var save_dict = {
-		"filename" : get_scene_file_path(),
-		"parent" : get_parent().get_path(),
-		"pos_x" : position.x,
-		"pos_y" : position.y,
-		"pos_z" : position.z
-	}
-	return save_dict
+	animation = load(anim)

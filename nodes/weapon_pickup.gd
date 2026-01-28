@@ -12,28 +12,31 @@ var oneTime = false
 @onready var swayTime = randi_range(-124,115)
 func _ready() -> void:
 	updateGun()
+@onready var label_3d: Label3D = $Label3D
+@onready var label_3d_2: Label3D = $Label3D2
+@onready var sprite: Sprite3D = $sprite
 
 
 func updateGun():
-	$sprite.texture = load(weapon.replace(".tscn",".tres")).singularSprite
+	sprite.texture = load(weapon.replace(".tscn",".tres")).singularSprite
 	if weapon == null:
 		blocked = true
 
 func _physics_process(delta: float) -> void:
 	swayTime += 1
-	$sprite.offset.y = cos(swayTime * 0.03) * 4 +4
+	sprite.offset.y = cos(swayTime * 0.03) * 4 +4
 	if currdelay > 0:
-		$Label3D.visible = true
-		$sprite.modulate.a = 0.5
-		$sprite.rotation_degrees.y += (2*60)*delta
+		label_3d.visible = true
+		sprite.modulate.a = 0.5
+		sprite.rotation_degrees.y += (2*60)*delta
 	else:
-		$Label3D.visible = false
-		$sprite.modulate.a = 1
-		$sprite.rotation_degrees.y += (4*60)*delta
+		label_3d.visible = false
+		sprite.modulate.a = 1
+		sprite.rotation_degrees.y += (4*60)*delta
 	if editor:
 		$CollisionShape3D.disabled = false
 	if blocked: 
-		$Label3D2.visible = true
+		label_3d_2.visible = true
 		return
 	var weaponSprite = $sprite
 	if weapon == null:
@@ -52,10 +55,10 @@ func _physics_process(delta: float) -> void:
 	if $MultiplayerSynchronizer.get_multiplayer_authority() != multiplayer.get_unique_id():
 		return
 	if editor:
-		$Label3D.visible = true
-		$sprite.rotation_degrees.y += (2*60)*delta
+		label_3d.visible = true
+		sprite.rotation_degrees.y += (2*60)*delta
 		if weaponName != null:
-			$Label3D.text = weaponName
+			label_3d.text = weaponName
 		return
 	if !editor:
 		timer += 60*delta
@@ -68,7 +71,7 @@ func _physics_process(delta: float) -> void:
 		$CollisionShape3D.disabled = true
 	else:
 		$CollisionShape3D.disabled = false
-	$Label3D.text = str(round(currdelay)).replace(".0","")
+	label_3d.text = str(round(currdelay)).replace(".0","")
 
 
 

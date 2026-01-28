@@ -4,7 +4,8 @@ extends Node3D
 
 @onready var settingsMenu = preload("res://nodes/menus/settings_menu.tscn")
 @onready var mapMenu = preload("res://nodes/menus/mapPicker.tscn")
-@export var levelScene : PackedScene
+@onready var mpMenu = preload("res://nodes/menus/lobby.tscn")
+
 
 func _ready() -> void:
 	GameManager.testMap = ""
@@ -57,8 +58,14 @@ func mapPickedTestMode(gamemode,map):
 					ppath = path + file_name + "/mode.tres"
 			file_name = dir.get_next()
 	if ppath != null:
+		GameManager.Players[1] = {
+			"name" : Settings.playerName,
+			"id" : 1,
+			"score" : 0,
+			"team" : 0,
+			"checksum" : "hello",
+		}
 		GameManager.testMap = map
-		print(map)
 		get_tree().change_scene_to_file(load(ppath).levelScene)
 
 func _on_testmode_pressed() -> void:
@@ -66,3 +73,15 @@ func _on_testmode_pressed() -> void:
 	add_child(m)
 	m.mapPicked.connect(mapPickedTestMode)
 	#get_tree().change_scene_to_packed(levelScene)
+
+
+func _on_host_pressed() -> void:
+	var m = mpMenu.instantiate()
+	m.hosted = true
+	add_child(m)
+
+
+func _on_join_pressed() -> void:
+	var m = mpMenu.instantiate()
+	m.hosted = false
+	add_child(m)

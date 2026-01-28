@@ -172,7 +172,7 @@ hframes = 2
 region_rect = Rect2(4, 101, 7, 7)
 
 [node name="shootPoint" type="Node3D" parent="." unique_id=1607160607]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35460198, 0.14366174, -1.8065461)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35460198, 0.14366174, -0.89067674)
 
 [node name="animation" type="AnimationPlayer" parent="." unique_id=826335541]
 libraries/ = SubResource("AnimationLibrary_lqykj")

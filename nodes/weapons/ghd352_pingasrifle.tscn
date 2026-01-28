@@ -7,7 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://wnwwj68kms0j" path="res://images/weaponry/legacyMod/ghd352_pingas.png" id="5_40p4q"]
 
 [node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_m21c3")]
-damage = 46
+oldPhysics = false
+damage = 999
 knockback = -6.0
 FireAnimationRotation = 15.0
 tracerColor = Color(1, 0, 0, 0)
@@ -29,4 +30,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3815431, -0.163248, -1.2579
 texture = ExtResource("5_40p4q")
 
 [node name="shootPoint" parent="." index="3" unique_id=762613811]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15628862, -1.599)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15628862, -0.969694)

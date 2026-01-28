@@ -16,57 +16,42 @@ size = Vector3(0.8, 0.8, 0.8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_me0cc"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hqdnm"]
-properties/0/path = NodePath("DirectionalBillboard:rotation")
-properties/0/spawn = true
-properties/0/replication_mode = 2
-properties/1/path = NodePath(".:position")
-properties/1/spawn = true
-properties/1/replication_mode = 2
-properties/2/path = NodePath("DirectionalBillboard/hand:position")
-properties/2/spawn = true
-properties/2/replication_mode = 2
-properties/3/path = NodePath("DirectionalBillboard/hand2:position")
-properties/3/spawn = true
-properties/3/replication_mode = 2
-properties/4/path = NodePath(".:textureBase64")
-properties/4/spawn = true
-properties/4/replication_mode = 2
-properties/5/path = NodePath("DirectionalBillboard:Frame")
-properties/5/spawn = true
-properties/5/replication_mode = 2
-properties/6/path = NodePath(".:animation")
-properties/6/spawn = true
-properties/6/replication_mode = 2
-properties/7/path = NodePath(".:hasWeapon")
-properties/7/spawn = true
-properties/7/replication_mode = 2
-properties/8/path = NodePath(".:dead")
-properties/8/spawn = true
-properties/8/replication_mode = 2
-properties/9/path = NodePath("DirectionalBillboard/weapon:rotation")
-properties/9/spawn = true
-properties/9/replication_mode = 2
-properties/10/path = NodePath("DirectionalBillboard/weapon:position")
-properties/10/spawn = true
-properties/10/replication_mode = 2
-properties/11/path = NodePath("Label3D2:visible")
-properties/11/spawn = true
-properties/11/replication_mode = 2
-properties/12/path = NodePath("DirectionalBillboard:visible")
-properties/12/spawn = true
-properties/12/replication_mode = 2
-properties/13/path = NodePath(".:hp")
-properties/13/spawn = true
-properties/13/replication_mode = 2
-properties/14/path = NodePath(".:displayName")
-properties/14/spawn = true
-properties/14/replication_mode = 2
-
 [sub_resource type="LabelSettings" id="LabelSettings_hg0js"]
 font_size = 8
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hg0js"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:state")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:hp")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("DirectionalBillboard/hand:position")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("DirectionalBillboard/hand2:position")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath("DirectionalBillboard:rotation")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath(".:textureBase64")
+properties/6/spawn = true
+properties/6/replication_mode = 2
+properties/7/path = NodePath(".:displayName")
+properties/7/spawn = true
+properties/7/replication_mode = 2
+properties/8/path = NodePath(".:animationSpeed")
+properties/8/spawn = true
+properties/8/replication_mode = 2
+properties/9/path = NodePath(".:animation")
+properties/9/spawn = true
+properties/9/replication_mode = 2
 
 [node name="player" type="CharacterBody3D" unique_id=2026852342 groups=["player"]]
 collision_layer = 2
@@ -127,9 +112,6 @@ script = ExtResource("6_2wrp4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.552231, 0)
 shape = SubResource("BoxShape3D_me0cc")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1426240757]
-replication_config = SubResource("SceneReplicationConfig_hqdnm")
-
 [node name="CROSSHAIR" type="CanvasLayer" parent="." unique_id=122563698]
 
 [node name="crosshair" type="Sprite2D" parent="CROSSHAIR" unique_id=626508452]
@@ -160,3 +142,6 @@ label_settings = SubResource("LabelSettings_hg0js")
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("10_hg0js")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=250437715]
+replication_config = SubResource("SceneReplicationConfig_hg0js")

@@ -58,10 +58,10 @@ func _physics_process(delta: float) -> void:
 	if delay > 0:
 		delay -= 1
 	if delay == 0 && ammo == 0:
-		player.removeWeapon()
+		player.removeWeapon.rpc()
 
 @rpc("any_peer","call_local","reliable")
-func shoot():
+func shoot(rot):
 	if delay > 0 || ammo <= 0:
 		return
 	ammo -= 1
@@ -78,7 +78,7 @@ func shoot():
 		return
 	for i in weapon.projectileAmount:
 		bullet = projectile.instantiate()
-		bullet.rotation = player.camera.global_rotation
+		bullet.rotation = rot
 		bullet.rotation_degrees.x += randf_range(-weapon.projectileSpread,weapon.projectileSpread)
 		bullet.rotation_degrees.y += randf_range(-weapon.projectileSpread,weapon.projectileSpread)
 		bullet.rotation_degrees.z += randf_range(-weapon.projectileSpread,weapon.projectileSpread)

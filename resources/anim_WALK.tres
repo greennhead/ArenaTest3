@@ -12,4 +12,3 @@ back = Array[int]([4, 12, 4, 20])
 back_left = Array[int]([5, 13, 5, 21])
 left = Array[int]([6, 14, 6, 22])
 front_left = Array[int]([7, 15, 7, 23])
-metadata/_custom_type_script = "uid://bbrf1cbmyep5q"

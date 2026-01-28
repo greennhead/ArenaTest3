@@ -12,4 +12,3 @@ back = Array[int]([39, 39])
 back_left = Array[int]([39, 39])
 left = Array[int]([39, 39])
 front_left = Array[int]([39, 39])
-metadata/_custom_type_script = "uid://bbrf1cbmyep5q"

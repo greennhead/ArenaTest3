@@ -36,7 +36,7 @@ DEATH_ENV,%s died to %s.,%s умер от %s.,%s umarł od %s.,%s was plundered 
 DEATH_FALLDAMAGE,%s gets squished.,%s сжимается.,%s zostaje zmiażdżony.,%s OW!!!
 DEATH_SUDDENDEATH,%s took too long.,%s заняло слишком много времени.,%s nie robi się młodszy.,%s was mutinied.
 DEATH_HEADSHOT,%s had their head blown off by %s,%s лишились головы от рук %s,"%s stracił głowę, dzięki %s",%s plunders %s.
-HOST_RESETSKIN,%s's skin was reset by the host.,Скин пользователя %s был сброшен хостом.,Skórka %s została zresetowana przez gospodarza.,%s's buccaneer was blown down by the captain.
+HOST_RESETSKIN,%s's skin was reset by the host.,Скин %s был сброшен хостом.,Skórka %s została zresetowana przez gospodarza.,%s's buccaneer was blown down by the captain.
 HOST_KICK,%s was kicked from the game.,%s был удален с поля.,%s został wyrzucony z gry.,%s was blown down by the captain.
 Settings,Settings,Настройки,Ustawienia,Set Things
 Sound Volume,Sound Volume,Громкость Звуков,Głośność dźwięku,Volume of the sea
@@ -62,4 +62,7 @@ MENU_Author,Author,Автор,Autor,Captain
 MENU_Gamemode,Gamemode,Игровой режим,Tryb gry,Plundermode
 MENU_ToggleAll,Toggle All,Показать все,Przełącz wszystko,All
 SETTINGS_FOV,FOV,Поле Зрения,Pole widzenia,Pirate Vision
-SETTINGS_Directory,Open Content Directory,Открыть Папку Контента,Otwórz katalog treści,
+SETTINGS_Directory,Open Content Directory,Открыть Папку Контента,Otwórz katalog treści,Open Yer Files
+MENU_LOBBY,Lobby,Лобби,Lobby,Ship
+MENU_PLAYERS,Players,Игроки,Gracze,Crew
+MENU_Gamemode,Mode,Режим,Tryb,Yarr

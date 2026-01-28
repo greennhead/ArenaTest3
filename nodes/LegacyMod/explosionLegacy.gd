@@ -29,8 +29,9 @@ func _ready() -> void:
 
 
 @rpc("reliable","authority","call_local")
-func breakTile(position,gridmap : GridMap):
-	gridmap.set_cell_item(Vector3i(position),-1)
+func breakTile(position,gridmap):
+	var gr = get_tree().current_scene.find_child(gridmap)
+	gr.set_cell_item(Vector3i(position),-1)
 	#print(position)
 	#print("ID: " + str(GameManager.myPlayer.id))
 	#var i = null
@@ -55,7 +56,7 @@ func _process(delta: float) -> void:
 				for cell in p.get_used_cells():
 					if p.to_global(cell).distance_to(global_position) < radius:
 						if multiplayer.get_unique_id() == 1:
-							breakTile.rpc(cell,p)
+							breakTile.rpc(cell,p.name)
 			if i is Player:
 				if explosionAffectsShooterOnly && i != Owner:
 					return

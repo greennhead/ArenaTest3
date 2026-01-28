@@ -14,8 +14,6 @@ func _ready() -> void:
 			i.time = 0
 			i.modulate.a = 1
 			i.dmg += dmg
-			print(dmg)
-			print(i.dmg)
 			i.position.y -= 2
 
 func _process(delta: float) -> void:

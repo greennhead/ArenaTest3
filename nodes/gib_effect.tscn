@@ -24,8 +24,12 @@ emission_box_extents = Vector3(0.2, 0.2, 0.2)
 spread = 180.0
 initial_velocity_max = 3.0
 gravity = Vector3(0, 0, 0)
+scale_min = 0.19999999
+scale_max = 0.59999996
 scale_curve = SubResource("CurveTexture_feebb")
 alpha_curve = SubResource("CurveTexture_fuokv")
+anim_offset_min = 0.9
+anim_offset_max = 0.9
 turbulence_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nkkti"]
@@ -34,8 +38,8 @@ albedo_texture = ExtResource("2_g8i82")
 texture_filter = 0
 billboard_mode = 3
 billboard_keep_scale = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
+particles_anim_h_frames = 8
+particles_anim_v_frames = 6
 particles_anim_loop = false
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_qlmvs"]
@@ -68,7 +72,8 @@ initial_velocity_min = 1.0
 initial_velocity_max = 12.0
 scale_min = 0.5
 scale_curve = SubResource("CurveTexture_g8i82")
-anim_offset_max = 1.0
+anim_offset_min = 0.8792
+anim_offset_max = 0.8892
 collision_mode = 1
 collision_friction = 0.46
 collision_bounce = 0.7
@@ -79,8 +84,8 @@ albedo_texture = ExtResource("2_g8i82")
 texture_filter = 0
 billboard_mode = 3
 billboard_keep_scale = true
-particles_anim_h_frames = 4
-particles_anim_v_frames = 1
+particles_anim_h_frames = 16
+particles_anim_v_frames = 12
 particles_anim_loop = false
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0u5i2"]
@@ -88,10 +93,25 @@ material = SubResource("StandardMaterial3D_7xbgx")
 size = Vector2(0.5, 0.5)
 orientation = 2
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_om6mb"]
+lifetime_randomness = 0.24
+angle_min = -32.0
+angle_max = 32.0
+angle_curve = SubResource("CurveTexture_mdo2k")
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 12.0
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_g8i82")
+anim_offset_min = 0.95849997
+anim_offset_max = 0.96849996
+collision_mode = 1
+collision_friction = 0.46
+collision_bounce = 0.7
+
 [node name="gibEffect" type="GPUParticles3D" unique_id=469430413 groups=["clearMe"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.092, 0)
 emitting = false
-amount = 32
+amount = 64
 lifetime = 4.0
 one_shot = true
 explosiveness = 1.0
@@ -102,16 +122,30 @@ script = ExtResource("2_dh4l4")
 [node name="bones" type="GPUParticles3D" parent="." unique_id=2077508648]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0287575, 0)
 emitting = false
-amount = 24
+amount = 32
 lifetime = 4.0
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_n167v")
 draw_pass_1 = SubResource("PlaneMesh_0u5i2")
 
+[node name="bones2" type="GPUParticles3D" parent="." unique_id=1986652012]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0287575, 0)
+emitting = false
+amount = 32
+lifetime = 4.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_om6mb")
+draw_pass_1 = SubResource("PlaneMesh_0u5i2")
+
 [node name="Timer" type="Timer" parent="." unique_id=248398746]
 wait_time = 10.0
 one_shot = true
 autostart = true
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="." unique_id=1586147075]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+size = Vector3(3, 1, 3)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

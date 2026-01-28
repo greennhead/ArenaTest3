@@ -36,7 +36,7 @@ offset_left = 8.0
 offset_top = 213.0
 offset_right = 147.0
 offset_bottom = 244.0
-text = "test"
+text = "loading..."
 label_settings = SubResource("LabelSettings_twpnc")
 
 [node name="hudText2" type="Label" parent="CenterContainer/hudPlate" unique_id=763997895]
@@ -45,5 +45,5 @@ offset_left = 184.0
 offset_top = 213.0
 offset_right = 325.0
 offset_bottom = 244.0
-text = "test"
+text = "loading..."
 label_settings = SubResource("LabelSettings_twpnc")

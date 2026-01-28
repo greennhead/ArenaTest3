@@ -81,7 +81,7 @@ var clusterSpread = 0
 var clusterAmount = 0
 var clusterWepArray = []
 var clusterWeapon : Weapon
-var oldPhysics = true
+var oldPhysics = false
 var totalAcceleration = 0
 @onready var checks_ray: RayCast3D = $checksRay
 @onready var wall_bounce_hitbox: CollisionShape3D = $wallBounceArea/wallBounceHitbox

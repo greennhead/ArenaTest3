@@ -12,13 +12,15 @@ var oldmappath
 var preloadskin := ""
 var globalMaplist := []
 var num := 0
+var mapnum := -1
 var level 
 var customObjects : Array[mapObject]
 var testMap := ""
 const modsPath := "user://mods/" 
 var myName := ""
 var mods = []
-
+var address = "localhost"
+var enabledMaps = []
 func _ready() -> void:
 	var path = "res://objects/"
 	var resources = ResourceLoader.list_directory(path)

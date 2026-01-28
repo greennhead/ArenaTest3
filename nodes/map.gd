@@ -31,15 +31,30 @@ func load_image(path: String, blockify : bool = false):
 	#return texture
 
 func _ready() -> void:
-	await get_tree().create_timer(0.1).timeout
-	sendRandom.rpc(randi_range(0,99999999))
+	GameManager.mapnum += 1
+	GameManager.num = randi_range(0,99999)
+	sendRandom.rpc(randi_range(0,99999999),GameManager.num)
 	await get_tree().create_timer(0.1).timeout
 	getMapList()
-	loadMap(mapList[0])
+	loadMap(mapList[GameManager.mapnum])
+
+@rpc("authority","call_local","reliable")
+func spawnPlayers():
+	seed(GameManager.num)
+	GameManager.num += 1
+	var idx = 0
+	var order = get_tree().get_nodes_in_group("spawnPoint")
+	order.shuffle()
+	for i in get_tree().get_nodes_in_group("player"):
+		if idx > order.size():
+			idx = 0
+		i.global_position = order[idx].global_position
+		idx += 1
 
 @rpc("call_local","reliable","authority")
-func sendRandom(random):
+func sendRandom(random, num):
 	rand = random
+	GameManager.num = num
 
 func loadMap(map):
 	for i in get_children():
@@ -138,7 +153,9 @@ func loadMap(map):
 			#else:
 				#b.mesh.material_override = materials.get(str(node_data["texture"]))
 		progress += 1
-	$"../player".position = get_tree().get_nodes_in_group("spawnPoint").pick_random().position
+	spawnPlayers()
+
+
 
 
 @rpc("reliable","call_local")
@@ -157,7 +174,7 @@ func getMapList():
 				var config = ConfigFile.new()
 				var err = config.load(path + file_name + "/config.cfg")
 				if err == OK:
-					if config.get_value("data","gamemode") == GameManager.gmName:
+					if config.get_value("data","gamemode") == GameManager.gmName && GameManager.enabledMaps.has(file_name):
 						GameManager.globalMaplist.append(file_name)
 			file_name = dir.get_next()
 	mapList = []

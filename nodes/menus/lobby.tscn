@@ -1,0 +1,160 @@
+[gd_scene format=3 uid="uid://bueiikfgm48ck"]
+
+[ext_resource type="Theme" uid="uid://d8dvt0loqsul" path="res://resources/gametheme.tres" id="1_n06no"]
+[ext_resource type="Script" uid="uid://sheffiacqdhf" path="res://nodes/menus/lobby.gd" id="1_x63fm"]
+[ext_resource type="Texture2D" uid="uid://dybdk0toudmvx" path="res://images/window.png" id="3_pw2cy"]
+[ext_resource type="PackedScene" uid="uid://b3sghukfmnnpi" path="res://nodes/menus/mapPicker.tscn" id="4_o6di7"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hatrp"]
+texture = ExtResource("3_pw2cy")
+texture_margin_left = 2.0
+texture_margin_top = 17.0
+texture_margin_right = 2.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6di7"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ayhb5"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_o6di7"]
+properties/0/path = NodePath("MapPicker:gamemodeRestriction")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:hostChecksum")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="lobby" type="Control" unique_id=513308189]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -64.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x63fm")
+
+[node name="Panel" type="Panel" parent="." unique_id=1785407253]
+layout_mode = 0
+offset_right = 576.0
+offset_bottom = 448.0
+theme = ExtResource("1_n06no")
+
+[node name="close" type="Button" parent="." unique_id=591613515]
+layout_mode = 0
+offset_left = 564.0
+offset_right = 576.0
+offset_bottom = 13.0
+text = "X"
+
+[node name="start" type="Button" parent="." unique_id=812429094 groups=["disableIfClient"]]
+layout_mode = 0
+offset_left = 488.0
+offset_top = 424.0
+offset_right = 568.0
+offset_bottom = 437.0
+text = "Start"
+
+[node name="Name" type="Label" parent="." unique_id=1215875637]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 304.0
+offset_bottom = 11.0
+theme = ExtResource("1_n06no")
+text = "MENU_LOBBY"
+
+[node name="players" type="ItemList" parent="." unique_id=609827201]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 16.0
+offset_right = 192.0
+offset_bottom = 176.0
+theme = ExtResource("1_n06no")
+theme_override_styles/panel = SubResource("StyleBoxTexture_hatrp")
+theme_override_styles/focus = SubResource("StyleBoxTexture_hatrp")
+theme_override_styles/hovered = SubResource("StyleBoxTexture_hatrp")
+theme_override_styles/hovered_selected = SubResource("StyleBoxTexture_hatrp")
+theme_override_styles/hovered_selected_focus = SubResource("StyleBoxTexture_hatrp")
+theme_override_styles/selected = SubResource("StyleBoxTexture_hatrp")
+theme_override_styles/selected_focus = SubResource("StyleBoxTexture_hatrp")
+theme_override_styles/cursor_unfocused = SubResource("StyleBoxFlat_o6di7")
+theme_override_styles/cursor = SubResource("StyleBoxFlat_o6di7")
+
+[node name="Name" type="Label" parent="players" unique_id=691613794]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 120.0
+offset_bottom = 11.0
+theme = ExtResource("1_n06no")
+text = "MENU_PLAYERS"
+
+[node name="gamemodeSelector" type="ItemList" parent="." unique_id=2091110297]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 184.0
+offset_right = 112.0
+offset_bottom = 344.0
+theme = ExtResource("1_n06no")
+theme_override_styles/panel = SubResource("StyleBoxTexture_hatrp")
+theme_override_styles/focus = SubResource("StyleBoxTexture_hatrp")
+theme_override_styles/hovered = SubResource("StyleBoxTexture_hatrp")
+theme_override_styles/hovered_selected = SubResource("StyleBoxTexture_hatrp")
+theme_override_styles/hovered_selected_focus = SubResource("StyleBoxTexture_hatrp")
+theme_override_styles/selected = SubResource("StyleBoxFlat_ayhb5")
+theme_override_styles/selected_focus = SubResource("StyleBoxFlat_ayhb5")
+theme_override_styles/cursor_unfocused = SubResource("StyleBoxFlat_o6di7")
+theme_override_styles/cursor = SubResource("StyleBoxFlat_o6di7")
+
+[node name="Name" type="Label" parent="gamemodeSelector" unique_id=1068168368]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 106.0
+offset_bottom = 11.0
+theme = ExtResource("1_n06no")
+text = "MENU_Gamemode"
+
+[node name="MapPicker" parent="." unique_id=413486018 instance=ExtResource("4_o6di7")]
+layout_mode = 1
+offset_left = 200.0
+offset_top = 16.0
+offset_right = -60.0
+offset_bottom = -82.0
+togglerMode = true
+gamemodeRestriction = "deathmatch"
+canLoad = false
+snapToCenter = false
+
+[node name="ToggleAll" parent="MapPicker" index="1" unique_id=587497183 groups=["disableIfClient"]]
+
+[node name="SwitchTo" parent="MapPicker/ScrollContainer/VBoxContainer/map" parent_id_path=PackedInt32Array(413486018, 485330672) index="2" unique_id=1152529285 groups=["disableIfClient"]]
+
+[node name="Toggle" parent="MapPicker/ScrollContainer/VBoxContainer/map" parent_id_path=PackedInt32Array(413486018, 485330672) index="3" unique_id=19773675 groups=["disableIfClient"]]
+
+[node name="close" parent="MapPicker" index="4" unique_id=2103337389]
+disabled = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=392429737]
+replication_config = SubResource("SceneReplicationConfig_o6di7")
+
+[connection signal="pressed" from="close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="start" to="." method="_on_start_pressed"]
+[connection signal="item_selected" from="gamemodeSelector" to="." method="_on_gamemode_selector_item_selected"]
+[connection signal="pressed" from="MapPicker/ToggleAll" to="MapPicker" method="_on_toggle_all_pressed"]
+
+[editable path="MapPicker"]

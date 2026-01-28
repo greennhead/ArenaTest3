@@ -24,3 +24,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.436636, -0.166306, -0.83309
 
 [node name="gunSprite" parent="." index="2" unique_id=1094739627]
 texture = ExtResource("5_me13i")
+
+[node name="shootPoint" parent="." index="3" unique_id=762613811]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46022153, -0.24928951, -0.7237188)
