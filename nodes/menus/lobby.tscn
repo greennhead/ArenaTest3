@@ -2,6 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://d8dvt0loqsul" path="res://resources/gametheme.tres" id="1_n06no"]
 [ext_resource type="Script" uid="uid://sheffiacqdhf" path="res://nodes/menus/lobby.gd" id="1_x63fm"]
+[ext_resource type="PackedScene" uid="uid://bp8lkc3ukjnna" path="res://nodes/menus/errorWindow.tscn" id="2_ayhb5"]
 [ext_resource type="Texture2D" uid="uid://dybdk0toudmvx" path="res://images/window.png" id="3_pw2cy"]
 [ext_resource type="PackedScene" uid="uid://b3sghukfmnnpi" path="res://nodes/menus/mapPicker.tscn" id="4_o6di7"]
 
@@ -46,6 +47,7 @@ offset_bottom = -32.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_x63fm")
+errorWindow = ExtResource("2_ayhb5")
 
 [node name="Panel" type="Panel" parent="." unique_id=1785407253]
 layout_mode = 0

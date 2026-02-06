@@ -52,6 +52,9 @@ properties/8/replication_mode = 2
 properties/9/path = NodePath(".:animation")
 properties/9/spawn = true
 properties/9/replication_mode = 2
+properties/10/path = NodePath(".:taunting")
+properties/10/spawn = true
+properties/10/replication_mode = 1
 
 [node name="player" type="CharacterBody3D" unique_id=2026852342 groups=["player"]]
 collision_layer = 2

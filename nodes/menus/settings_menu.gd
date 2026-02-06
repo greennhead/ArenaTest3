@@ -15,6 +15,7 @@ func _ready() -> void:
 	$Sensitivity.value = Settings.senstivity
 	$Fullscreen.button_pressed = Settings.fullscreen
 	$fov.value = Settings.fov
+	$DefaultSkin.text = Settings.defaultSkin
 
 func _process(delta: float) -> void:
 	super(delta)
@@ -29,6 +30,7 @@ func _process(delta: float) -> void:
 	Settings.senstivity = $Sensitivity.value
 	Settings.fullscreen = $Fullscreen.button_pressed
 	Settings.fov = $fov.value
+	Settings.defaultSkin = $DefaultSkin.text
 
 
 func _on_step_sound_value_changed(value: float) -> void:

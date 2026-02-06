@@ -43,7 +43,7 @@ var sensetivity := 0.003
 
 @export var grav := Vector3(0,-14,0)
 var watergrav := Vector3(0,-4,0)
-
+var texOld := ""
 @export var textureBase64 := ""
 var weapon = null
 @onready var mulSync: MultiplayerSynchronizer = $MultiplayerSynchronizer
@@ -57,7 +57,7 @@ var stepDelay = 0
 var dead := false
 var deadTime := 0
 var moving := false
-var taunting := false
+@export var taunting := false
 
 var lasthitby = self
 var lasthitbytype = "player"
@@ -66,7 +66,7 @@ var lasthitbytype = "player"
 
 @export var mortal := true
 @export var invincible := false
-
+@onready var canTaunt := true
 
 @export_file("*.ogg") var deathSound = "res://sounds/die.ogg"
 @export_file("*.ogg") var gibSound = "res://sounds/die_gib.ogg"
@@ -83,7 +83,10 @@ func _ready() -> void:
 		GameManager.myName = Settings.playerName
 		displayName = GameManager.myName
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
+	if Settings.defaultSkin != "":
+		if FileAccess.file_exists(Settings.skinsPath + "/" + Settings.defaultSkin):
+			var img = Image.load_from_file(Settings.skinsPath + "/"+ Settings.defaultSkin).save_png_to_buffer()
+			textureBase64 = Marshalls.raw_to_base64(img)
 
 @onready var hand1origin = hand1.position
 @onready var hand2origin = hand2.position
@@ -98,6 +101,8 @@ func removeWeapon():
 
 @rpc("any_peer","call_local","reliable")
 func giveWeapon(newweapon):
+	if weapon != null:
+		removeWeapon()
 	smirkTime = 120
 	var wep
 	if newweapon is String:
@@ -126,6 +131,54 @@ func cursorLock():
 @onready var crosshair: Sprite2D = $CROSSHAIR/crosshair
 
 func _physics_process(delta: float) -> void:
+	if texOld != textureBase64:
+		texOld = textureBase64
+		var img = Image.new()
+		img.load_png_from_buffer(Marshalls.base64_to_raw(textureBase64))
+		var classic = false
+		if img.get_size() != Vector2i(192,120):
+			img.resize(192,144,Image.INTERPOLATE_NEAREST)
+		else:
+			print_rich("[color=yellow]Skin detected as classic skin")
+			var real = load("res://images/default.png").get_image()
+			var og = img
+			var tiny = og
+			tiny = tiny.get_region(Rect2i(6,6,18,18))
+			tiny.resize(7,7)
+			var small = og
+			small = small.get_region(Rect2i(2,2,22,22))
+			small.resize(11,11)
+			classic = true
+			var newimg = Image.create(192,144,img.has_mipmaps(),img.get_format())
+			for x in newimg.get_width():
+				for y in newimg.get_height():
+					if y <= 119: #normal sprite
+						newimg.set_pixel(x,y,og.get_pixel(x,y))
+					if y >= 122 && y <= 128 && x >= 4 && x <= 10: # tiny sprite
+						newimg.set_pixel(x,y,tiny.get_pixel(x-4,y-122))
+					if y >= 132 && y <= 142 && x >= 4 && x <= 14: # small sprite
+						newimg.set_pixel(x,y,small.get_pixel(x-4,y-132))
+					if x >= 24 && x <= 47 && y >= 120 && y <= 134: # top decap
+						var col = Color(og.get_pixel(x-24,y-120).r* 0.5,og.get_pixel(x-24,y-120).g* 0.5,og.get_pixel(x-24,y-120).b* 0.5)
+						if og.get_pixel(x-24,y-120).a == 0:
+							col.a = 0.0
+						if y == 134:
+							col.r = 1
+						newimg.set_pixel(x,y,col)
+					if x >= 48 && x <= 71 && y >= 131 && y <= 144: # bottom decap
+						var col = Color(og.get_pixel(x-48,y-120).r* 0.5,og.get_pixel(x-24,y-120).g* 0.5,og.get_pixel(x-24,y-120).b* 0.5)
+						if og.get_pixel(x-24,y-120).a == 0:
+							col.a = 0.0
+						if y == 131:
+							col.r = 1
+						newimg.set_pixel(x,y,col)
+					if x >= 72 && x <= 119 && y >= 120 && y <= 144: # blood and guts
+						newimg.set_pixel(x,y,real.get_pixel(x,y))
+			img = newimg
+		billb.texture = ImageTexture.create_from_image(img)
+		changedSkin.emit()
+		hand1.texture = billb.texture
+		hand2.texture = billb.texture
 	billb.set_animation(animation)
 	playerName.text = displayName
 	if ouchTime > 0:
@@ -169,12 +222,16 @@ func _physics_process(delta: float) -> void:
 
 
 func doState(state,delta):
-	if state != STATES.DEAD:
-		billb.show(	)
-		bulletDetShape.disabled = false
-		dead = false
+	if taunting || dead:
+		hand1.hide()
+		hand2.hide()
+	else:
 		hand1.show()
 		hand2.show()
+	if state != STATES.DEAD:
+		billb.show()
+		bulletDetShape.disabled = false
+		dead = false
 		deadTime = 0
 		playerName.show()
 	if state == STATES.NORMAL:
@@ -183,8 +240,6 @@ func doState(state,delta):
 		bulletDetShape.disabled = true
 		dead = true
 		playerName.hide()
-		hand1.hide()
-		hand2.hide()
 		deathState(delta)
 
 func deathState(delta):
@@ -201,10 +256,8 @@ func deathState(delta):
 	deadTime += 1
 	if deadTime == 1:
 		if hp > GIB_MARGIN:
-			blood.modulate.a = 0.6
 			emitSound.rpc(deathSound,position,0,randf_range(0.9,1.2))
 		else:
-			blood.modulate.a = 1.5
 			doGibEffect.rpc(position)
 			billb.hide()
 		velocity.y = JUMP_VELOCITY * 0.8
@@ -225,13 +278,20 @@ func normalState(delta):
 	if mulSync.get_multiplayer_authority() != multiplayer.get_unique_id():
 		return
 	billb.show()
-	animation = normalAnim
+	if !taunting:
+		animation = normalAnim
+	else:
+		animation = tauntAnim
 	if hp <= 0 && mortal:
 		state = STATES.DEAD
 		return
 	if position.y < DEATH_ZONE:
 		hurt(1,0)
 	rotation = Vector3.ZERO
+	if !moving && Input.is_action_just_pressed("taunt"):
+		taunting = true
+	if moving || Input.is_action_just_released("taunt"):
+		taunting = false
 	if weapon != null:
 		hand1.position = lerp(hand1.position,weapon.handGuide1.position,0.7)
 		hand2.position = lerp(hand2.position,weapon.handGuide2.position,0.7)

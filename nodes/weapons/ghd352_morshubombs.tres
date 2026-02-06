@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_ifhcb")
+canRemoveTiles = true
 name = "Bombs!"
 projectile = "uid://btxit2c61roca"
 Ammo = 1

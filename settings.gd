@@ -1,6 +1,7 @@
 extends Node
 var savePath = "user://arenatest.settings"
-
+var skinsPath = "user://skins"
+var modsPath = "user://mods"
 var oldFullscreen := false
 
 var soundVolume := 100.0
@@ -24,6 +25,10 @@ func _process(delta: float) -> void:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN) 
 
 func _ready() -> void:
+	if !DirAccess.dir_exists_absolute(skinsPath):
+		DirAccess.make_dir_absolute(skinsPath)
+	if !DirAccess.dir_exists_absolute(modsPath):
+		DirAccess.make_dir_absolute(modsPath)
 	loadSettings()
 	if language == "":
 		TranslationServer.set_locale(OS.get_locale())

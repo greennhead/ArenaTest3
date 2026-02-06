@@ -4,7 +4,7 @@ var mapsEnabled : Array[bool]
 @onready var gamemodeSelector: ItemList = $gamemodeSelector
 @onready var mapPicker: Control = $MapPicker
 var selectedMode = ""
-
+@export var errorWindow : PackedScene
 
 @export var Adress ="127.0.0.1"
 @export var port = 8914
@@ -12,7 +12,7 @@ var peer
 
 var hosted = false
 
-
+var joining = false
 var joined = false
 
 @export var hostChecksum := ""
@@ -34,6 +34,7 @@ func SendPlayerInfo(name,id):
 			SendPlayerInfo.rpc(GameManager.Players[i].name,i)
 
 func _ready() -> void:
+	GameManager.Players = {}
 	if GameManager.myName == "":
 		GameManager.myName = Settings.playerName
 		if GameManager.myName == "":
@@ -45,7 +46,14 @@ func _ready() -> void:
 		peer = ENetMultiplayerPeer.new()
 		var error = peer.create_server(port,8)
 		if error != OK:
+			var p = errorWindow.instantiate()
+			get_tree().current_scene.add_child(p)
+			p.toptext.text = "Error!"
+			p.intext.text = "Can't host: Error " + str(error)
+			if error == 20:
+				p.intext.text += "\nYou seem to have already hosted!"
 			print_rich("[color=red][shake]Cannot host! " + str(error))
+			queue_free()
 			return
 		hosted = true
 		peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
@@ -61,23 +69,43 @@ func _ready() -> void:
 		peer.create_client(Adress,port)
 		peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 		joined = true
+		joining = true
 		multiplayer.set_multiplayer_peer(peer)
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)
 	multiplayer.connection_failed.connect(connection_failed)
+	await get_tree().create_timer(2.0).timeout
+	if joining == true:
+		var p = errorWindow.instantiate()
+		get_tree().current_scene.add_child(p)
+		p.toptext.text = "Error!"
+		p.intext.text = "Connection timeout..."
+		queue_free()
 
 func connected_to_server():
+	joining = false
 	print("Connected to server" )
 	SendPlayerInfo.rpc_id(1,GameManager.myName,multiplayer.get_unique_id())
 
 func connection_failed():
+	var p = errorWindow.instantiate()
+	get_tree().current_scene.add_child(p)
+	p.toptext.text = "Error!"
+	p.intext.text = "Connection failed..."
+	queue_free()
 	print("Connection failed")
 
 func peer_connected(id):
 	print("Player connected " + str(id))
 
 func peer_disconnected(id):
+	if id == 1:
+		var p = errorWindow.instantiate()
+		get_tree().current_scene.add_child(p)
+		p.toptext.text = "Lobby Closed"
+		p.intext.text = "The host has left the game!"
+		queue_free()
 	print("Player disconnected " + str(id))
 	for i in get_tree().get_nodes_in_group("player"):
 		if i.id == id:
@@ -156,9 +184,9 @@ func _physics_process(delta: float) -> void:
 			i.disabled = true
 	players.clear()
 	for i in GameManager.Players:
-		if GameManager.Players[i]["checksum"] != hostChecksum:
+		if GameManager.Players[i].checksum != hostChecksum:
 			players.add_item(GameManager.Players[i]["name"] + " (Checksum Mismatch)")
-			players.set_item_icon(players.item_count,load("res://images/questionableChecksum.png"))
+			players.set_item_icon(players.item_count-1,load("res://images/questionableChecksum.png"))
 		else:
 			players.add_item(GameManager.Players[i]["name"])
 

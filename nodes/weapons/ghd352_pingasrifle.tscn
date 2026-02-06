@@ -8,7 +8,7 @@
 
 [node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_m21c3")]
 oldPhysics = false
-damage = 999
+damage = 46
 knockback = -6.0
 FireAnimationRotation = 15.0
 tracerColor = Color(1, 0, 0, 0)

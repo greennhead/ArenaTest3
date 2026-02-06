@@ -1,5 +1,6 @@
 extends Node3D
 class_name HeldWeapon
+
 @export var weaponDropEffect := true
 @export var weaponDropEffectOnAmmoDepletion := true
 

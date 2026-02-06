@@ -24,7 +24,7 @@ layout_mode = 2
 texture = ExtResource("2_ml6nh")
 
 [node name="hudFace" type="Sprite2D" parent="CenterContainer/hudPlate" unique_id=1806314644]
-position = Vector2(160, 224)
+position = Vector2(320, 224)
 texture = ExtResource("3_uu43c")
 hframes = 8
 region_enabled = true
@@ -32,18 +32,16 @@ region_rect = Rect2(48, 96, 192, 24)
 
 [node name="hudText" type="Label" parent="CenterContainer/hudPlate" unique_id=2090182210]
 layout_mode = 0
-offset_left = 8.0
+offset_left = 168.0
 offset_top = 213.0
-offset_right = 147.0
+offset_right = 307.0
 offset_bottom = 244.0
-text = "loading..."
 label_settings = SubResource("LabelSettings_twpnc")
 
 [node name="hudText2" type="Label" parent="CenterContainer/hudPlate" unique_id=763997895]
 layout_mode = 0
-offset_left = 184.0
+offset_left = 344.0
 offset_top = 213.0
-offset_right = 325.0
+offset_right = 485.0
 offset_bottom = 244.0
-text = "loading..."
 label_settings = SubResource("LabelSettings_twpnc")

@@ -1,5 +1,7 @@
 extends Resource
 class_name Weapon
+
+@export var canRemoveTiles : bool
 @export var name : String
 @export var attackSpeed : int
 @export var autofire : bool = false
