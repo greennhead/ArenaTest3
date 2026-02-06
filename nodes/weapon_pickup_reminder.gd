@@ -18,6 +18,7 @@ func post_ready():
 					var p = trueWeaponPickup.instantiate()
 					p.position = position
 					p.weapon = path + "/" + file_name
+					p.name = "converted_" + name
 					get_parent().add_child(p)
 					return
 			file_name = dir.get_next()

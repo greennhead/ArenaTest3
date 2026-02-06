@@ -9,7 +9,7 @@ var selectedMode = ""
 @export var Adress ="127.0.0.1"
 @export var port = 8914
 var peer
-
+var oldPlayers = {}
 var hosted = false
 
 var joining = false
@@ -30,10 +30,14 @@ func SendPlayerInfo(name,id,checksum,color):
 			"checksum" : checksum,
 			"color" : color
 		}
-	
 	if multiplayer.is_server():
+		if id != 1 && gamemodeSelector.get_selected_items().size() > 0:
+			selectGM.rpc_id(id,gamemodeSelector.get_selected_items()[0])
 		for i in GameManager.Players:
 			SendPlayerInfo.rpc(GameManager.Players[i].name,i,GameManager.Players[i].checksum,GameManager.Players[i].color)
+	updatePList()
+
+
 
 func _ready() -> void:
 	GameManager.Players = {}
@@ -63,6 +67,7 @@ func _ready() -> void:
 		print("waiting for players!")
 		hostChecksum = checksum
 		SendPlayerInfo(GameManager.myName,multiplayer.get_unique_id(),checksum,Settings.nameColor)
+		updatePList()
 	else: # join game
 		print("joining game..")
 		mapPicker.joinMode = true
@@ -89,6 +94,8 @@ func connected_to_server():
 	joining = false
 	print("Connected to server" )
 	SendPlayerInfo.rpc_id(1,GameManager.myName,multiplayer.get_unique_id(),checksum,Settings.nameColor)
+	await get_tree().create_timer(0.5).timeout
+	updatePList()
 
 func connection_failed():
 	var p = errorWindow.instantiate()
@@ -113,6 +120,7 @@ func peer_disconnected(id):
 		if i.id == id:
 			i.queue_free()
 	GameManager.Players.erase(id)
+	updatePList()
 
 func getChecksum():
 	var path = "res://maps/"
@@ -159,7 +167,6 @@ func loadMaps():
 				gamemodeSelector.add_item(file_name.to_pascal_case())
 			file_name = dir.get_next()
 	selectedMode = fir
-	gamemodeSelector.select(0)
 
 func _on_close_pressed() -> void:
 	peer.close()
@@ -167,10 +174,32 @@ func _on_close_pressed() -> void:
 
 @rpc("authority","reliable","call_local")
 func selectGM(idx):
+	GameManager.customGMProperties = {}
 	selectedMode = gamemodeSelector.get_item_text(idx).to_lower()
 	gamemodeSelector.select(idx)
 	mapPicker.gamemodeRestriction = gamemodeSelector.get_item_text(idx).to_lower()
 	mapPicker.reSpawn()
+	var path = "res://modes/"
+	var ppath
+	var dir = DirAccess.open(path)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir():
+				if file_name == gamemodeSelector.get_item_text(idx).to_lower():
+					ppath = path + file_name + "/gmsettings.tscn"
+			file_name = dir.get_next()
+	for i in $settings.get_children():
+		i.queue_free()
+	if ResourceLoader.exists(ppath):
+		var st = load(ppath).instantiate()
+		st.name = "settings"
+		$settings.add_child(st)
+	else:
+		var st = load("res://nodes/gmsettingsMissing.tscn").instantiate()
+		st.name = "settings"
+		$settings.add_child(st)
 
 
 func _on_gamemode_selector_item_selected(index: int) -> void:
@@ -178,23 +207,39 @@ func _on_gamemode_selector_item_selected(index: int) -> void:
 		selectGM.rpc(index)
 
 
-@onready var players: ItemList = $players
+@onready var players : VBoxContainer = $players/VBoxContainer
+@onready var ogplayerName: RichTextLabel = $players/VBoxContainer/playerName
 
 func _physics_process(delta: float) -> void:
-	var checksumMismatches = 0
 	if joined:
 		for i in get_tree().get_nodes_in_group("disableIfClient"):
 			i.disabled = true
-	players.clear()
+@onready var startB: Button = $start
+
+
+func updatePList():
+	var checksumMismatches = 0
+	oldPlayers = GameManager.Players
+	for i in players.get_children():
+		if i != ogplayerName:
+			i.queue_free()
 	for i in GameManager.Players:
 		if GameManager.Players[i].checksum != hostChecksum:
 			checksumMismatches += 1
-			players.add_item(GameManager.Players[i]["name"] + " (!!!)")
-			players.set_item_icon(players.item_count-1,load("res://images/questionableChecksum.png"))
+			var j = ogplayerName.duplicate()
+			j.text = ("[img]res://images/questionableChecksum.png[/img][pulse color=red] " + GameManager.Players[i]["name"]) 
+			players.add_child(j)
+			j.show()
 		else:
-			players.add_item(GameManager.Players[i]["name"])
-	warning.visible =  checksumMismatches > 0
-@onready var startB: Button = $start
+			var j = ogplayerName.duplicate()
+			j.text = ""
+			if i == 1:
+				j.text += "[img]res://images/host.png[/img] "
+			j.text += "[color=" + GameManager.Players[i]["color"] + "]" + GameManager.Players[i]["name"] 
+			j.show()
+			players.add_child(j)
+	if multiplayer.is_server():
+		warning.visible =  checksumMismatches > 0
 
 @rpc("authority","call_local","reliable")
 func start(maps):

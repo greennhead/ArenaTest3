@@ -13,7 +13,7 @@ texture_margin_top = 17.0
 texture_margin_right = 2.0
 texture_margin_bottom = 4.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6di7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ayhb5"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 2
 border_width_top = 2
@@ -21,7 +21,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ayhb5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6di7"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 2
 border_width_top = 2
@@ -64,7 +64,7 @@ offset_top = 16.0
 offset_right = -60.0
 offset_bottom = -82.0
 togglerMode = true
-gamemodeRestriction = "deathmatch"
+gamemodeRestriction = " "
 canLoad = false
 snapToCenter = false
 
@@ -72,7 +72,7 @@ snapToCenter = false
 
 [node name="SwitchTo" parent="Panel/MapPicker/ScrollContainer/VBoxContainer/map" parent_id_path=PackedInt32Array(413486018, 485330672) index="2" unique_id=1152529285 groups=["disableIfClient"]]
 
-[node name="Toggle" parent="Panel/MapPicker/ScrollContainer/VBoxContainer/map" parent_id_path=PackedInt32Array(413486018, 485330672) index="3" unique_id=19773675 groups=["disableIfClient"]]
+[node name="Toggle" parent="Panel/MapPicker/ScrollContainer/VBoxContainer/map" parent_id_path=PackedInt32Array(413486018, 485330672) index="3" unique_id=1378565597 groups=["disableIfClient"]]
 
 [node name="close" parent="Panel/MapPicker" index="4" unique_id=2103337389]
 disabled = true
@@ -101,7 +101,8 @@ offset_bottom = 11.0
 theme = ExtResource("1_n06no")
 text = "MENU_LOBBY"
 
-[node name="players" type="ItemList" parent="." unique_id=609827201]
+[node name="players" type="Panel" parent="." unique_id=527145879]
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 0
 offset_left = 8.0
 offset_top = 16.0
@@ -109,14 +110,6 @@ offset_right = 192.0
 offset_bottom = 176.0
 theme = ExtResource("1_n06no")
 theme_override_styles/panel = SubResource("StyleBoxTexture_hatrp")
-theme_override_styles/focus = SubResource("StyleBoxTexture_hatrp")
-theme_override_styles/hovered = SubResource("StyleBoxTexture_hatrp")
-theme_override_styles/hovered_selected = SubResource("StyleBoxTexture_hatrp")
-theme_override_styles/hovered_selected_focus = SubResource("StyleBoxTexture_hatrp")
-theme_override_styles/selected = SubResource("StyleBoxTexture_hatrp")
-theme_override_styles/selected_focus = SubResource("StyleBoxTexture_hatrp")
-theme_override_styles/cursor_unfocused = SubResource("StyleBoxFlat_o6di7")
-theme_override_styles/cursor = SubResource("StyleBoxFlat_o6di7")
 
 [node name="Name" type="Label" parent="players" unique_id=691613794]
 layout_mode = 0
@@ -126,6 +119,22 @@ offset_right = 120.0
 offset_bottom = 11.0
 theme = ExtResource("1_n06no")
 text = "MENU_PLAYERS"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="players" unique_id=1131851040]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 0
+offset_left = 4.0
+offset_top = 16.0
+offset_right = 182.0
+offset_bottom = 156.0
+
+[node name="playerName" type="RichTextLabel" parent="players/VBoxContainer" unique_id=98036331]
+visible = false
+custom_minimum_size = Vector2(0, 9)
+layout_mode = 2
+theme = ExtResource("1_n06no")
+bbcode_enabled = true
+text = "PlayerName"
 
 [node name="gamemodeSelector" type="ItemList" parent="." unique_id=2091110297]
 layout_mode = 0
@@ -168,6 +177,13 @@ bbcode_enabled = true
 text = "MENU_SUMWARNING"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="settings" type="Control" parent="." unique_id=473679528]
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 256.0
+offset_right = 48.0
+offset_bottom = 296.0
 
 [connection signal="pressed" from="Panel/MapPicker/ToggleAll" to="Panel/MapPicker" method="_on_toggle_all_pressed"]
 [connection signal="pressed" from="close" to="." method="_on_close_pressed"]

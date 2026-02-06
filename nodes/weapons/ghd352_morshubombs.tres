@@ -5,10 +5,10 @@
 
 [resource]
 script = ExtResource("1_ifhcb")
-canRemoveTiles = true
 name = "Bombs!"
 projectile = "uid://btxit2c61roca"
 Ammo = 1
 singularSprite = ExtResource("2_d881y")
 legacyName = "ghd352_morshubomb"
+consideredTileRemoving = true
 metadata/_custom_type_script = "uid://5u6ynrpschfs"

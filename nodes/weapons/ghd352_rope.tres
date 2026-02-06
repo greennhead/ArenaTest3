@@ -12,4 +12,5 @@ Ammo = 8
 selfKnockback = 40
 singularSprite = ExtResource("2_jcg7l")
 legacyName = "ghd352_rope"
+consideredUnableToDealDamage = true
 metadata/_custom_type_script = "uid://5u6ynrpschfs"

@@ -68,3 +68,5 @@ size = Vector2i(640, 480)
 render_target_update_mode = 4
 
 [node name="scene" type="Node2D" parent="SceneContainer/SubViewport" unique_id=132975175]
+
+[node name="windowSpot" type="Node2D" parent="." unique_id=2105301998]

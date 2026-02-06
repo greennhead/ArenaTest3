@@ -56,7 +56,7 @@ func getMapList():
 						newmap.author.text = tr("MENU_Author") + ": " + config.get_value("data","author") + "\n" + tr("MENU_Gamemode") + ": " + config.get_value("data","gamemode").to_pascal_case() 
 						newmap.switchto.connect("pressed",pickedMap.bind(newmap.gamemode,newmap.path))
 						newmap.show()
-						newmap.name = config.get_value("data","name") + config.get_value("data","author")
+						newmap.name = config.get_value("data","name") + config.get_value("data","author") + "__"
 						newmap.mapname = config.get_value("data","name")
 			file_name = dir.get_next()
 	map.hide()

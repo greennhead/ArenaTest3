@@ -8,7 +8,7 @@
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hwcr0"]
 properties/0/path = NodePath("Toggle:button_pressed")
 properties/0/spawn = true
-properties/0/replication_mode = 2
+properties/0/replication_mode = 1
 
 [node name="MapPicker" type="Control" unique_id=413486018 node_paths=PackedStringArray("sizePanel")]
 clip_children = 1
@@ -61,7 +61,7 @@ theme = ExtResource("1_h08s0")
 layout_mode = 2
 
 [node name="map" type="Panel" parent="ScrollContainer/VBoxContainer" unique_id=485330672]
-custom_minimum_size = Vector2(360, 108)
+custom_minimum_size = Vector2(360, 64)
 layout_mode = 2
 theme = ExtResource("1_h08s0")
 script = ExtResource("3_hwcr0")
@@ -76,34 +76,33 @@ theme = ExtResource("1_h08s0")
 text = "Map Name"
 
 [node name="Preview" type="Sprite2D" parent="ScrollContainer/VBoxContainer/map" unique_id=1399440478]
-position = Vector2(48, 56)
-scale = Vector2(0.25, 0.25)
+position = Vector2(30, 35)
+scale = Vector2(0.1375, 0.11875)
 texture = ExtResource("3_5rip4")
 
 [node name="SwitchTo" type="Button" parent="ScrollContainer/VBoxContainer/map" unique_id=1152529285]
 layout_mode = 0
-offset_left = 92.0
-offset_top = 62.0
-offset_right = 196.0
-offset_bottom = 78.0
+offset_left = 60.0
+offset_top = 38.0
+offset_right = 164.0
+offset_bottom = 54.0
 text = "MENU_Switch"
 
-[node name="Toggle" type="Button" parent="ScrollContainer/VBoxContainer/map" unique_id=19773675]
+[node name="Toggle" type="CheckButton" parent="ScrollContainer/VBoxContainer/map" unique_id=1378565597]
 layout_mode = 0
-offset_left = 256.0
-offset_top = 91.0
-offset_right = 360.0
-offset_bottom = 107.0
+offset_left = 252.0
+offset_top = 38.0
+offset_right = 356.0
+offset_bottom = 54.0
 theme = ExtResource("1_h08s0")
-toggle_mode = true
 text = "MENU_ToggleInPool"
 
 [node name="author" type="Label" parent="ScrollContainer/VBoxContainer/map" unique_id=1133134035]
 layout_mode = 0
-offset_left = 92.0
-offset_top = 17.0
-offset_right = 284.0
-offset_bottom = 73.0
+offset_left = 60.0
+offset_top = 18.0
+offset_right = 332.0
+offset_bottom = 38.0
 text = "MENU_Author:
 MENU_Gamemode:"
 

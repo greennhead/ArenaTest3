@@ -1,7 +1,14 @@
 extends CharacterBody3D
 class_name Player
 
+signal died(hp : int)
+signal tookDamage(damage : int,knockback : Vector3,source)
+signal gotWeapon(weapon : Weapon, heldWeapon : HeldWeapon)
+signal droppedWeapon(weapon : Weapon, heldWeapon : HeldWeapon)
 signal changedSkin
+signal taunted
+signal untaunted
+
 
 @export var animationSpeed := 0.18
 @onready var head: Node3D = $head
@@ -66,14 +73,19 @@ var lasthitbytype = "player"
 
 @export var mortal := true
 @export var invincible := false
+@export var canHoldTab := true
+@export var hasCrosshair := true
 @onready var canTaunt := true
 
 @export_file("*.ogg") var deathSound = "res://sounds/die.ogg"
 @export_file("*.ogg") var gibSound = "res://sounds/die_gib.ogg"
+@onready var tabMenu: CanvasLayer = $PlayerMenu
+
 
 @onready var gibEffect = preload("res://nodes/gib_effect.tscn")
 
 func _ready() -> void:
+	crosshairCanvasLayer.visible = hasCrosshair
 	mulSync.set_multiplayer_authority(id)
 	sensetivity = Settings.senstivity *0.001
 	camera.fov = Settings.fov
@@ -262,6 +274,7 @@ func deathState(delta):
 		removeWeapon.rpc()
 	deadTime += 1
 	if deadTime == 1:
+		died.emit(hp)
 		if hp > GIB_MARGIN:
 			emitSound.rpc(deathSound,position,0,randf_range(0.9,1.2))
 		else:
@@ -280,6 +293,9 @@ func doGibEffect(pos):
 	billb.hide()
 	GameManager.scene.add_child(gib)
 
+func watchForDeath():
+	if hp <= 0 && mortal:
+		state = STATES.DEAD
 
 func normalState(delta):
 	if mulSync.get_multiplayer_authority() != multiplayer.get_unique_id():
@@ -289,11 +305,9 @@ func normalState(delta):
 		animation = normalAnim
 	else:
 		animation = tauntAnim
-	if hp <= 0 && mortal:
-		state = STATES.DEAD
-		return
+	watchForDeath()
 	if position.y < DEATH_ZONE:
-		hurt(1,0)
+		hurt(3,0)
 	rotation = Vector3.ZERO
 	if !moving && Input.is_action_just_pressed("taunt"):
 		taunting = true

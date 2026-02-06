@@ -115,6 +115,9 @@ script = ExtResource("6_2wrp4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.552231, 0)
 shape = SubResource("BoxShape3D_me0cc")
 
+[node name="PlayerMenu" type="CanvasLayer" parent="." unique_id=957966112]
+visible = false
+
 [node name="CROSSHAIR" type="CanvasLayer" parent="." unique_id=122563698]
 
 [node name="crosshair" type="Sprite2D" parent="CROSSHAIR" unique_id=626508452]

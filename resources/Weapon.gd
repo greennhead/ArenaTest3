@@ -1,7 +1,7 @@
 extends Resource
 class_name Weapon
 
-@export var canRemoveTiles : bool
+@export_group("Params")
 @export var name : String
 @export var attackSpeed : int
 @export var autofire : bool = false
@@ -12,6 +12,11 @@ class_name Weapon
 @export var selfKnockback : int
 @export var canZoom : bool
 @export var zoomFOV : int
-
 @export var singularSprite : Texture2D
 @export var legacyName : String
+
+
+@export_group("Randomizer")
+@export var consideredTileRemoving : bool
+@export var consideredOverpowered : bool
+@export var consideredUnableToDealDamage : bool

@@ -22,6 +22,7 @@ var myName := ""
 var mods = []
 var address = "localhost"
 var enabledMaps = []
+var customGMProperties = {}
 func _ready() -> void:
 	var path = "res://objects/"
 	var resources = ResourceLoader.list_directory(path)

@@ -5,7 +5,7 @@ var folder
 var mapname := ""
 var mappath 
 var ends := 0
-var rand := 0
+
 var blockNum := 0
 @onready var BLOCK = preload("res://nodes/block.tscn")
 
@@ -31,11 +31,13 @@ func load_image(path: String, blockify : bool = false):
 	#return texture
 
 func _ready() -> void:
+	var rand = 0
+	for i in GameManager.Players:
+		rand += int(i)
 	GameManager.mapnum += 1
-	GameManager.num = randi_range(0,99999)
-	if multiplayer.is_server():
-		sendRandom.rpc(randi_range(0,99999999),GameManager.num)
-	await get_tree().create_timer(0.5).timeout
+	GameManager.num = rand
+	print(rand)
+	await get_tree().create_timer(0.1).timeout
 	getMapList()
 	loadMap(mapList[GameManager.mapnum])
 
@@ -52,10 +54,7 @@ func spawnPlayers():
 		i.global_position = order[idx].global_position
 		idx += 1
 
-@rpc("call_local","reliable","authority")
-func sendRandom(random, num):
-	rand = random
-	GameManager.num = num
+
 
 func loadMap(map):
 	for i in get_children():
@@ -93,6 +92,8 @@ func loadMap(map):
 				var b = load(i.node).instantiate()
 				if node_data.has("pos_x") && node_data.has("pos_y") && node_data.has("pos_z"):
 					b.position = Vector3(node_data["pos_x"], node_data["pos_y"],node_data["pos_z"])
+				b.name = node_data["name"].to_lower() + str(blockNum)
+				blockNum += 1
 				add_child(b)
 				for ii in i.properties:
 					if i.properties[ii] is Vector2:
@@ -179,6 +180,9 @@ func getMapList():
 						GameManager.globalMaplist.append(file_name)
 			file_name = dir.get_next()
 	mapList = []
+	var rand = 0
+	for i in GameManager.Players:
+		rand += int(i)
 	var seed = rand
 	for i in GameManager.globalMaplist:
 		mapList.append(path + i)

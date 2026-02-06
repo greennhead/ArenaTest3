@@ -6,9 +6,10 @@ extends Panel
 var path := ""
 var mapname := ""
 var gamemode := ""
-@onready var toggle: Button = $Toggle
+@onready var toggle: CheckButton = $Toggle
 @onready var mapp: mapPicker = $"../../.."
-
+@onready var checkmark = preload("res://images/mapIncluded.png")
+@onready var x = preload("res://images/mapExcluded.png")
 func _ready() -> void:
 	if mapp.joinMode:
 		hide()
