@@ -86,7 +86,7 @@ func shoot(rot):
 		bullet.Owner = player
 		bullet.position = shootPoint.global_position
 		preBullet(bullet)
-		get_tree().current_scene.add_child(bullet)
+		GameManager.scene.add_child(bullet)
 		postShoot(bullet)
 	emitSound(shootSound)
 	
@@ -107,7 +107,7 @@ func preThrow():
 	debr.texture = sprite.texture
 	debr.hframes = sprite.hframes
 	debr.vframes = sprite.vframes
-	get_tree().current_scene.add_child(debr)
+	GameManager.scene.add_child(debr)
 	debr.global_position = sprite.global_position
 	debr.global_rotation = sprite.global_rotation
 
@@ -118,5 +118,5 @@ func emitSound(sound : AudioStream,volume = 0.0,pitch = 1.0):
 	s.position = shootPoint.global_position
 	s.volume_db = volume
 	s.pitch_scale = pitch + randf_range(0.1,-0.1)
-	get_tree().current_scene.add_child.call_deferred(s)
+	GameManager.scene.add_child.call_deferred(s)
 	s.source = shootPoint

@@ -2,7 +2,7 @@ extends MenuWindow
 
 var mapsEnabled : Array[bool]
 @onready var gamemodeSelector: ItemList = $gamemodeSelector
-@onready var mapPicker: Control = $MapPicker
+@onready var mapPicker: Control =  $Panel/MapPicker
 var selectedMode = ""
 @export var errorWindow : PackedScene
 
@@ -17,9 +17,10 @@ var joined = false
 
 @export var hostChecksum := ""
 var checksum := ""
+@onready var warning: RichTextLabel = $warning
 
 @rpc("any_peer")
-func SendPlayerInfo(name,id):
+func SendPlayerInfo(name,id,checksum,color):
 	if !GameManager.Players.has(id):
 		GameManager.Players[id] ={
 			"name" : name,
@@ -27,11 +28,12 @@ func SendPlayerInfo(name,id):
 			"score" : 0,
 			"team" : 0,
 			"checksum" : checksum,
+			"color" : color
 		}
 	
 	if multiplayer.is_server():
 		for i in GameManager.Players:
-			SendPlayerInfo.rpc(GameManager.Players[i].name,i)
+			SendPlayerInfo.rpc(GameManager.Players[i].name,i,GameManager.Players[i].checksum,GameManager.Players[i].color)
 
 func _ready() -> void:
 	GameManager.Players = {}
@@ -60,7 +62,7 @@ func _ready() -> void:
 		multiplayer.set_multiplayer_peer(peer)
 		print("waiting for players!")
 		hostChecksum = checksum
-		SendPlayerInfo(GameManager.myName,multiplayer.get_unique_id())
+		SendPlayerInfo(GameManager.myName,multiplayer.get_unique_id(),checksum,Settings.nameColor)
 	else: # join game
 		print("joining game..")
 		mapPicker.joinMode = true
@@ -86,7 +88,7 @@ func _ready() -> void:
 func connected_to_server():
 	joining = false
 	print("Connected to server" )
-	SendPlayerInfo.rpc_id(1,GameManager.myName,multiplayer.get_unique_id())
+	SendPlayerInfo.rpc_id(1,GameManager.myName,multiplayer.get_unique_id(),checksum,Settings.nameColor)
 
 func connection_failed():
 	var p = errorWindow.instantiate()
@@ -140,7 +142,7 @@ func getChecksum():
 			if dir.current_is_dir():
 				c += str(file_name[0])
 			file_name = dir.get_next()
-	return c
+	return c 
 
 
 func loadMaps():
@@ -179,19 +181,25 @@ func _on_gamemode_selector_item_selected(index: int) -> void:
 @onready var players: ItemList = $players
 
 func _physics_process(delta: float) -> void:
+	var checksumMismatches = 0
 	if joined:
 		for i in get_tree().get_nodes_in_group("disableIfClient"):
 			i.disabled = true
 	players.clear()
 	for i in GameManager.Players:
 		if GameManager.Players[i].checksum != hostChecksum:
-			players.add_item(GameManager.Players[i]["name"] + " (Checksum Mismatch)")
+			checksumMismatches += 1
+			players.add_item(GameManager.Players[i]["name"] + " (!!!)")
 			players.set_item_icon(players.item_count-1,load("res://images/questionableChecksum.png"))
 		else:
 			players.add_item(GameManager.Players[i]["name"])
+	warning.visible =  checksumMismatches > 0
+@onready var startB: Button = $start
 
 @rpc("authority","call_local","reliable")
 func start(maps):
+	hide()
+	startB.disabled = true
 	var path = "res://modes/"
 	var ppath
 	var dir = DirAccess.open(path)
@@ -205,7 +213,7 @@ func start(maps):
 			file_name = dir.get_next()
 	GameManager.enabledMaps = maps
 	if maps.size() > 0:
-		get_tree().change_scene_to_file(load(ppath).levelScene)
+		GameManager.main.changeScene(load(ppath).levelScene)
 
 
 func _on_start_pressed() -> void:

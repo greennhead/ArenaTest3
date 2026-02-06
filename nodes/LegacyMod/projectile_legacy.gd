@@ -342,7 +342,7 @@ func hit(body):
 		rotation_degrees.y += 180 + randi_range(-wallBounceSpread,wallBounceSpread)
 		return
 	if !piercing:
-		trail2.reparent(get_tree().current_scene)
+		trail2.reparent(GameManager.scene)
 		if explosive && ExplodeOnHitBlock && body is GridMap:
 			explode(position)
 		if explosive && ExplodeOnHitPlayer && body is Player:
@@ -377,7 +377,7 @@ func explode(position):
 	a.Owner = Owner
 	a.explosionAffectsShooterOnly = explosionAffectsShooterOnly
 	a.destroyTiles = explosionDestroyTiles
-	get_tree().current_scene.add_child(a) 
+	GameManager.scene.add_child(a) 
 	a.position = position
 	emitSound(explodeSound,position,0.0,randf_range(0.9,1.1))
 	#var path = OS.get_executable_path().replace("/arenatest.exe","") + "/SOUNDS/" + explodeSound + ".ogg"
@@ -392,7 +392,7 @@ func emitSound(sound : String,pos,volume,pitch):
 	s.stream = load(sound)
 	s.volume_db = volume
 	s.pitch_scale = pitch
-	get_tree().current_scene.add_child(s)
+	GameManager.scene.add_child(s)
 	s.global_position = pos
 
 func _on_loop_sound_finished() -> void:
@@ -466,5 +466,5 @@ func shoot(id ,pos : Vector3,owner,rotation,amount,shootSound,spreadArr,alt : bo
 		if GameManager.myPlayer.id == multiplayer.get_unique_id():
 			GameManager.num += 1
 			proj.name = str(GameManager.num)
-		get_tree().current_scene.add_child(proj)
+		GameManager.scene.add_child(proj)
 		proj.global_position = pos

@@ -33,8 +33,9 @@ func load_image(path: String, blockify : bool = false):
 func _ready() -> void:
 	GameManager.mapnum += 1
 	GameManager.num = randi_range(0,99999)
-	sendRandom.rpc(randi_range(0,99999999),GameManager.num)
-	await get_tree().create_timer(0.1).timeout
+	if multiplayer.is_server():
+		sendRandom.rpc(randi_range(0,99999999),GameManager.num)
+	await get_tree().create_timer(0.5).timeout
 	getMapList()
 	loadMap(mapList[GameManager.mapnum])
 
@@ -182,7 +183,7 @@ func getMapList():
 	for i in GameManager.globalMaplist:
 		mapList.append(path + i)
 	for i in GameManager.Players:
-		seed += GameManager.Players[i].id
+		seed += int(GameManager.Players[i].id)
 	seed(seed + ends)
 	mapList.shuffle()
 	print(mapList)

@@ -1,5 +1,6 @@
 extends Node
-
+var scene
+var main : Main
 var godotPath = !false
 var mapName := ""
 var gmName := "deathmatch"

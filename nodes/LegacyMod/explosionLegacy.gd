@@ -30,7 +30,7 @@ func _ready() -> void:
 
 @rpc("reliable","authority","call_local")
 func breakTile(position,gridmap):
-	var gr = get_tree().current_scene.find_child(gridmap)
+	var gr = GameManager.scene.find_child(gridmap)
 	gr.set_cell_item(Vector3i(position),-1)
 	#print(position)
 	#print("ID: " + str(GameManager.myPlayer.id))

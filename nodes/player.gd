@@ -87,9 +87,13 @@ func _ready() -> void:
 		if FileAccess.file_exists(Settings.skinsPath + "/" + Settings.defaultSkin):
 			var img = Image.load_from_file(Settings.skinsPath + "/"+ Settings.defaultSkin).save_png_to_buffer()
 			textureBase64 = Marshalls.raw_to_base64(img)
+	else:
+		textureBase64 = Marshalls.raw_to_base64(billb.texture.get_image().save_png_to_buffer())
 
 @onready var hand1origin = hand1.position
 @onready var hand2origin = hand2.position
+
+@onready var blood: ColorRect = $CROSSHAIR/blood
 
 @rpc("any_peer","call_local","reliable")
 func removeWeapon():
@@ -130,7 +134,7 @@ func cursorLock():
 @onready var crosshairIndicator: Sprite2D = $CROSSHAIR/crosshairIndicator
 @onready var crosshair: Sprite2D = $CROSSHAIR/crosshair
 
-func _physics_process(delta: float) -> void:
+func skinStuff():
 	if texOld != textureBase64:
 		texOld = textureBase64
 		var img = Image.new()
@@ -179,6 +183,9 @@ func _physics_process(delta: float) -> void:
 		changedSkin.emit()
 		hand1.texture = billb.texture
 		hand2.texture = billb.texture
+
+func _physics_process(delta: float) -> void:
+	skinStuff()
 	billb.set_animation(animation)
 	playerName.text = displayName
 	if ouchTime > 0:
@@ -271,7 +278,7 @@ func doGibEffect(pos):
 	gib.texture = billb.texture
 	gib.position = pos
 	billb.hide()
-	get_tree().current_scene.add_child(gib)
+	GameManager.scene.add_child(gib)
 
 
 func normalState(delta):
@@ -353,11 +360,11 @@ func emitSound(sound : String,pos,volume = 0,pitch = 1.0):
 	s.stream = load(sound)
 	s.volume_db = volume
 	s.pitch_scale = pitch
-	get_tree().current_scene.add_child(s)
+	GameManager.scene.add_child(s)
 	s.global_position = pos
 
 
-@onready var blood: ColorRect = $CROSSHAIR/blood
+
 
 func hurt(damage,knockback = -5,source = null):
 	if invincible:
@@ -371,7 +378,7 @@ func hurt(damage,knockback = -5,source = null):
 		if source.Owner != null:
 			damageIndicate.rpc_id(source.Owner.id,source.Owner.id,dmg*-1)
 	if blood.modulate.a < 1:
-		blood.modulate.a += 0.1
+		blood.modulate.a += 0.3
 	if blood.modulate.a > 0.4:
 		blood.modulate.a  = 0.4
 	if source != null:

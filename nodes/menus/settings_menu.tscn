@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://bbjqa23op0w7c" path="res://sounds/ct_footstep_1.ogg" id="5_bbhr1"]
 [ext_resource type="AudioStream" uid="uid://cahe6aoof8h1j" path="res://sounds/hurt.ogg" id="5_hjqyu"]
 
-[node name="settingsMenu" type="Control" unique_id=789851602]
+[node name="settingsMenu" type="Control" unique_id=789851602 node_paths=PackedStringArray("sizePanel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,6 +20,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_72qjk")
 script = ExtResource("2_840kt")
+sizePanel = NodePath("Panel")
 
 [node name="Panel" type="Panel" parent="." unique_id=254374005]
 layout_mode = 0

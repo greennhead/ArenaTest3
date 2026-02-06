@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Arenatest"
-run/main_scene="uid://bdgdo6fdu3thk"
+run/main_scene="uid://c4uckupbya1om"
 config/features=PackedStringArray("4.6", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/use_filter=false
@@ -31,6 +31,10 @@ window/size/viewport_height=480
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/stretch/scale_mode="integer"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/scene_container/plugin.cfg")
 
 [global_group]
 

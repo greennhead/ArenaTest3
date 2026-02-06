@@ -36,7 +36,7 @@ func _on_pirate_pressed() -> void:
 
 
 func _on_settings_pressed() -> void:
-	add_child(settingsMenu.instantiate())
+	GameManager.main.add_child(settingsMenu.instantiate())
 
 
 func _on_quit_pressed() -> void:
@@ -66,11 +66,11 @@ func mapPickedTestMode(gamemode,map):
 			"checksum" : "hello",
 		}
 		GameManager.testMap = map
-		get_tree().change_scene_to_file(load(ppath).levelScene)
+		GameManager.main.changeScene(load(ppath).levelScene)
 
 func _on_testmode_pressed() -> void:
 	var m = mapMenu.instantiate()
-	add_child(m)
+	GameManager.main.add_child(m)
 	m.mapPicked.connect(mapPickedTestMode)
 	#get_tree().change_scene_to_packed(levelScene)
 
@@ -78,10 +78,10 @@ func _on_testmode_pressed() -> void:
 func _on_host_pressed() -> void:
 	var m = mpMenu.instantiate()
 	m.hosted = true
-	add_child(m)
+	GameManager.main.add_child(m)
 
 
 func _on_join_pressed() -> void:
 	var m = mpMenu.instantiate()
 	m.hosted = false
-	add_child(m)
+	GameManager.main.add_child(m)

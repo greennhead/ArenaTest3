@@ -6,6 +6,7 @@ func _on_close_pressed() -> void:
 	Settings.saveSettings()
 
 func _ready() -> void:
+	super()
 	$volumeSound.value = Settings.soundVolume
 	$StepSound.value = Settings.stepVolume
 	$NameColor.text = Settings.nameColor

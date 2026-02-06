@@ -28,8 +28,6 @@ func _process(delta: float) -> void:
 	mesh.global_rotation.x = 0
 	sprite_frame = round(node.rotation_degrees.y / 45)
 	flip_h = false
-	if Frame > currArr.size()-1:
-		Frame = 0
 	set_sprite(sprite_frame)
 
 func set_sprite(fr):
@@ -38,34 +36,54 @@ func set_sprite(fr):
 	if legacy:
 		vframes = 5
 	if animation.onlyFront:
-		frame = animation.front[Frame]
 		currArr = animation.front
+		if Frame >= currArr.size():
+			Frame = 0
+		frame = animation.front[Frame]
 		return
 	if fr == 0: #FORWARD
-		frame = animation.front[Frame]
 		currArr = animation.front
+		if Frame >= currArr.size():
+			Frame = 0
+		frame = animation.front[Frame]
 	if fr == 1: #LEFT_FRONT
-		frame = animation.front_left[Frame]
 		currArr = animation.front_left
+		if Frame >= currArr.size():
+			Frame = 0
+		frame = animation.front_left[Frame]
 	if fr == 2: #LEFT
-		frame = animation.left[Frame]
 		currArr = animation.left
+		if Frame >= currArr.size():
+			Frame = 0
+		frame = animation.left[Frame]
 	if fr == 3: #BACK_LEFT
-		frame = animation.back_left[Frame]
 		currArr = animation.back_left
+		if Frame >= currArr.size():
+			Frame = 0
+		frame = animation.back_left[Frame]
 	if abs(fr) == 4: #BACK
-		frame = animation.back[Frame]
 		currArr = animation.back
+		if Frame >= currArr.size():
+			Frame = 0
+		frame = animation.back[Frame]
 	if fr == -3: #BACK_RIGHT
-		frame = animation.back_right[Frame]
 		currArr = animation.back_right
+		if Frame >= currArr.size():
+			Frame = 0
+		frame = animation.back_right[Frame]
 	if fr == -2: #RIGHT
-		frame = animation.right[Frame]
 		currArr = animation.right
+		if Frame >= currArr.size():
+			Frame = 0
+		frame = animation.right[Frame]
 	if fr == -1: #RIGHT_FRONT
-		frame = animation.front_right[Frame]
 		currArr = animation.front_right
+		if Frame >= currArr.size():
+			Frame = 0
+		frame = animation.front_right[Frame]
 
 func set_animation(anim):
-	Frame = 0
+	if animation != load(anim):
+		Frame = 0
+		print_rich("[color=red]Frame 0!")
 	animation = load(anim)

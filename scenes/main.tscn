@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://c4uckupbya1om"]
+
+[ext_resource type="Script" uid="uid://blhtmeuo5dqnc" path="res://addons/scene_container/scenes/scene_container.gd" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://mvs5ic6hd6f5" path="res://scenes/main.gd" id="1_sugp2"]
+[ext_resource type="Script" uid="uid://1lk10fsktlut" path="res://scenes/transition.gd" id="3_jyhfs"]
+[ext_resource type="Script" uid="uid://d2mlh745uwkul" path="res://scenes/loadingWindow.gd" id="4_jyhfs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyhfs"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbgi4"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="Main" type="Node2D" unique_id=946592117]
+script = ExtResource("1_sugp2")
+
+[node name="SceneContainer" type="SubViewportContainer" parent="." unique_id=792385781 node_paths=PackedStringArray("main_node", "transition")]
+offset_right = 640.0
+offset_bottom = 480.0
+stretch = true
+script = ExtResource("1_o5qli")
+main_node = NodePath("SubViewport/scene")
+transition = NodePath("Transition")
+metadata/_custom_type_script = "uid://blhtmeuo5dqnc"
+
+[node name="Transition" type="CanvasLayer" parent="SceneContainer" unique_id=1501645537]
+layer = 999
+script = ExtResource("3_jyhfs")
+metadata/_custom_type_script = "uid://75mrqcovjgyr"
+
+[node name="loadingWindow" type="Panel" parent="SceneContainer/Transition" unique_id=1360574153]
+offset_right = 256.0
+offset_bottom = 104.0
+script = ExtResource("4_jyhfs")
+
+[node name="Label" type="Label" parent="SceneContainer/Transition/loadingWindow" unique_id=110875477]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 115.0
+offset_bottom = 11.0
+text = "Now loading..."
+
+[node name="ProgressBar" type="ProgressBar" parent="SceneContainer/Transition/loadingWindow" unique_id=259168269]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 48.0
+offset_right = 248.0
+offset_bottom = 60.0
+theme_override_constants/outline_size = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_jyhfs")
+theme_override_styles/fill = SubResource("StyleBoxFlat_tbgi4")
+rounded = true
+
+[node name="Panel" type="Panel" parent="SceneContainer/Transition/loadingWindow" unique_id=893239835]
+visible = false
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 104.0
+
+[node name="SubViewport" type="SubViewport" parent="SceneContainer" unique_id=1446853869]
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+canvas_item_default_texture_filter = 0
+audio_listener_enable_3d = true
+size = Vector2i(640, 480)
+render_target_update_mode = 4
+
+[node name="scene" type="Node2D" parent="SceneContainer/SubViewport" unique_id=132975175]

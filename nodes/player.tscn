@@ -46,15 +46,15 @@ properties/6/replication_mode = 2
 properties/7/path = NodePath(".:displayName")
 properties/7/spawn = true
 properties/7/replication_mode = 2
-properties/8/path = NodePath(".:animationSpeed")
+properties/8/path = NodePath(".:animation")
 properties/8/spawn = true
 properties/8/replication_mode = 2
-properties/9/path = NodePath(".:animation")
+properties/9/path = NodePath(".:taunting")
 properties/9/spawn = true
 properties/9/replication_mode = 2
-properties/10/path = NodePath(".:taunting")
+properties/10/path = NodePath("DirectionalBillboard:Frame")
 properties/10/spawn = true
-properties/10/replication_mode = 1
+properties/10/replication_mode = 2
 
 [node name="player" type="CharacterBody3D" unique_id=2026852342 groups=["player"]]
 collision_layer = 2
