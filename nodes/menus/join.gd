@@ -8,9 +8,14 @@ func _ready() -> void:
 
 
 func _on_connect_pressed() -> void:
+	if pname.text.replace(" ","") == "":
+		return
 	GameManager.myName = pname.text
-	GameManager.address = ip
-	
+	GameManager.address = ip.text
+	var l = lobbyWindow.instantiate()
+	l.hosted = false
+	GameManager.main.add_child(l)
+	queue_free()
 
 
 func _on_close_pressed() -> void:

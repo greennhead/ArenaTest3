@@ -1,4 +1,5 @@
 extends Node
+signal messageSent(message : String)
 var scene
 var main : Main
 var godotPath = !false
@@ -12,7 +13,11 @@ var tree
 var oldmappath 
 var preloadskin := ""
 var globalMaplist := []
-var num := 0
+var trackNum := true
+var num := 0:
+	set(value):
+		num = value
+		print_rich("[color=pink]Num just set to " + str(value))
 var mapnum := -1
 var level 
 var customObjects : Array[mapObject]
@@ -23,6 +28,7 @@ var mods = []
 var address = "localhost"
 var enabledMaps = []
 var customGMProperties = {}
+@onready var errorWindow = preload("uid://bp8lkc3ukjnna")
 func _ready() -> void:
 	var path = "res://objects/"
 	var resources = ResourceLoader.list_directory(path)
@@ -30,6 +36,24 @@ func _ready() -> void:
 		if res.ends_with(".tres"): 
 			print_rich("[color=green]Loaded custom object: "+ res) 
 			customObjects.append(load(path+res))
+func _init() -> void:
+	Settings.loadSettings()
+	loadMods()
+
+func loadMods():
+	for i in Settings.enabledMods:
+		var path = Settings.modsPath + "/"
+		var success = ProjectSettings.load_resource_pack(path + i + "/mod.pck")
+		if success:
+			print_rich("[b][color=green]Mod loaded: " + path + i + "/mod.pck")
+			var config = ConfigFile.new()
+			var err = config.load(path + i + "/mod.cfg")
+			if err == OK:
+				if config.get_value("data","modNode") != "":
+					var modNode = load(config.get_value("data","modNode")).instantiate()
+					get_tree().add_child(modNode)
+		else:
+			print_rich("[b][color=red]Mod failed to be loaded: " + path + i + "/mod.pck")
 
 #func _physics_process(delta: float) -> void:
 	#if mappath != oldmappath:
@@ -48,3 +72,22 @@ func load_image(path: String):
 	var image = Image.load_from_file(path)
 	var texture = ImageTexture.create_from_image(image)
 	return texture
+
+@rpc("any_peer")
+func message(message : String,system : bool = false):
+	var msg = message
+	msg = msg.replace("[","{")
+	msg = msg.replace("]","}")
+	msg = msg.replace(":red:","[color=red]")
+	msg = msg.replace(":blue:","[color=blue]")
+	msg = msg.replace(":green:","[color=green]")
+	msg = msg.replace(":yellow:","[color=yellow]")
+	msg = msg.replace(":white:","[color=white]")
+	messageSent.emit(msg)
+
+func popup(toptext : String, bottomtext : String):
+	var p = errorWindow.instantiate()
+	get_tree().current_scene.add_child(p)
+	p.toptext.text = toptext
+	p.intext.text = bottomtext
+	return p

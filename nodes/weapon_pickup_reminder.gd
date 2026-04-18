@@ -2,9 +2,10 @@ extends Node3D
 var weaponName := ""
 const weaponsPath = "res://nodes/weapons/"
 @onready var trueWeaponPickup = preload("res://nodes/weapon_pickup.tscn")
+@onready var sprite: Sprite3D = $sprite
 func post_ready():
 	$name.text = weaponName 
-	var path = weaponsPath
+	var path = weaponsPath 
 	var dir = DirAccess.open(path)
 	if dir:
 		dir.list_dir_begin()
@@ -25,4 +26,4 @@ func post_ready():
 
 
 func _physics_process(delta: float) -> void:
-	$sprite.rotation_degrees.y += 2
+	sprite.rotation_degrees.y += 2

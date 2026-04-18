@@ -85,6 +85,7 @@ func shoot(rot):
 		bullet.rotation_degrees.z += randf_range(-weapon.projectileSpread,weapon.projectileSpread)
 		bullet.Owner = player
 		bullet.position = shootPoint.global_position
+		bullet.name = "Projectile" + weapon.name + str(GameManager.num)
 		preBullet(bullet)
 		GameManager.scene.add_child(bullet)
 		postShoot(bullet)

@@ -1,12 +1,18 @@
 extends Node3D
+class_name mapLoader
 var folder
+
+
+signal outOfMaps
+signal mapSwitched
+
 @export var world : WorldEnvironment
 @export var mapList = []
 var mapname := ""
 var mappath 
 var ends := 0
-
 var blockNum := 0
+var mapIdx := 0
 @onready var BLOCK = preload("res://nodes/block.tscn")
 
 @onready var mat = preload("res://resources/mat.tres")
@@ -37,32 +43,35 @@ func _ready() -> void:
 	GameManager.mapnum += 1
 	GameManager.num = rand
 	print(rand)
-	await get_tree().create_timer(0.1).timeout
-	getMapList()
-	loadMap(mapList[GameManager.mapnum])
+
+
+
+func nextMap():
+	if mapList.size() == 0:
+		outOfMaps.emit()
+		return
+	if multiplayer.is_server():
+		loadMap.rpc(mapList[GameManager.mapnum])
+	mapList.remove_at(0)
+
+@rpc("authority","reliable")
+func syncNum(num):
+	GameManager.num = num
+
 
 @rpc("authority","call_local","reliable")
-func spawnPlayers():
-	seed(GameManager.num)
-	GameManager.num += 1
-	var idx = 0
-	var order = get_tree().get_nodes_in_group("spawnPoint")
-	order.shuffle()
-	for i in get_tree().get_nodes_in_group("player"):
-		if idx > order.size():
-			idx = 0
-		i.global_position = order[idx].global_position
-		idx += 1
-
-
-
 func loadMap(map):
+	var save_nodes = get_tree().get_nodes_in_group("editorObject")
+	for i in save_nodes:
+		i.queue_free()
+		print_rich("[color=red]Deleted " + i.name)
+	print_rich("[color=yellow]Loading map " + map +"...")
 	for i in get_children():
 		if i != gridMap:
 			i.queue_free()
 	gridMap.clear()
 	var meshLib = MeshLibrary.new()
-	blockNum = 0
+	blockNum = mapIdx
 	var path = map + "/map.json"
 	var materials = {}
 	var indexes = {}
@@ -74,12 +83,10 @@ func loadMap(map):
 	world.environment.sky.sky_material.set("panorama",load_image(map + "/skybox.png"))
 	if world.environment.sky.sky_material.get("panorama") == load("res://images/brick.png"):
 		world.environment.sky.sky_material.set("panorama",load_image(map + "/Skybox.png"))
-	var save_nodes = get_tree().get_nodes_in_group("editorObject")
-	for i in save_nodes:
-		i.queue_free()
 	var save_file = FileAccess.open(path, FileAccess.READ)
 	var progress = 0
 	while save_file.get_position() < save_file.get_length():
+		mapIdx += 1
 		var json_string = save_file.get_line()
 		var json = JSON.new()
 		var parse_result = json.parse(json_string)
@@ -107,9 +114,12 @@ func loadMap(map):
 							b.set(ii,node_data[str(ii)])
 				if b.has_method("post_ready"):
 					b.post_ready()
+				print_rich("[color=green]Spawned " + b.name)
 				for ch in b.get_children():
 					if ch.is_in_group("editorOnly"):
 						ch.hide()
+					if !ch.is_in_group("editorObject"):
+						ch.add_to_group("editorObject")
 		#if node_data["name"] == "slope":
 			#if !materials.has(str(node_data["texture"]) + "_slope"):
 				#var meshmat  = smesh.duplicate()
@@ -155,13 +165,16 @@ func loadMap(map):
 			#else:
 				#b.mesh.material_override = materials.get(str(node_data["texture"]))
 		progress += 1
-	spawnPlayers()
+	mapSwitched.emit()
+	if multiplayer.is_server():
+		syncNum.rpc(GameManager.num)
 
 
 
 
 @rpc("reliable","call_local")
 func getMapList():
+	ends += 1
 	if GameManager.testMap != "":
 		mapList = []
 		mapList.append(GameManager.testMap)
@@ -191,4 +204,4 @@ func getMapList():
 	seed(seed + ends)
 	mapList.shuffle()
 	print(mapList)
-	rand = randf_range(0,10000)
+	#rand = randf_range(0,10000)

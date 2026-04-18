@@ -2,7 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://bxm2lcfofpi46" path="res://nodes/directional_billboard.tscn" id="1_bms3g"]
 [ext_resource type="Script" uid="uid://dn6uhe2hb3m6k" path="res://nodes/player.gd" id="1_hg0js"]
+[ext_resource type="Texture2D" uid="uid://dp01s7vkkjmdv" path="res://images/typing.png" id="2_5m3aa"]
 [ext_resource type="Resource" uid="uid://b3lm5ujgvoea6" path="res://resources/anim_WALK.tres" id="2_me0cc"]
+[ext_resource type="Texture2D" uid="uid://cwy3rnl18lpcb" path="res://images/voicing.png" id="3_gggum"]
 [ext_resource type="Texture2D" uid="uid://7g38e14rkehr" path="res://images/default.png" id="3_me0cc"]
 [ext_resource type="FontFile" uid="uid://cjbxi8elr5y2e" path="res://images/PressStart2P-Regular.ttf" id="5_7lbay"]
 [ext_resource type="Script" uid="uid://ctlbdoxhklqhy" path="res://nodes/bullet_detector.gd" id="6_2wrp4"]
@@ -15,6 +17,11 @@
 size = Vector3(0.8, 0.8, 0.8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_me0cc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5m3aa"]
+font_size = 8
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_hg0js"]
 font_size = 8
@@ -43,23 +50,55 @@ properties/5/replication_mode = 2
 properties/6/path = NodePath(".:textureBase64")
 properties/6/spawn = true
 properties/6/replication_mode = 2
-properties/7/path = NodePath(".:displayName")
+properties/7/path = NodePath(".:animation")
 properties/7/spawn = true
 properties/7/replication_mode = 2
-properties/8/path = NodePath(".:animation")
+properties/8/path = NodePath(".:taunting")
 properties/8/spawn = true
 properties/8/replication_mode = 2
-properties/9/path = NodePath(".:taunting")
+properties/9/path = NodePath("DirectionalBillboard:Frame")
 properties/9/spawn = true
 properties/9/replication_mode = 2
-properties/10/path = NodePath("DirectionalBillboard:Frame")
+properties/10/path = NodePath(".:typing")
 properties/10/spawn = true
 properties/10/replication_mode = 2
+properties/11/path = NodePath(".:speaking")
+properties/11/spawn = true
+properties/11/replication_mode = 2
+properties/12/path = NodePath("icons/speakingIcon:visible")
+properties/12/spawn = true
+properties/12/replication_mode = 2
+properties/13/path = NodePath("icons/typingIcon:visible")
+properties/13/spawn = true
+properties/13/replication_mode = 2
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_5m3aa"]
+buffer_length = 2.5
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_5m3aa"]
 
 [node name="player" type="CharacterBody3D" unique_id=2026852342 groups=["player"]]
 collision_layer = 2
 floor_constant_speed = true
 script = ExtResource("1_hg0js")
+
+[node name="icons" type="Node3D" parent="." unique_id=177474326]
+
+[node name="speakingIcon" type="Sprite3D" parent="icons" unique_id=1030143295]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6262219, 0)
+visible = false
+pixel_size = 0.05
+billboard = 1
+texture_filter = 0
+texture = ExtResource("3_gggum")
+
+[node name="typingIcon" type="Sprite3D" parent="icons" unique_id=210594944]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6262219, 0)
+visible = false
+pixel_size = 0.05
+billboard = 1
+texture_filter = 0
+texture = ExtResource("2_5m3aa")
 
 [node name="playerName" type="Label3D" parent="." unique_id=1177703077]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2847004, 0)
@@ -125,6 +164,16 @@ position = Vector2(320, 240)
 texture = ExtResource("7_46y3y")
 script = ExtResource("8_ejohg")
 
+[node name="speakLabel" type="Label" parent="CROSSHAIR/crosshair" unique_id=444777015]
+visible = false
+offset_left = -40.0
+offset_top = 8.0
+offset_right = 48.0
+offset_bottom = 16.0
+text = "Speaking..."
+label_settings = SubResource("LabelSettings_5m3aa")
+horizontal_alignment = 1
+
 [node name="crosshairIndicator" type="Sprite2D" parent="CROSSHAIR" unique_id=273968792]
 modulate = Color(1, 1, 1, 0)
 position = Vector2(320, 240)
@@ -151,3 +200,15 @@ script = ExtResource("10_hg0js")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=250437715]
 replication_config = SubResource("SceneReplicationConfig_hg0js")
+
+[node name="voip" type="AudioStreamPlayer3D" parent="." unique_id=598127017]
+stream = SubResource("AudioStreamGenerator_5m3aa")
+autoplay = true
+panning_strength = 1.66
+bus = &"Sound"
+doppler_tracking = 2
+
+[node name="micInput" type="AudioStreamPlayer" parent="." unique_id=452099643]
+stream = SubResource("AudioStreamMicrophone_5m3aa")
+autoplay = true
+bus = &"Record"

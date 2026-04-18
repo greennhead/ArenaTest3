@@ -5,13 +5,13 @@ var mapsEnabled : Array[bool]
 @onready var mapPicker: Control =  $Panel/MapPicker
 var selectedMode = ""
 @export var errorWindow : PackedScene
-
+var started = false
 @export var Adress ="127.0.0.1"
 @export var port = 8914
 var peer
 var oldPlayers = {}
 var hosted = false
-
+var selectedModeIdx := -1
 var joining = false
 var joined = false
 
@@ -31,13 +31,20 @@ func SendPlayerInfo(name,id,checksum,color):
 			"color" : color
 		}
 	if multiplayer.is_server():
-		if id != 1 && gamemodeSelector.get_selected_items().size() > 0:
-			selectGM.rpc_id(id,gamemodeSelector.get_selected_items()[0])
 		for i in GameManager.Players:
 			SendPlayerInfo.rpc(GameManager.Players[i].name,i,GameManager.Players[i].checksum,GameManager.Players[i].color)
 	updatePList()
 
-
+@rpc("authority")
+func sendGameInfo(started : bool,gamemode : int = -1):
+	if gamemode != -1:
+		selectGM(gamemode)
+	if started:
+		var p = errorWindow.instantiate()
+		get_tree().current_scene.add_child(p)
+		p.toptext.text = "Error!"
+		p.intext.text = "Game in progress!"
+		queue_free()
 
 func _ready() -> void:
 	GameManager.Players = {}
@@ -49,6 +56,7 @@ func _ready() -> void:
 	loadMaps()
 	print_rich("[color=yellow]Checksum: " + checksum)
 	if hosted: # host game
+		GameManager.myName = Settings.playerName
 		peer = ENetMultiplayerPeer.new()
 		var error = peer.create_server(port,8)
 		if error != OK:
@@ -106,14 +114,20 @@ func connection_failed():
 	print("Connection failed")
 
 func peer_connected(id):
+	sendGameInfo.rpc_id(id,started,selectedModeIdx)
 	print("Player connected " + str(id))
+	if !started && GameManager.Players.has(str(id)):
+		GameManager.message(GameManager.Players[str(id)]["name"] + " connected!",true)
 
 func peer_disconnected(id):
 	if id == 1:
 		var p = errorWindow.instantiate()
-		get_tree().current_scene.add_child(p)
+		if GameManager.main.scenecont.main_node != load("res://scenes/title.tscn"):
+			GameManager.main.changeScene("res://scenes/title.tscn")
+		GameManager.main.add_child(p)
 		p.toptext.text = "Lobby Closed"
 		p.intext.text = "The host has left the game!"
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		queue_free()
 	print("Player disconnected " + str(id))
 	for i in get_tree().get_nodes_in_group("player"):
@@ -169,11 +183,11 @@ func loadMaps():
 	selectedMode = fir
 
 func _on_close_pressed() -> void:
-	peer.close()
 	queue_free()
 
 @rpc("authority","reliable","call_local")
 func selectGM(idx):
+	selectedModeIdx = idx
 	GameManager.customGMProperties = {}
 	selectedMode = gamemodeSelector.get_item_text(idx).to_lower()
 	gamemodeSelector.select(idx)
@@ -258,6 +272,7 @@ func start(maps):
 			file_name = dir.get_next()
 	GameManager.enabledMaps = maps
 	if maps.size() > 0:
+		started = true
 		GameManager.main.changeScene(load(ppath).levelScene)
 
 
@@ -277,10 +292,19 @@ func _on_start_pressed() -> void:
 						mapList.append(file_name)
 			file_name = dir.get_next()
 	if hosted:
-		start.rpc(mapList)
+		if mapList.size() >= 1:
+			start.rpc(mapList)
+		else:
+			GameManager.popup("Hold on","Select at least 1 map!")
+	else:
+		GameManager.popup("Hold on","You are not the host!")
 
 func mapEnabled(name):
 	for i in mapPicker.vb.get_children():
 		if i.mapname == name && i.toggle.button_pressed:
 			return true
 	return false
+
+
+func _on_tree_exiting() -> void:
+	peer.close()

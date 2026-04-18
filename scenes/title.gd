@@ -5,7 +5,8 @@ extends Node3D
 @onready var settingsMenu = preload("res://nodes/menus/settings_menu.tscn")
 @onready var mapMenu = preload("res://nodes/menus/mapPicker.tscn")
 @onready var mpMenu = preload("res://nodes/menus/lobby.tscn")
-
+@onready var joinMenu = preload("res://nodes/menus/join.tscn")
+@onready var modMenu = preload("res://nodes/menus/mod_manager.tscn")
 
 func _ready() -> void:
 	GameManager.testMap = ""
@@ -82,6 +83,14 @@ func _on_host_pressed() -> void:
 
 
 func _on_join_pressed() -> void:
-	var m = mpMenu.instantiate()
-	m.hosted = false
+	var m = joinMenu.instantiate()
 	GameManager.main.add_child(m)
+
+
+func _on_mods_pressed() -> void:
+	var m = modMenu.instantiate()
+	GameManager.main.add_child(m)
+
+
+func _on_editor_pressed() -> void:
+	GameManager.popup("Work in progress","Level editor not avalible in beta version!")

@@ -1,12 +1,11 @@
-[gd_scene format=3 uid="uid://luondx1aex3a"]
+[gd_scene format=3 uid="uid://fv0n3qii1jwt"]
 
-[ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://nodes/LegacyMod/legacyGun.tscn" id="1_xro6g"]
-[ext_resource type="Resource" uid="uid://b1uyt0ho7t7li" path="res://nodes/weapons/ghd352_morshubombs.tres" id="2_1xv3k"]
-[ext_resource type="AudioStream" uid="uid://tbeub13v1oi6" path="res://sounds/legacyMod/ghd352_bombsyou.ogg" id="3_bn6t0"]
-[ext_resource type="AudioStream" uid="uid://cbxejvf4bvb12" path="res://sounds/legacyMod/ghd352_yours.ogg" id="4_cyxrr"]
-[ext_resource type="Texture2D" uid="uid://3t60h5m606ap" path="res://images/weaponry/legacyMod/ghd352_bombs.png" id="5_la67t"]
+[ext_resource type="Resource" path="res://nodes/weapons/ghd352_morshubombs.tres" id="2_1xv3k"]
+[ext_resource type="AudioStream" path="res://sounds/legacyMod/ghd352_bombsyou.ogg" id="3_bn6t0"]
+[ext_resource type="AudioStream" path="res://sounds/legacyMod/ghd352_yours.ogg" id="4_cyxrr"]
+[ext_resource type="Texture2D" path="res://images/weaponry/legacyMod/ghd352_bombs.png" id="5_la67t"]
 
-[node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_xro6g")]
+[node name="legacyGun" unique_id=1685750730]
 oldPhysics = false
 knockback = -1.0
 tracerColor = Color(0.99607843, 0.50980395, 0.007843138, 1)

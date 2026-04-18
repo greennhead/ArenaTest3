@@ -7,6 +7,40 @@
 [ext_resource type="AudioStream" uid="uid://bbjqa23op0w7c" path="res://sounds/ct_footstep_1.ogg" id="5_bbhr1"]
 [ext_resource type="AudioStream" uid="uid://cahe6aoof8h1j" path="res://sounds/hurt.ogg" id="5_hjqyu"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bbhr1"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.17254902, 0.18039216, 0.21568628, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_emtj6"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_toqsn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_toqsn"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ux1i"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
 [node name="settingsMenu" type="Control" unique_id=789851602 node_paths=PackedStringArray("sizePanel")]
 layout_mode = 3
 anchors_preset = 15
@@ -15,7 +49,7 @@ anchor_bottom = 1.0
 offset_left = -164.0
 offset_top = -96.0
 offset_right = -476.0
-offset_bottom = -384.0
+offset_bottom = -336.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_72qjk")
@@ -25,7 +59,7 @@ sizePanel = NodePath("Panel")
 [node name="Panel" type="Panel" parent="." unique_id=254374005]
 layout_mode = 0
 offset_right = 328.0
-offset_bottom = 192.0
+offset_bottom = 240.0
 theme = ExtResource("1_72qjk")
 
 [node name="close" type="Button" parent="." unique_id=1703766905]
@@ -40,7 +74,7 @@ layout_mode = 0
 offset_left = 2.0
 offset_top = 3.0
 offset_right = 328.0
-offset_bottom = 192.0
+offset_bottom = 11.0
 theme = ExtResource("1_72qjk")
 text = "Settings"
 
@@ -144,12 +178,33 @@ offset_bottom = 12.0
 text = "Nickname Color"
 script = ExtResource("2_g022k")
 
+[node name="defaultSkinMenu" type="ItemList" parent="." unique_id=67323536]
+layout_mode = 0
+offset_left = 228.0
+offset_top = 96.0
+offset_right = 324.0
+offset_bottom = 168.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bbhr1")
+theme_override_styles/focus = SubResource("StyleBoxFlat_emtj6")
+theme_override_styles/hovered = SubResource("StyleBoxEmpty_toqsn")
+theme_override_styles/hovered_selected = SubResource("StyleBoxFlat_toqsn")
+theme_override_styles/hovered_selected_focus = SubResource("StyleBoxFlat_emtj6")
+theme_override_styles/selected = SubResource("StyleBoxFlat_6ux1i")
+theme_override_styles/selected_focus = SubResource("StyleBoxEmpty_toqsn")
+theme_override_styles/cursor_unfocused = SubResource("StyleBoxEmpty_toqsn")
+theme_override_styles/cursor = SubResource("StyleBoxEmpty_toqsn")
+max_columns = 16
+same_column_width = true
+fixed_column_width = 24
+icon_mode = 0
+fixed_icon_size = Vector2i(24, 24)
+
 [node name="DefaultSkin" type="LineEdit" parent="." unique_id=91487814]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 88.0
-offset_right = 90.0
-offset_bottom = 104.0
+offset_left = 228.0
+offset_top = 176.0
+offset_right = 324.0
+offset_bottom = 192.0
 tooltip_text = "The skin that you will have automatically aplied when joining a game. 
 File should be located in SKINS folder."
 theme = ExtResource("1_72qjk")
@@ -157,18 +212,20 @@ placeholder_text = "skin.png"
 
 [node name="Def" type="Label" parent="DefaultSkin" unique_id=464431843]
 layout_mode = 0
-offset_left = 88.0
-offset_top = 4.0
-offset_right = 216.0
-offset_bottom = 12.0
+offset_top = -112.0
+offset_right = 96.0
+offset_bottom = -88.0
 text = "Default Skin"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 2
 
 [node name="myName" type="LineEdit" parent="." unique_id=1531658569]
 layout_mode = 0
 offset_left = 10.0
-offset_top = 104.0
+offset_top = 92.0
 offset_right = 90.0
-offset_bottom = 120.0
+offset_bottom = 108.0
 tooltip_text = "The skin that you will have automatically aplied when joining a game. 
 File should be located in SKINS folder."
 theme = ExtResource("1_72qjk")
@@ -187,9 +244,9 @@ text = "Player Name"
 [node name="Palette" type="CheckButton" parent="." unique_id=1590560825]
 layout_mode = 0
 offset_left = 4.0
-offset_top = 120.0
+offset_top = 108.0
 offset_right = 190.0
-offset_bottom = 136.0
+offset_bottom = 124.0
 theme = ExtResource("1_72qjk")
 button_pressed = true
 text = "Use Palette"
@@ -197,19 +254,42 @@ text = "Use Palette"
 [node name="SillyLanguages" type="CheckButton" parent="." unique_id=1595716806]
 layout_mode = 0
 offset_left = 4.0
-offset_top = 151.0
+offset_top = 139.0
 offset_right = 190.0
-offset_bottom = 167.0
+offset_bottom = 155.0
 tooltip_text = "This will add more languages that may not be so helpful."
 theme = ExtResource("1_72qjk")
 text = "Silly Languages"
 
+[node name="enableVC" type="CheckButton" parent="." unique_id=1796325800]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 155.0
+offset_right = 190.0
+offset_bottom = 171.0
+tooltip_text = "MENU_VCTooltip"
+theme = ExtResource("1_72qjk")
+disabled = true
+button_pressed = true
+text = "MENU_VC"
+
+[node name="canVC" type="CheckButton" parent="." unique_id=1989626709]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 172.0
+offset_right = 190.0
+offset_bottom = 188.0
+tooltip_text = "MENU_CanVCTooltip"
+theme = ExtResource("1_72qjk")
+disabled = true
+text = "MENU_CanVC"
+
 [node name="Fullscreen" type="CheckButton" parent="." unique_id=217090040]
 layout_mode = 0
 offset_left = 4.0
-offset_top = 135.0
+offset_top = 123.0
 offset_right = 190.0
-offset_bottom = 151.0
+offset_bottom = 139.0
 tooltip_text = "This will add more languages that may not be so helpful."
 theme = ExtResource("1_72qjk")
 text = "Fullscreen"
@@ -225,13 +305,23 @@ bus = &"Sound"
 
 [node name="dirOpen" type="Button" parent="." unique_id=1788804958]
 layout_mode = 0
-offset_left = 140.0
-offset_top = 173.0
-offset_right = 320.0
-offset_bottom = 186.0
+offset_left = 148.0
+offset_top = 208.0
+offset_right = 328.0
+offset_bottom = 221.0
 text = "SETTINGS_Directory"
+
+[node name="rebind" type="Button" parent="." unique_id=639273131]
+layout_mode = 0
+offset_left = 148.0
+offset_top = 224.0
+offset_right = 328.0
+offset_bottom = 237.0
+text = "SETTINGS_Rebind"
 
 [connection signal="pressed" from="close" to="." method="_on_close_pressed"]
 [connection signal="value_changed" from="volumeSound" to="." method="_on_volume_sound_value_changed"]
 [connection signal="value_changed" from="StepSound" to="." method="_on_step_sound_value_changed"]
+[connection signal="item_selected" from="defaultSkinMenu" to="." method="_on_default_skin_menu_item_selected"]
 [connection signal="pressed" from="dirOpen" to="." method="_on_dir_open_pressed"]
+[connection signal="pressed" from="rebind" to="." method="_on_rebind_pressed"]

@@ -4,13 +4,14 @@
 [ext_resource type="Theme" uid="uid://d8dvt0loqsul" path="res://resources/gametheme.tres" id="2_cu5vn"]
 [ext_resource type="PackedScene" uid="uid://bueiikfgm48ck" path="res://nodes/menus/lobby.tscn" id="2_tiom6"]
 
-[node name="MenuWindow" type="Control" unique_id=255753900]
+[node name="MenuWindow" type="Control" unique_id=255753900 node_paths=PackedStringArray("sizePanel")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 192.0
 offset_bottom = 80.0
 script = ExtResource("1_cu5vn")
 lobbyWindow = ExtResource("2_tiom6")
+sizePanel = NodePath("Panel")
 metadata/_custom_type_script = "uid://d3afr87rvcnap"
 
 [node name="Panel" type="Panel" parent="." unique_id=463638634]

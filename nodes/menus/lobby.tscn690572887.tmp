@@ -66,7 +66,6 @@ offset_bottom = -82.0
 togglerMode = true
 gamemodeRestriction = " "
 canLoad = false
-doRespawn = false
 snapToCenter = false
 
 [node name="ToggleAll" parent="Panel/MapPicker" index="1" unique_id=587497183 groups=["disableIfClient"]]
@@ -92,14 +91,6 @@ offset_top = 424.0
 offset_right = 568.0
 offset_bottom = 437.0
 text = "Start"
-
-[node name="chatOpen" type="Button" parent="." unique_id=680905499 groups=["disableIfClient"]]
-layout_mode = 0
-offset_left = 404.0
-offset_top = 424.0
-offset_right = 484.0
-offset_bottom = 437.0
-text = "Chat"
 
 [node name="Name" type="Label" parent="." unique_id=1215875637]
 layout_mode = 0
@@ -194,7 +185,7 @@ offset_top = 256.0
 offset_right = 48.0
 offset_bottom = 296.0
 
-[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="pressed" from="Panel/MapPicker/ToggleAll" to="Panel/MapPicker" method="_on_toggle_all_pressed"]
 [connection signal="pressed" from="close" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]

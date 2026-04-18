@@ -17,6 +17,7 @@ signal untaunted
 
 
 @export var hp := 100
+@export var maxhp := 100
 @onready var camera: Camera3D = $head/Camera3D
 
 @onready var snd = preload("res://nodes/sound.tscn")
@@ -27,6 +28,7 @@ var id := 1
 var ouchTime := 0
 var smirkTime := 0
 @export var canMoveMouse := true
+@export var canMove := true
 
 @export var animation = "res://resources/anim_WALK.tres"
 @onready var normalAnim = "res://resources/anim_WALK.tres"
@@ -84,23 +86,35 @@ var lasthitbytype = "player"
 
 @onready var gibEffect = preload("res://nodes/gib_effect.tscn")
 
+
+@onready var speakingIcon: Sprite3D = $icons/speakingIcon
+@onready var typingIcon: Sprite3D = $icons/typingIcon
+@export var typing := false
+@export var speaking := false
+
+var nameColor : Color = Color.WHITE
+
 func _ready() -> void:
+	hp = maxhp
+	var playback = voip.get_stream_playback()
 	crosshairCanvasLayer.visible = hasCrosshair
 	mulSync.set_multiplayer_authority(id)
 	sensetivity = Settings.senstivity *0.001
 	camera.fov = Settings.fov
 	if mulSync.get_multiplayer_authority() == multiplayer.get_unique_id():
+		micReady()
 		playerName.hide()
 		GameManager.myPlayer = self
-		GameManager.myName = Settings.playerName
 		displayName = GameManager.myName
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	if Settings.defaultSkin != "":
-		if FileAccess.file_exists(Settings.skinsPath + "/" + Settings.defaultSkin):
-			var img = Image.load_from_file(Settings.skinsPath + "/"+ Settings.defaultSkin).save_png_to_buffer()
-			textureBase64 = Marshalls.raw_to_base64(img)
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		if Settings.defaultSkin != "":
+			if FileAccess.file_exists(Settings.skinsPath + "/" + Settings.defaultSkin):
+				var img = Image.load_from_file(Settings.skinsPath + "/"+ Settings.defaultSkin).save_png_to_buffer()
+				textureBase64 = Marshalls.raw_to_base64(img)
+		else:
+			textureBase64 = Marshalls.raw_to_base64(billb.texture.get_image().save_png_to_buffer())
 	else:
-		textureBase64 = Marshalls.raw_to_base64(billb.texture.get_image().save_png_to_buffer())
+		crosshairCanvasLayer.hide()
 
 @onready var hand1origin = hand1.position
 @onready var hand2origin = hand2.position
@@ -197,6 +211,8 @@ func skinStuff():
 		hand2.texture = billb.texture
 
 func _physics_process(delta: float) -> void:
+	if GameManager.Players[id].has("color"):
+		playerName.modulate = GameManager.Players[id]["color"]
 	skinStuff()
 	billb.set_animation(animation)
 	playerName.text = displayName
@@ -209,6 +225,7 @@ func _physics_process(delta: float) -> void:
 	doState(state,delta)
 	if mulSync.get_multiplayer_authority() != multiplayer.get_unique_id():
 		return
+	voiceThings()
 	if position.y > DEATH_ZONE:
 		if not is_on_floor():
 			velocity += grav * delta
@@ -239,6 +256,50 @@ func _physics_process(delta: float) -> void:
 @onready var bulletDetector: BulletCollider = $bulletDetector
 @onready var bulletDetShape: CollisionShape3D = $bulletDetector/CollisionShape3D
 
+@onready var voip: AudioStreamPlayer3D = $voip
+@onready var micInput: AudioStreamPlayer = $micInput
+@onready var speakLabel: Label = $CROSSHAIR/crosshair/speakLabel
+
+var playback : AudioStreamGeneratorPlayback
+var idx : int
+var effect : AudioEffectCapture
+func micReady():
+	micInput.stream = AudioStreamMicrophone.new()
+	micInput.play()
+	idx = AudioServer.get_bus_index("Record")
+	effect = AudioServer.get_bus_effect(idx, 0)
+
+
+var buffer_size  = 512
+func voiceThings():
+	speakLabel.hide()
+	speakingIcon.hide()
+	if !Settings.haveVC:
+		return
+	if !Input.is_action_pressed("voice"):
+		return
+	speakingIcon.show()
+	if (effect.can_get_buffer(buffer_size)):
+		print(effect.get_buffer(buffer_size))
+		sendMicData.rpc(effect.get_buffer(buffer_size))
+	#effect.clear_buffer()
+	speakLabel.show()
+
+
+@rpc("any_peer", "call_remote", "reliable")
+func sendMicData(data : PackedVector2Array):
+	if playback == null:
+		playback = voip.get_stream_playback()
+	for i in range(0, buffer_size):
+		playback.push_frame(data[i])
+
+
+func respawn():
+	removeWeapon()
+	hp = maxhp
+	state = STATES.NORMAL
+	dead = false
+	velocity = Vector3.ZERO
 
 func doState(state,delta):
 	if taunting || dead:
@@ -349,7 +410,7 @@ func normalState(delta):
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	var spd = icyness
-	if direction:
+	if direction && canMove:
 		billb.animationSpeed = animationSpeed
 		velocity.x = move_toward(velocity.x,direction.x * SPEED,deltaify(spd,delta))
 		velocity.z = move_toward(velocity.z,direction.z * SPEED,deltaify(spd,delta))

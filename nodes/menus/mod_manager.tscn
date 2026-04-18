@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://bms42km5l54nv"]
+
+[ext_resource type="Script" uid="uid://co2i2vn2ayv5w" path="res://nodes/menus/mod_manager.gd" id="1_f5lre"]
+[ext_resource type="Theme" uid="uid://d8dvt0loqsul" path="res://resources/gametheme.tres" id="2_0jy5t"]
+[ext_resource type="Script" uid="uid://dva250mp3ing2" path="res://nodes/menus/mod.gd" id="3_ye0ew"]
+[ext_resource type="Texture2D" uid="uid://blxh4r7p8xxla" path="res://images/modIconMissing.png" id="4_ye0ew"]
+
+[node name="modManager" type="Control" unique_id=1241241758 node_paths=PackedStringArray("sizePanel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -256.0
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f5lre")
+sizePanel = NodePath("Panel")
+
+[node name="Panel" type="Panel" parent="." unique_id=1406005110]
+layout_mode = 0
+offset_right = 384.0
+offset_bottom = 384.0
+
+[node name="Name" type="Label" parent="." unique_id=1630317069]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 176.0
+offset_bottom = 11.0
+theme = ExtResource("2_0jy5t")
+text = "MENU_MODS"
+
+[node name="close" type="Button" parent="." unique_id=693841768]
+layout_mode = 0
+offset_left = 372.0
+offset_right = 384.0
+offset_bottom = 13.0
+text = "X"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1648197080]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 24.0
+offset_right = 368.0
+offset_bottom = 376.0
+theme = ExtResource("2_0jy5t")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=1168863057]
+layout_mode = 2
+
+[node name="mod" type="Panel" parent="ScrollContainer/VBoxContainer" unique_id=18678462]
+visible = false
+custom_minimum_size = Vector2(360, 100)
+layout_mode = 2
+theme = ExtResource("2_0jy5t")
+script = ExtResource("3_ye0ew")
+
+[node name="settings" type="Button" parent="ScrollContainer/VBoxContainer/mod" unique_id=1815075842]
+visible = false
+layout_mode = 0
+offset_left = 260.0
+offset_top = 87.0
+offset_right = 360.0
+offset_bottom = 100.0
+text = "Mod Settings"
+
+[node name="Name" type="Label" parent="ScrollContainer/VBoxContainer/mod" unique_id=1918296464]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 344.0
+offset_bottom = 16.0
+theme = ExtResource("2_0jy5t")
+text = "Mod Name"
+
+[node name="Preview" type="Sprite2D" parent="ScrollContainer/VBoxContainer/mod" unique_id=1088380628]
+position = Vector2(30, 35)
+texture = ExtResource("4_ye0ew")
+
+[node name="Toggle" type="CheckButton" parent="ScrollContainer/VBoxContainer/mod" unique_id=291677884]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 0
+offset_left = 56.0
+offset_top = 16.0
+offset_right = 164.0
+offset_bottom = 32.0
+theme = ExtResource("2_0jy5t")
+text = "Enabled"
+
+[node name="author" type="RichTextLabel" parent="ScrollContainer/VBoxContainer/mod" unique_id=524557171]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 32.0
+offset_right = 332.0
+offset_bottom = 88.0
+bbcode_enabled = true
+text = "Description missing"
+
+[node name="restart" type="Button" parent="." unique_id=125386032]
+visible = false
+layout_mode = 0
+offset_left = 283.0
+offset_top = 371.0
+offset_right = 383.0
+offset_bottom = 384.0
+text = "Restart Game"
+
+[node name="dirOpen" type="Button" parent="." unique_id=1650957237]
+layout_mode = 0
+offset_top = 371.0
+offset_right = 180.0
+offset_bottom = 384.0
+text = "SETTINGS_Directory"
+
+[connection signal="pressed" from="close" to="." method="_on_close_pressed"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/mod/Toggle" to="ScrollContainer/VBoxContainer/mod" method="_on_toggle_toggled"]
+[connection signal="pressed" from="restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="dirOpen" to="." method="_on_dir_open_pressed"]

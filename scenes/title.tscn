@@ -52,13 +52,13 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 1
 
-[node name="Label" type="Label" parent="Control" unique_id=981037629]
+[node name="version" type="Label" parent="Control" unique_id=981037629]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 4.0
 offset_right = 184.0
 offset_bottom = 12.0
-text = "Version 3.0"
+text = "Version 3.0 BETA"
 label_settings = SubResource("LabelSettings_pyl7j")
 
 [node name="container" type="CenterContainer" parent="Control" unique_id=1025741754]
@@ -122,7 +122,7 @@ containY = false
 [node name="Control" type="Control" parent="Control/CenterContainer" unique_id=1448500424]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/CenterContainer/Control" unique_id=1942050249]
+[node name="Title" type="RichTextLabel" parent="Control/CenterContainer/Control" unique_id=1942050249]
 layout_mode = 0
 offset_left = -320.0
 offset_top = -48.0
@@ -176,6 +176,8 @@ icon = ExtResource("11_6civk")
 [connection signal="pressed" from="Control/container/VBoxContainer/testmode" to="." method="_on_testmode_pressed"]
 [connection signal="pressed" from="Control/container/VBoxContainer/host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Control/container/VBoxContainer/join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Control/container/VBoxContainer/mods" to="." method="_on_mods_pressed"]
+[connection signal="pressed" from="Control/container/VBoxContainer/editor" to="." method="_on_editor_pressed"]
 [connection signal="pressed" from="Control/container/VBoxContainer/settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Control/container/VBoxContainer/quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/Control2/us" to="." method="_on_us_pressed"]

@@ -61,6 +61,7 @@ theme = ExtResource("1_h08s0")
 layout_mode = 2
 
 [node name="map" type="Panel" parent="ScrollContainer/VBoxContainer" unique_id=485330672]
+visible = false
 custom_minimum_size = Vector2(360, 64)
 layout_mode = 2
 theme = ExtResource("1_h08s0")

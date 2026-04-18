@@ -38,4 +38,7 @@ environment = SubResource("Environment_fkwfp")
 
 [node name="dmhud" parent="." unique_id=168434719 instance=ExtResource("5_q5r7y")]
 
+[connection signal="mapSwitched" from="mapLoader" to="." method="_on_map_loader_map_switched"]
+[connection signal="outOfMaps" from="mapLoader" to="." method="_on_map_loader_out_of_maps"]
+
 [editable path="mapLoader"]

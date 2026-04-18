@@ -5,7 +5,12 @@ extends CanvasLayer
 @onready var centerContainer: CenterContainer = $CenterContainer
 
 @onready var hudText2: Label = $CenterContainer/hudPlate/hudText2
+@onready var winText: Label = $CenterContainer2/Control/winText
 
+
+func showWinText(text : String):
+	winText.text = text
+	winText.show()
 
 func getMostUsedColor(img : Texture2D):
 	var arr = []
@@ -36,13 +41,25 @@ func _ready() -> void:
 	var p : Player = GameManager.myPlayer
 	p.changedSkin.connect(changeColor)
 	changeColor()
+	createIcons()
+@onready var icontr: Control = $CenterContainer2/HBoxContainer/Control
+@onready var hb: HBoxContainer = $CenterContainer2/HBoxContainer
+
+func createIcons():
+	for i in GameManager.Players:
+		var icon = icontr.duplicate()
+		hb.add_child(icon)
+		icon.show()
+		icon.player = i
 
 func changeColor():
 	var p : Player = GameManager.myPlayer
 	if p != null:
 		hudText.label_settings.font_color = getMostUsedColor(p.billb.texture)
+@onready var centerContainer2: CenterContainer = $CenterContainer2
 
 func _physics_process(delta: float) -> void:
+	centerContainer2.size.x = get_viewport().get_visible_rect().size.x
 	centerContainer.size = get_viewport().get_visible_rect().size
 	centerContainer.size.y *= 1.5
 	var p : Player = GameManager.myPlayer

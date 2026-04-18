@@ -1,8 +1,22 @@
 [gd_scene format=3 uid="uid://dil13e833bxob"]
 
 [ext_resource type="Script" uid="uid://qvk4xkueyhad" path="res://modes/deathmatch/hud.gd" id="1_4b4ta"]
+[ext_resource type="FontFile" uid="uid://cjbxi8elr5y2e" path="res://images/PressStart2P-Regular.ttf" id="2_503j6"]
+[ext_resource type="Script" uid="uid://hugpgdymycuf" path="res://modes/deathmatch/control.gd" id="2_ewnl2"]
 [ext_resource type="Texture2D" uid="uid://dcbe80xd2dhrw" path="res://images/hud.png" id="2_ml6nh"]
+[ext_resource type="Texture2D" uid="uid://b6sis4vnrci18" path="res://images/deadPlayer.png" id="3_1hoe8"]
 [ext_resource type="Texture2D" uid="uid://7g38e14rkehr" path="res://images/default.png" id="3_uu43c"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6ugqh"]
+font = ExtResource("2_503j6")
+font_size = 8
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+stacked_outline_count = 1
+stacked_outline_0/size = 4
+stacked_outline_0/color = Color(1, 1, 1, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_twpnc"]
 font_size = 8
@@ -14,6 +28,44 @@ shadow_offset = Vector2(2, 2)
 
 [node name="dmhud" type="CanvasLayer" unique_id=1717100198]
 script = ExtResource("1_4b4ta")
+
+[node name="CenterContainer2" type="CenterContainer" parent="." unique_id=2062417333]
+offset_right = 640.0
+offset_bottom = 24.0
+
+[node name="Control" type="Control" parent="CenterContainer2" unique_id=224592535]
+layout_mode = 2
+
+[node name="winText" type="Label" parent="CenterContainer2/Control" unique_id=843817302]
+visible = false
+layout_mode = 0
+offset_left = -192.0
+offset_top = 148.0
+offset_right = 192.0
+offset_bottom = 204.0
+text = "PLAYER WINS"
+label_settings = SubResource("LabelSettings_6ugqh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer2" unique_id=49146283]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CenterContainer2/HBoxContainer" unique_id=513723067]
+visible = false
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+script = ExtResource("2_ewnl2")
+
+[node name="icon" type="Sprite2D" parent="CenterContainer2/HBoxContainer/Control" unique_id=1352622815]
+texture = ExtResource("3_uu43c")
+region_enabled = true
+region_rect = Rect2(4, 132, 11, 11)
+
+[node name="cross" type="Sprite2D" parent="CenterContainer2/HBoxContainer/Control/icon" unique_id=1556350910]
+visible = false
+texture = ExtResource("3_1hoe8")
+region_rect = Rect2(48, 96, 192, 24)
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=277164784]
 offset_right = 640.0

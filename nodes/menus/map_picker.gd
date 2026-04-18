@@ -9,6 +9,7 @@ signal mapPicked(gamemode, path)
 @export var canLoad := true
 var off := false
 var joinMode := false
+@export var doRespawn := true
 func pickedMap(gamemode, path):
 	mapPicked.emit(gamemode,path)
 
@@ -16,9 +17,13 @@ func _on_close_pressed() -> void:
 	queue_free()
 
 func _ready() -> void:
-	reSpawn()
+	if doRespawn:
+		reSpawn()
 
 func reSpawn():
+	for i in vb.get_children():
+		if i != map:
+			i.queue_free()
 	if canLoad:
 		$ScrollContainer/VBoxContainer/map/SwitchTo.show()
 	else:
@@ -56,7 +61,7 @@ func getMapList():
 						newmap.author.text = tr("MENU_Author") + ": " + config.get_value("data","author") + "\n" + tr("MENU_Gamemode") + ": " + config.get_value("data","gamemode").to_pascal_case() 
 						newmap.switchto.connect("pressed",pickedMap.bind(newmap.gamemode,newmap.path))
 						newmap.show()
-						newmap.name = config.get_value("data","name") + config.get_value("data","author") + "__"
+						newmap.name = config.get_value("data","name") + config.get_value("data","author") 
 						newmap.mapname = config.get_value("data","name")
 			file_name = dir.get_next()
 	map.hide()
