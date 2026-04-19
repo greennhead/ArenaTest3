@@ -11,7 +11,8 @@ func restart():
 func _on_restart_pressed() -> void:
 	Settings.enabledMods = []
 	for i in vb.get_children():
-		Settings.enabledMods.append(i.modname)
+		if i.toggle.button_pressed:
+			Settings.enabledMods.append(i.modname)
 	Settings.saveSettings()
 	restart()
 

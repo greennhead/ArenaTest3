@@ -6,23 +6,39 @@ const weaponsPath = "res://nodes/weapons/"
 func post_ready():
 	$name.text = weaponName 
 	var path = weaponsPath 
-	var dir = DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if !dir.current_is_dir() && file_name.ends_with(".tscn"):
-				##if the line below gives you an error then you messed up your weapon
-				if load(path + "/" + file_name).instantiate().weapon.legacyName == weaponName:
+	for i in ResourceLoader.list_directory(path):
+		if (i.ends_with(".tscn")): #what the fuck is a remap file
+			var wep = load(path + i).instantiate()
+			##if the line below gives you an error then you messed up your weapon
+			if wep.weapon != null:
+				if wep.weapon.legacyName == weaponName:
 					print_rich("[color=lime]Found legacy weapon: " + weaponName)
 					queue_free()
 					var p = trueWeaponPickup.instantiate()
 					p.position = position
-					p.weapon = path + "/" + file_name
+					p.weapon = path  + i
 					p.name = "converted_" + name
 					get_parent().add_child(p)
 					return
-			file_name = dir.get_next()
+	#var dir = DirAccess.open(path)
+	#if dir:
+		#dir.list_dir_begin()
+		#var file_name = dir.get_next()
+		#while file_name != "":
+			#if !dir.current_is_dir() && (file_name.replace(".remap","").ends_with(".tscn")): #what the fuck is a remap file
+				###if the line below gives you an error then you messed up your weapon
+				#var respath = path + "/" + file_name
+				#print(respath)
+				#if ResourceLoader.load(respath).instantiate().weapon.legacyName == weaponName:
+					#print_rich("[color=lime]Found legacy weapon: " + weaponName)
+					#queue_free()
+					#var p = trueWeaponPickup.instantiate()
+					#p.position = position
+					#p.weapon = path + "/" + file_name
+					#p.name = "converted_" + name
+					#get_parent().add_child(p)
+					#return
+			#file_name = dir.get_next()
 
 
 func _physics_process(delta: float) -> void:

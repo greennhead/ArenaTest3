@@ -36,24 +36,40 @@ func _ready() -> void:
 		if res.ends_with(".tres"): 
 			print_rich("[color=green]Loaded custom object: "+ res) 
 			customObjects.append(load(path+res))
+	addModeNodes()
 func _init() -> void:
 	Settings.loadSettings()
 	loadMods()
 
+func addModeNodes():
+	for i in Settings.enabledMods:
+		var path = Settings.modsPath + "/"
+		var config = ConfigFile.new()
+		var err = config.load(path + i + "/mod.cfg")
+		if err == OK:
+			if config.get_value("data","modNode") != "":
+				var modNode = load(config.get_value("data","modNode")).instantiate()
+				add_child(modNode)
+
 func loadMods():
 	for i in Settings.enabledMods:
 		var path = Settings.modsPath + "/"
-		var success = ProjectSettings.load_resource_pack(path + i + "/mod.pck")
-		if success:
-			print_rich("[b][color=green]Mod loaded: " + path + i + "/mod.pck")
-			var config = ConfigFile.new()
-			var err = config.load(path + i + "/mod.cfg")
-			if err == OK:
-				if config.get_value("data","modNode") != "":
-					var modNode = load(config.get_value("data","modNode")).instantiate()
-					get_tree().add_child(modNode)
-		else:
-			print_rich("[b][color=red]Mod failed to be loaded: " + path + i + "/mod.pck")
+		var config = ConfigFile.new()
+		var err = config.load(path + i + "/mod.cfg")
+		if err == OK:
+			var success = false
+			if config.get_value("data","overwrite") == 0:
+				success = ProjectSettings.load_resource_pack(path + i + "/mod.pck",false)
+			else:
+				success = ProjectSettings.load_resource_pack(path + i + "/mod.pck",true)
+			if success:
+				print_rich("[b][color=green]Mod loaded: " + path + i + "/mod.pck")
+				if config.get_value("data","overwrite") != 0:
+					print_rich("[b][color=green]" + i + " can overwrite files")
+				else:
+					print_rich("[b][color=red]" + i + " cannot overwrite files")
+			else:
+				print_rich("[b][color=red]Mod failed to be loaded: " + path + i + "/mod.pck")
 
 #func _physics_process(delta: float) -> void:
 	#if mappath != oldmappath:
