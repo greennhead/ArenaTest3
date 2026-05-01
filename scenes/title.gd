@@ -12,6 +12,7 @@ func _ready() -> void:
 	GameManager.testMap = ""
 
 func _physics_process(delta: float) -> void:
+	$Control/modsLoaded.text = str(GameManager.modsLoaded) + " mods loaded"
 	$Control/MarginContainer/Control2/pirate.visible = Settings.bonusLanguages
 	world_environment.environment.sky_rotation.y += 0.0018*2
 

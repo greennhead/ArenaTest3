@@ -7,11 +7,12 @@ func post_ready():
 	$name.text = weaponName 
 	var path = weaponsPath 
 	for i in ResourceLoader.list_directory(path):
-		if (i.ends_with(".tscn")): #what the fuck is a remap file
-			var wep = load(path + i).instantiate()
-			##if the line below gives you an error then you messed up your weapon
-			if wep.weapon != null:
-				if wep.weapon.legacyName == weaponName:
+		print(i)
+		if i.ends_with(".tscn"):
+			var wep = load(path + i)
+			##if the line below gives you an error then you messed up your weapon (or didnt export mod correctly)
+			if wep.instantiate().weapon != null:
+				if wep.instantiate().weapon.legacyName == weaponName:
 					print_rich("[color=lime]Found legacy weapon: " + weaponName)
 					queue_free()
 					var p = trueWeaponPickup.instantiate()

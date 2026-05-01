@@ -65,6 +65,8 @@ func _physics_process(delta: float) -> void:
 func shoot(rot):
 	if delay > 0 || ammo <= 0:
 		return
+	if projectile == null:
+		projectile = load(weapon.projectile)
 	ammo -= 1
 	delay = weapon.attackSpeed
 	var direction = (player.billb.get_transform().basis.z)
@@ -74,9 +76,6 @@ func shoot(rot):
 	GameManager.num += 1
 	seed(GameManager.num)
 	var bullet
-	if projectile == null:
-		printerr("gun has no projectile!")
-		return
 	for i in weapon.projectileAmount:
 		bullet = projectile.instantiate()
 		bullet.rotation = rot

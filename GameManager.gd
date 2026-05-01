@@ -14,6 +14,7 @@ var oldmappath
 var preloadskin := ""
 var globalMaplist := []
 var trackNum := true
+var modsLoaded := 0
 var num := 0:
 	set(value):
 		num = value
@@ -58,11 +59,12 @@ func loadMods():
 		var err = config.load(path + i + "/mod.cfg")
 		if err == OK:
 			var success = false
-			if config.get_value("data","overwrite") == 0:
-				success = ProjectSettings.load_resource_pack(path + i + "/mod.pck",false)
-			else:
+			if config.get_value("data","overwrite") != 0:
 				success = ProjectSettings.load_resource_pack(path + i + "/mod.pck",true)
+			else:
+				success = ProjectSettings.load_resource_pack(path + i + "/mod.pck",false)
 			if success:
+				modsLoaded += 1
 				print_rich("[b][color=green]Mod loaded: " + path + i + "/mod.pck")
 				if config.get_value("data","overwrite") != 0:
 					print_rich("[b][color=green]" + i + " can overwrite files")

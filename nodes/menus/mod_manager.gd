@@ -1,9 +1,10 @@
 extends MenuWindow
 
 func restart():
-	get_tree().quit() 
 	var exec_path := OS.get_executable_path()
 	var err := OS.execute(exec_path,[])
+	await get_tree().create_timer(0.1).timeout
+	get_tree().quit() 
 
 @onready var vb: VBoxContainer = $ScrollContainer/VBoxContainer
 @onready var mod: Panel = $ScrollContainer/VBoxContainer/mod
