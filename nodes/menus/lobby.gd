@@ -170,19 +170,19 @@ func getChecksum():
 
 
 func loadMaps():
-	var path = "res://modes/"
-	var dir = DirAccess.open(path)
-	var fir = null
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				if fir == null:
-					fir = file_name.to_pascal_case()
-				gamemodeSelector.add_item(file_name.to_pascal_case())
-			file_name = dir.get_next()
-	selectedMode = fir
+	for path in GameManager.gamemodePaths:
+		var dir = DirAccess.open(path)
+		var fir = null
+		if dir:
+			dir.list_dir_begin()
+			var file_name = dir.get_next()
+			while file_name != "":
+				if dir.current_is_dir():
+					if fir == null:
+						fir = file_name.to_pascal_case()
+					gamemodeSelector.add_item(file_name.to_pascal_case())
+				file_name = dir.get_next()
+		selectedMode = fir
 
 func _on_close_pressed() -> void:
 	queue_free()

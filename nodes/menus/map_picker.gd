@@ -41,30 +41,30 @@ func getMapList():
 	for i in vb.get_children():
 		if i != map:
 			i.queue_free()
-	var path = "res://maps/"
-	var dir = DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				var config = ConfigFile.new()
-				var err = config.load(path + file_name + "/config.cfg")
-				if err == OK:
-					if config.get_value("data","gamemode") == gamemodeRestriction || gamemodeRestriction == "":
-						var newmap = map.duplicate()
-						vb.add_child(newmap)
-						newmap.path = path + file_name 
-						newmap.gamemode = config.get_value("data","gamemode")
-						newmap.preview.texture = load_image(path + file_name + "/preview.png")
-						newmap.namelabel.text = config.get_value("data","name")
-						newmap.author.text = tr("MENU_Author") + ": " + config.get_value("data","author") + "\n" + tr("MENU_Gamemode") + ": " + config.get_value("data","gamemode").to_pascal_case() 
-						newmap.switchto.connect("pressed",pickedMap.bind(newmap.gamemode,newmap.path))
-						newmap.show()
-						newmap.name = config.get_value("data","name") + config.get_value("data","author") 
-						newmap.mapname = config.get_value("data","name")
-			file_name = dir.get_next()
-	map.hide()
+	for path in GameManager.mapPaths:
+		var dir = DirAccess.open(path)
+		if dir:
+			dir.list_dir_begin()
+			var file_name = dir.get_next()
+			while file_name != "":
+				if dir.current_is_dir():
+					var config = ConfigFile.new()
+					var err = config.load(path + file_name + "/config.cfg")
+					if err == OK:
+						if config.get_value("data","gamemode") == gamemodeRestriction || gamemodeRestriction == "":
+							var newmap = map.duplicate()
+							vb.add_child(newmap)
+							newmap.path = path + file_name 
+							newmap.gamemode = config.get_value("data","gamemode")
+							newmap.preview.texture = load_image(path + file_name + "/preview.png")
+							newmap.namelabel.text = config.get_value("data","name")
+							newmap.author.text = tr("MENU_Author") + ": " + config.get_value("data","author") + "\n" + tr("MENU_Gamemode") + ": " + config.get_value("data","gamemode").to_pascal_case() 
+							newmap.switchto.connect("pressed",pickedMap.bind(newmap.gamemode,newmap.path))
+							newmap.show()
+							newmap.name = config.get_value("data","name") + config.get_value("data","author") 
+							newmap.mapname = config.get_value("data","name")
+				file_name = dir.get_next()
+		map.hide()
 
 func load_image(path: String, blockify : bool = false):
 	var image = ResourceLoader.load(path)

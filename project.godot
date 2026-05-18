@@ -25,9 +25,12 @@ driver/enable_input=true
 
 [autoload]
 
+ModLoaderStore="*uid://d4del35vtlhcl"
+ModLoader="*uid://dm8gmo54tcsnj"
 Settings="*res://settings.gd"
 GameManager="*res://GameManager.gd"
 Palleterizer="*res://nodes/palleterizer.tscn"
+Console="*uid://ouiu5xh1cs8n"
 
 [display]
 
@@ -39,7 +42,7 @@ window/stretch/scale_mode="integer"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/scene_container/plugin.cfg")
+enabled=PackedStringArray("res://addons/console/plugin.cfg", "res://addons/mod_loader/_export_plugin/plugin.cfg", "res://addons/mod_tool/plugin.cfg", "res://addons/scene_container/plugin.cfg")
 
 [global_group]
 

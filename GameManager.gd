@@ -14,7 +14,7 @@ var oldmappath
 var preloadskin := ""
 var globalMaplist := []
 var trackNum := true
-var modsLoaded := 0
+
 var num := 0:
 	set(value):
 		num = value
@@ -29,6 +29,11 @@ var mods = []
 var address = "localhost"
 var enabledMaps = []
 var customGMProperties = {}
+
+var gunPaths : Array[String] = ["res://nodes/weapons/"]
+var mapPaths : Array[String] = ["res://maps/"]
+var gamemodePaths : Array[String] = ["res://modes/"]
+
 @onready var errorWindow = preload("uid://bp8lkc3ukjnna")
 func _ready() -> void:
 	var path = "res://objects/"
@@ -53,6 +58,7 @@ func addModeNodes():
 				add_child(modNode)
 
 func loadMods():
+	return #old
 	for i in Settings.enabledMods:
 		var path = Settings.modsPath + "/"
 		var config = ConfigFile.new()
@@ -64,7 +70,6 @@ func loadMods():
 			else:
 				success = ProjectSettings.load_resource_pack(path + i + "/mod.pck",false)
 			if success:
-				modsLoaded += 1
 				print_rich("[b][color=green]Mod loaded: " + path + i + "/mod.pck")
 				if config.get_value("data","overwrite") != 0:
 					print_rich("[b][color=green]" + i + " can overwrite files")

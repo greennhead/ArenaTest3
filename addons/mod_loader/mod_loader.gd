@@ -30,7 +30,8 @@ signal new_hooks_created
 
 const LOG_NAME := "ModLoader"
 
-
+var modsLoaded := 0
+var modNames := []
 func _init() -> void:
 	# if mods are not enabled - don't load mods
 	if ModLoaderStore.REQUIRE_CMD_LINE and not _ModLoaderCLI.is_running_with_command_line_arg("--enable-mods"):
@@ -254,3 +255,4 @@ func _init_mod(mod: ModData) -> void:
 
 	ModLoaderLog.debug("Adding mod main instance to ModLoader -> %s" % mod_main_instance, LOG_NAME)
 	add_child(mod_main_instance, true)
+	modsLoaded += 1

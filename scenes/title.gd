@@ -6,13 +6,15 @@ extends Node3D
 @onready var mapMenu = preload("res://nodes/menus/mapPicker.tscn")
 @onready var mpMenu = preload("res://nodes/menus/lobby.tscn")
 @onready var joinMenu = preload("res://nodes/menus/join.tscn")
-@onready var modMenu = preload("res://nodes/menus/mod_manager.tscn")
+@onready var modMenu = preload("res://mods-unpacked/GodotModding-UserProfile/content/UserProfiles.tscn")
+@onready var credits: Label = $Control/credits
 
 func _ready() -> void:
 	GameManager.testMap = ""
+	GameManager.popup("Info","This is still a beta of the full ARENATEST3 release! Stuff is missing and subject to change.")
 
 func _physics_process(delta: float) -> void:
-	$Control/modsLoaded.text = str(GameManager.modsLoaded) + " mods loaded"
+	$Control/modsLoaded.text = str(ModLoader.modsLoaded) + " mods loaded"
 	$Control/MarginContainer/Control2/pirate.visible = Settings.bonusLanguages
 	world_environment.environment.sky_rotation.y += 0.0018*2
 
@@ -95,3 +97,7 @@ func _on_mods_pressed() -> void:
 
 func _on_editor_pressed() -> void:
 	GameManager.popup("Work in progress","Level editor not avalible in beta version!")
+
+
+func _on_credits_pressed() -> void:
+	credits.visible = !credits.visible
