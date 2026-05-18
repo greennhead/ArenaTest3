@@ -1,13 +1,13 @@
 {
 	"dependencies": [],
-	"description": "A port of all custom maps and weapons from the legacy version.",
+	"description": "Description of your mod...",
 	"extra": {
 		"godot": {
 			"authors": [
-				"mbx8rt, greenhead352, nic, tristone, SamCK, thearcabe, charlotte, Chromeno"
+				"AuthorName"
 			],
 			"compatible_game_version": [
-				"1.0.0"
+				"0.0.1"
 			],
 			"compatible_mod_loader_version": [
 				"7.0.0"

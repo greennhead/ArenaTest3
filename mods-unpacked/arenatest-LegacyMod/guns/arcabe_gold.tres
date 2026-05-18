@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://nlved85qtr5y"]
+
+[ext_resource type="Script" uid="uid://c5xbs5ints7jt" path="res://resources/Weapon.gd" id="1_5voiq"]
+[ext_resource type="Texture2D" uid="uid://b2hbphpberxou" path="res://images/weaponry/legacyMod/arcabe_gold.png" id="2_agq2w"]
+
+[resource]
+script = ExtResource("1_5voiq")
+name = "Gold Akey"
+attackSpeed = 5
+autofire = true
+projectile = "uid://btxit2c61roca"
+Ammo = 17
+selfKnockback = -3
+singularSprite = ExtResource("2_agq2w")
+legacyName = "arcabe_gold"

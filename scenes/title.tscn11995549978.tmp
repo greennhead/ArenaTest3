@@ -1,0 +1,218 @@
+[gd_scene format=3 uid="uid://bdgdo6fdu3thk"]
+
+[ext_resource type="Texture2D" uid="uid://bsaw6jipjhbr" path="res://images/sky.png" id="1_4ignj"]
+[ext_resource type="Script" uid="uid://coin3b1i4ge1i" path="res://scenes/title.gd" id="1_wosw1"]
+[ext_resource type="FontFile" uid="uid://cjbxi8elr5y2e" path="res://images/PressStart2P-Regular.ttf" id="3_pyl7j"]
+[ext_resource type="Script" uid="uid://tlo4jqfxva77" path="res://nodes/container.gd" id="4_4rr2b"]
+[ext_resource type="Theme" uid="uid://d8dvt0loqsul" path="res://resources/gametheme.tres" id="4_b3w7a"]
+[ext_resource type="FontFile" uid="uid://c35d8j6nm8b0y" path="res://images/minikstt.ttf" id="6_4rr2b"]
+[ext_resource type="Script" uid="uid://baihtmi85i7ov" path="res://scenes/margin_container.gd" id="7_w65of"]
+[ext_resource type="Texture2D" uid="uid://omp30cuy2mfd" path="res://lang/us_flag.png" id="7_yql1r"]
+[ext_resource type="Texture2D" uid="uid://ddgtc1k44l7qe" path="res://lang/russian_flag.png" id="8_hiwto"]
+[ext_resource type="Texture2D" uid="uid://b5kicjqflcd7v" path="res://lang/polish_flag.png" id="9_w65of"]
+[ext_resource type="Texture2D" uid="uid://bfi8k2wabe8ma" path="res://lang/pirate_flag.png" id="11_6civk"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_wosw1"]
+panorama = ExtResource("1_4ignj")
+filter = false
+
+[sub_resource type="Sky" id="Sky_p6dhs"]
+sky_material = SubResource("PanoramaSkyMaterial_wosw1")
+radiance_size = 0
+
+[sub_resource type="Environment" id="Environment_pyl7j"]
+background_mode = 2
+sky = SubResource("Sky_p6dhs")
+sky_custom_fov = 112.3
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_pyl7j"]
+font = ExtResource("3_pyl7j")
+font_size = 8
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="title" type="Node3D" unique_id=2010162741]
+script = ExtResource("1_wosw1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=284068891]
+environment = SubResource("Environment_pyl7j")
+
+[node name="things" type="Node3D" parent="." unique_id=1753841719]
+
+[node name="Camera3D" type="Camera3D" parent="things" unique_id=916657327]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 1, 0)
+
+[node name="Control" type="Control" parent="." unique_id=375647897]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+
+[node name="version" type="Label" parent="Control" unique_id=981037629]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 184.0
+offset_bottom = 12.0
+text = "Version 3.0 BETA"
+label_settings = SubResource("LabelSettings_pyl7j")
+
+[node name="credits" type="Label" parent="Control" unique_id=422819227]
+visible = false
+layout_mode = 0
+offset_left = 8.0
+offset_top = 368.0
+offset_right = 624.0
+offset_bottom = 448.0
+text = "Made with Godot Engine v4.6.2
+by greenhead352
+
+Godot Mod Loader by KANA, Darkly77, Ste, and otDan.
+Debug Console by jitspoe
+Thanks to all the Playtesters! (todo add names)"
+label_settings = SubResource("LabelSettings_pyl7j")
+vertical_alignment = 1
+
+[node name="modsLoaded" type="Label" parent="Control" unique_id=825332666]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 16.0
+offset_right = 184.0
+offset_bottom = 24.0
+text = "0 mods loaded"
+label_settings = SubResource("LabelSettings_pyl7j")
+
+[node name="container" type="CenterContainer" parent="Control" unique_id=1025741754]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 648.0
+script = ExtResource("4_4rr2b")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/container" unique_id=1281998760]
+layout_mode = 2
+
+[node name="testmode" type="Button" parent="Control/container/VBoxContainer" unique_id=2085577945]
+layout_mode = 2
+theme = ExtResource("4_b3w7a")
+text = "MENU_TESTMODE"
+alignment = 0
+
+[node name="host" type="Button" parent="Control/container/VBoxContainer" unique_id=1150520758]
+layout_mode = 2
+theme = ExtResource("4_b3w7a")
+text = "MENU_HOST"
+alignment = 0
+
+[node name="join" type="Button" parent="Control/container/VBoxContainer" unique_id=310785180]
+layout_mode = 2
+theme = ExtResource("4_b3w7a")
+text = "MENU_JOIN"
+alignment = 0
+
+[node name="mods" type="Button" parent="Control/container/VBoxContainer" unique_id=1497694683]
+layout_mode = 2
+theme = ExtResource("4_b3w7a")
+text = "MENU_MODS"
+alignment = 0
+
+[node name="editor" type="Button" parent="Control/container/VBoxContainer" unique_id=604770985]
+layout_mode = 2
+theme = ExtResource("4_b3w7a")
+text = "MENU_MAPEDITOR"
+alignment = 0
+
+[node name="settings" type="Button" parent="Control/container/VBoxContainer" unique_id=1308494948]
+layout_mode = 2
+theme = ExtResource("4_b3w7a")
+text = "MENU_SETTINGS"
+alignment = 0
+
+[node name="credits" type="Button" parent="Control/container/VBoxContainer" unique_id=167086706]
+layout_mode = 2
+theme = ExtResource("4_b3w7a")
+text = "MENU_CREDITS"
+alignment = 0
+
+[node name="quit" type="Button" parent="Control/container/VBoxContainer" unique_id=500453556]
+layout_mode = 2
+theme = ExtResource("4_b3w7a")
+text = "MENU_QUIT"
+alignment = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="Control" unique_id=399203422]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 176.0
+script = ExtResource("4_4rr2b")
+containY = false
+
+[node name="Control" type="Control" parent="Control/CenterContainer" unique_id=1448500424]
+layout_mode = 2
+
+[node name="Title" type="RichTextLabel" parent="Control/CenterContainer/Control" unique_id=1942050249]
+layout_mode = 0
+offset_left = -320.0
+offset_top = -48.0
+offset_right = 320.0
+offset_bottom = 48.0
+theme_override_colors/font_outline_color = Color(0, 0, 0.25490198, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0.64705884, 0.62352943)
+theme_override_constants/shadow_offset_x = 8
+theme_override_constants/shadow_offset_y = 8
+theme_override_constants/outline_size = 16
+theme_override_fonts/normal_font = ExtResource("6_4rr2b")
+theme_override_font_sizes/normal_font_size = 96
+bbcode_enabled = true
+text = "[wave freq=2 amp=50]Arenatest"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="CenterContainer" parent="Control" unique_id=1236005757]
+layout_mode = 0
+offset_top = 448.0
+offset_right = 640.0
+offset_bottom = 480.0
+script = ExtResource("7_w65of")
+containY = false
+
+[node name="Control2" type="HBoxContainer" parent="Control/MarginContainer" unique_id=463176170]
+layout_mode = 2
+alignment = 1
+
+[node name="us" type="Button" parent="Control/MarginContainer/Control2" unique_id=390857136]
+layout_mode = 2
+theme = ExtResource("4_b3w7a")
+icon = ExtResource("7_yql1r")
+
+[node name="ru" type="Button" parent="Control/MarginContainer/Control2" unique_id=639715888]
+layout_mode = 2
+theme = ExtResource("4_b3w7a")
+icon = ExtResource("8_hiwto")
+
+[node name="pl" type="Button" parent="Control/MarginContainer/Control2" unique_id=1442617630]
+layout_mode = 2
+theme = ExtResource("4_b3w7a")
+icon = ExtResource("9_w65of")
+
+[node name="pirate" type="Button" parent="Control/MarginContainer/Control2" unique_id=2030892715]
+visible = false
+layout_mode = 2
+theme = ExtResource("4_b3w7a")
+icon = ExtResource("11_6civk")
+
+[connection signal="pressed" from="Control/container/VBoxContainer/testmode" to="." method="_on_testmode_pressed"]
+[connection signal="pressed" from="Control/container/VBoxContainer/host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Control/container/VBoxContainer/join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Control/container/VBoxContainer/mods" to="." method="_on_mods_pressed"]
+[connection signal="pressed" from="Control/container/VBoxContainer/editor" to="." method="_on_editor_pressed"]
+[connection signal="pressed" from="Control/container/VBoxContainer/settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Control/container/VBoxContainer/credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="Control/container/VBoxContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/Control2/us" to="." method="_on_us_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/Control2/ru" to="." method="_on_ru_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/Control2/pl" to="." method="_on_pl_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/Control2/pirate" to="." method="_on_pirate_pressed"]

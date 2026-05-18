@@ -49,14 +49,14 @@ func getMapList():
 			while file_name != "":
 				if dir.current_is_dir():
 					var config = ConfigFile.new()
-					var err = config.load(path + file_name + "/config.cfg")
+					var err = config.load(path.path_join(file_name).path_join("config.cfg"))
 					if err == OK:
 						if config.get_value("data","gamemode") == gamemodeRestriction || gamemodeRestriction == "":
 							var newmap = map.duplicate()
 							vb.add_child(newmap)
-							newmap.path = path + file_name 
+							newmap.path = path.path_join(file_name)
 							newmap.gamemode = config.get_value("data","gamemode")
-							newmap.preview.texture = load_image(path + file_name + "/preview.png")
+							newmap.preview.texture = load_image(path.path_join(file_name).path_join("preview.png"))
 							newmap.namelabel.text = config.get_value("data","name")
 							newmap.author.text = tr("MENU_Author") + ": " + config.get_value("data","author") + "\n" + tr("MENU_Gamemode") + ": " + config.get_value("data","gamemode").to_pascal_case() 
 							newmap.switchto.connect("pressed",pickedMap.bind(newmap.gamemode,newmap.path))

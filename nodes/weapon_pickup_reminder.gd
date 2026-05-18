@@ -5,22 +5,22 @@ const weaponsPath = "res://nodes/weapons/"
 @onready var sprite: Sprite3D = $sprite
 func post_ready():
 	$name.text = weaponName 
-	var path = weaponsPath 
-	for i in ResourceLoader.list_directory(path):
-		print(i)
-		if i.ends_with(".tscn"):
-			var wep = load(path + i)
-			##if the line below gives you an error then you messed up your weapon (or didnt export mod correctly)
-			if wep.instantiate().weapon != null:
-				if wep.instantiate().weapon.legacyName == weaponName:
-					print_rich("[color=lime]Found legacy weapon: " + weaponName)
-					queue_free()
-					var p = trueWeaponPickup.instantiate()
-					p.position = position
-					p.weapon = path  + i
-					p.name = "converted_" + name
-					get_parent().add_child(p)
-					return
+	for path in GameManager.gunPaths:
+		for i in ResourceLoader.list_directory(path):
+			print(i)
+			if i.ends_with(".tscn"):
+				var wep = load(path.path_join(i))
+				##if the line below gives you an error then you messed up your weapon (or didnt export mod correctly)
+				if wep.instantiate().weapon != null:
+					if wep.instantiate().weapon.legacyName == weaponName:
+						print_rich("[color=lime]Found legacy weapon: " + weaponName)
+						queue_free()
+						var p = trueWeaponPickup.instantiate()
+						p.position = position
+						p.weapon = path.path_join(i)
+						p.name = "converted_" + name
+						get_parent().add_child(p)
+						return
 	#var dir = DirAccess.open(path)
 	#if dir:
 		#dir.list_dir_begin()

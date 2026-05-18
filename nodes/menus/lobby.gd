@@ -137,33 +137,34 @@ func peer_disconnected(id):
 	updatePList()
 
 func getChecksum():
-	var path = "res://maps/"
-	var dir = DirAccess.open(path)
+	var dir
 	var c = ""
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				c += str(file_name[1])
-			file_name = dir.get_next()
-	path = "res://nodes/weapons/"
-	dir = DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			c += str(file_name.length())
-			file_name = dir.get_next()
-	path = "res://modes/"
-	dir = DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				c += str(file_name[0])
-			file_name = dir.get_next()
+	for path in GameManager.mapPaths:
+		dir = DirAccess.open(path)
+		if dir:
+			dir.list_dir_begin()
+			var file_name = dir.get_next()
+			while file_name != "":
+				if dir.current_is_dir():
+					c += str(file_name[1])
+				file_name = dir.get_next()
+	for path in GameManager.gunPaths:
+		dir = DirAccess.open(path)
+		if dir:
+			dir.list_dir_begin()
+			var file_name = dir.get_next()
+			while file_name != "":
+				c += str(file_name.length())
+				file_name = dir.get_next()
+	for path in GameManager.gamemodePaths:
+		dir = DirAccess.open(path)
+		if dir:
+			dir.list_dir_begin()
+			var file_name = dir.get_next()
+			while file_name != "":
+				if dir.current_is_dir():
+					c += str(file_name[0])
+				file_name = dir.get_next()
 	for i in Settings.enabledMods:
 		c += i
 	return c 
@@ -195,17 +196,17 @@ func selectGM(idx):
 	gamemodeSelector.select(idx)
 	mapPicker.gamemodeRestriction = gamemodeSelector.get_item_text(idx).to_lower()
 	mapPicker.reSpawn()
-	var path = "res://modes/"
 	var ppath
-	var dir = DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				if file_name == gamemodeSelector.get_item_text(idx).to_lower():
-					ppath = path + file_name + "/gmsettings.tscn"
-			file_name = dir.get_next()
+	for path in GameManager.gamemodePaths:
+		var dir = DirAccess.open(path)
+		if dir:
+			dir.list_dir_begin()
+			var file_name = dir.get_next()
+			while file_name != "":
+				if dir.current_is_dir():
+					if file_name == gamemodeSelector.get_item_text(idx).to_lower():
+						ppath = path.path_join(file_name).path_join("/gmsettings.tscn")
+				file_name = dir.get_next()
 	for i in $settings.get_children():
 		i.queue_free()
 	if ResourceLoader.exists(ppath):
@@ -261,17 +262,17 @@ func updatePList():
 func start(maps):
 	hide()
 	startB.disabled = true
-	var path = "res://modes/"
 	var ppath
-	var dir = DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				if file_name == selectedMode.to_lower():
-					ppath = path + file_name + "/mode.tres"
-			file_name = dir.get_next()
+	for path in GameManager.gamemodePaths:
+		var dir = DirAccess.open(path)
+		if dir:
+			dir.list_dir_begin()
+			var file_name = dir.get_next()
+			while file_name != "":
+				if dir.current_is_dir():
+					if file_name == selectedMode.to_lower():
+						ppath = path.path_join(file_name).path_join("/mode.tres") 
+				file_name = dir.get_next()
 	GameManager.enabledMaps = maps
 	if maps.size() > 0:
 		started = true
@@ -280,19 +281,19 @@ func start(maps):
 
 func _on_start_pressed() -> void:
 	var mapList = []
-	var path = "res://maps/"
-	var dir = DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				var config = ConfigFile.new()
-				var err = config.load(path + file_name + "/config.cfg")
-				if err == OK:
-					if config.get_value("data","gamemode") == GameManager.gmName && mapEnabled(config.get_value("data","name")):
-						mapList.append(file_name)
-			file_name = dir.get_next()
+	for path in GameManager.mapPaths:
+		var dir = DirAccess.open(path)
+		if dir:
+			dir.list_dir_begin()
+			var file_name = dir.get_next()
+			while file_name != "":
+				if dir.current_is_dir():
+					var config = ConfigFile.new()
+					var err = config.load(path.path_join(file_name).path_join("config.cfg"))
+					if err == OK:
+						if config.get_value("data","gamemode") == GameManager.gmName && mapEnabled(config.get_value("data","name")):
+							mapList.append(file_name)
+				file_name = dir.get_next()
 	if hosted:
 		if mapList.size() >= 1:
 			start.rpc(mapList)

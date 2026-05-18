@@ -72,7 +72,7 @@ func loadMap(map):
 	gridMap.clear()
 	var meshLib = MeshLibrary.new()
 	blockNum = mapIdx
-	var path = map + "/map.json"
+	var path = map.path_join("map.json")
 	var materials = {}
 	var indexes = {}
 	mappath = path
@@ -179,26 +179,26 @@ func getMapList():
 		mapList = []
 		mapList.append(GameManager.testMap)
 		return
-	var path = "res://maps/"
-	var dir = DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				var config = ConfigFile.new()
-				var err = config.load(path + file_name + "/config.cfg")
-				if err == OK:
-					if config.get_value("data","gamemode") == GameManager.gmName && GameManager.enabledMaps.has(file_name):
-						GameManager.globalMaplist.append(file_name)
-			file_name = dir.get_next()
+	for path in GameManager.mapPaths:
+		var dir = DirAccess.open(path)
+		if dir:
+			dir.list_dir_begin()
+			var file_name = dir.get_next()
+			while file_name != "":
+				if dir.current_is_dir():
+					var config = ConfigFile.new()
+					var err = config.load(path.path_join(file_name).path_join("config.cfg"))
+					if err == OK:
+						if config.get_value("data","gamemode") == GameManager.gmName && GameManager.enabledMaps.has(file_name):
+							GameManager.globalMaplist.append(file_name)
+							mapList.append(path.path_join(file_name))
+				file_name = dir.get_next()
 	mapList = []
 	var rand = 0
 	for i in GameManager.Players:
 		rand += int(i)
 	var seed = rand
-	for i in GameManager.globalMaplist:
-		mapList.append(path + i)
+
 	for i in GameManager.Players:
 		seed += int(GameManager.Players[i].id)
 	seed(seed + ends)

@@ -34,6 +34,8 @@ var gunPaths : Array[String] = ["res://nodes/weapons/"]
 var mapPaths : Array[String] = ["res://maps/"]
 var gamemodePaths : Array[String] = ["res://modes/"]
 
+var modProfile
+
 @onready var errorWindow = preload("uid://bp8lkc3ukjnna")
 func _ready() -> void:
 	var path = "res://objects/"

@@ -6,12 +6,12 @@ extends Node3D
 @onready var mapMenu = preload("res://nodes/menus/mapPicker.tscn")
 @onready var mpMenu = preload("res://nodes/menus/lobby.tscn")
 @onready var joinMenu = preload("res://nodes/menus/join.tscn")
-@onready var modMenu = preload("res://mods-unpacked/GodotModding-UserProfile/content/UserProfiles.tscn")
+
 @onready var credits: Label = $Control/credits
 
 func _ready() -> void:
 	GameManager.testMap = ""
-	GameManager.popup("Info","This is still a beta of the full ARENATEST3 release! Stuff is missing and subject to change.")
+	#GameManager.popup("Info","This is still a beta of the full ARENATEST3 release! Stuff is missing and subject to change.")
 
 func _physics_process(delta: float) -> void:
 	$Control/modsLoaded.text = str(ModLoader.modsLoaded) + " mods loaded"
@@ -59,7 +59,7 @@ func mapPickedTestMode(gamemode,map):
 			print(file_name)
 			if dir.current_is_dir():
 				if file_name == gamemode:
-					ppath = path + file_name + "/mode.tres"
+					ppath = path.path_join(file_name).path_join("mode.tres") 
 			file_name = dir.get_next()
 	if ppath != null:
 		GameManager.Players[1] = {
@@ -91,8 +91,9 @@ func _on_join_pressed() -> void:
 
 
 func _on_mods_pressed() -> void:
-	var m = modMenu.instantiate()
-	GameManager.main.add_child(m)
+	print(GameManager.modProfile)
+	if GameManager.modProfile != null:
+		GameManager.modProfile.show()
 
 
 func _on_editor_pressed() -> void:

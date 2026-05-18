@@ -31,6 +31,7 @@ Settings="*res://settings.gd"
 GameManager="*res://GameManager.gd"
 Palleterizer="*res://nodes/palleterizer.tscn"
 Console="*uid://ouiu5xh1cs8n"
+ModMain="*uid://cqf1dyuqbe6pk"
 
 [display]
 
