@@ -1,4 +1,5 @@
 extends Node3D
+class_name GunPickupError
 var weaponName := ""
 const weaponsPath = "res://nodes/weapons/"
 @onready var trueWeaponPickup = preload("res://nodes/weapon_pickup.tscn")
@@ -9,10 +10,10 @@ func post_ready():
 		for i in ResourceLoader.list_directory(path):
 			print(i)
 			if i.ends_with(".tscn"):
-				var wep = load(path.path_join(i))
+				var wep = load(path.path_join(i)).instantiate()
 				##if the line below gives you an error then you messed up your weapon 
-				if wep.instantiate().weapon != null:
-					if wep.instantiate().weapon.legacyName == weaponName:
+				if wep.weapon != null:
+					if wep.weapon.legacyName == weaponName:
 						print_rich("[color=lime]Found legacy weapon: " + weaponName)
 						queue_free()
 						var p = trueWeaponPickup.instantiate()

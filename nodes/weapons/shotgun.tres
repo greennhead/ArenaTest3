@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://h8iedfulj4ql"]
 
 [ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_gt2r5"]
+[ext_resource type="Texture2D" uid="uid://cu8k10wyv6fdm" path="res://images/weaponry/shotgunSingular.png" id="2_nft0c"]
 
 [resource]
 script = ExtResource("1_gt2r5")
@@ -11,4 +12,5 @@ projectileSpread = 4
 projectileAmount = 5
 Ammo = 5
 selfKnockback = -15
+singularSprite = ExtResource("2_nft0c")
 metadata/_custom_type_script = "uid://5u6ynrpschfs"

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dhc3j2f3o0f"]
+
+[ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://mods-unpacked/arenatest-LegacyMod/nodes/legacyGun.tscn" id="1_64mjd"]
+[ext_resource type="Texture2D" uid="uid://ngmtwrkjop4q" path="res://mods-unpacked/arenatest-LegacyMod/sprites/ghd352_hylicsburrito.png" id="2_8tcns"]
+[ext_resource type="Resource" uid="uid://bvnbendso76p" path="res://mods-unpacked/arenatest-LegacyMod/guns/ghd352_hylicsburrito.tres" id="2_ylws4"]
+[ext_resource type="AudioStream" uid="uid://6tro6ag778g4" path="res://mods-unpacked/arenatest-LegacyMod/sounds/ghd352_hylics_pickup.ogg" id="3_ioopu"]
+[ext_resource type="AudioStream" uid="uid://rx4opfxhjl7d" path="res://mods-unpacked/arenatest-LegacyMod/sounds/ghd352_hylics_burrito.ogg" id="4_gwxor"]
+
+[node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_64mjd")]
+damage = 27
+knockback = -20.0
+FireAnimationRotation = 1.0
+tracerColor = Color(0, 0, 0, 0)
+speed = 4.0
+Lifetime = 70
+hitbox = Vector3(0.4, 0.4, 0.4)
+phantom = true
+Sprite = "iVBORw0KGgoAAAANSUhEUgAAAMAAAAAQCAYAAABA4nAoAAAAAXNSR0IArs4c6QAABJJJREFUaIHtWjuSGjEQfXL5BPYFTDAUW4Su8hkgIdm9ASRwALiAk+EAS7J7A0hI4CIUFAScwrEcsG/oEfrPlr1l0wkDw2u1pPe6Jc0Ad7vbf2yKF6eWvrlZnJU+tbQyr1MsF3e3uwF5/CnO6pbMAE4trYpz3ZVTAMVZaa01lLptOzYgGchb49kiSm3bhr8L8c/Ye82XtBTOaX2BK6VQbvY4rnd4XTzxLzU/n0NO+EmHvB8KiJ2giIqz0uVmj6KfJgL6GY6XaA+62Xi2DeRPyv8gIJN8TebquN6hWMSPm+TMfHsAAMz6D8jhDf0AgHrzMes/3PzHKgDT5tsDpr1OStu1AMrNvvptOF5GDwqFOJqs8PL8iPn2QEFF42Ucx0QRSTKwXSBdQKkVKDcD+kp/bLsm+WKFL5MmcOFMe9BFOYgjr4mf9jrVfDOeXHORHwA+hQKh2ZZCLrN1hgJiKXJNFu9JHy/PjxhNVtWglJt9NJ4DyAk5rnfQWnvxZnwUYbnZR2FlDKx8KTiZMLTWwf4Sx/4SF4uVeAA4rncArokrBm+amTBzfKSai7s+uxGAy+Sk+NRsC4IEdKnQhjd9tAfdyofPj5n1gboAgbCY5bJpOF5ivj3gdfGEWf8hWoDEDsdLAMBosgqKgH0/rncYjpeV8GKr73x7qITK79US4k2MPvxosgJwGWtaudkH8SHiNRGSzP5N8JK/0moCyFFQCC/LqTSbiFzty0FwdUTi6UPieC02Q17TWmPa66A96FYkYin1EZKTNOs/oD3oVmTiZ2wlYNWjxZDYJnJzvHx4LjNNX/TjiuHU0iqUVEIisPmQics37zFxBJdAtsCYuaUDV/ZPEU8u+X1x2PBcMvGapT21H8Pxsqo85WYftRyUy4lpr1NVD5exaowmK7QH3epTVj75X5sPpRRefn5zClSS2HbfljBM4viIbMMDVyKH2m9qPr8uAdU2weYmRhIox2yDmHOSElM9fO2b2T9VxMTJzVQoBklgCmb645d3PKe9Dua4nnwYx3dx9uW7k7z87jpVYbumuX6XdmppVfSVnqFONorR7Ldtc/2Wwb2JLLQpdyVhVwW4OQVSSlmXEAzQ5iSUDUJ4l5mZLwWfsvTy4YEr8WPJTyOBuRFXX917F06+/K096AKLmJauz1l49u0zGxmIt92T/nz7r+qhaf9SzWyVKGYf6IqZ8xB7MkUuc98WdQxabva1Y8/Y0x+W75fnx1rQKWae/UoLdZgEck1WzIDZfKT6IZFeF0+XPixux9DlQz51D8XqazuXZLb2Y9be1jj6SsOCJRF9YyCrQO4KZL49VAcYPpNBVKcn3HzJ8htzjssHIK4ME8K77qWcY3PCciuHeQyZmvWlj5xxkD4A+xl2k2cCKX5kDNJix8Qcy1i8XIoyGccmEfksg3s+YxmprF9OLd1o0JtOGH2Y+CbvgeQ+uX1vH3/Tz3s8HHPdixWiTUCxD8ZS95Fm9bIkIbcApIOUDZ/ZeA7W9PGvvHbwUV6heO/3c3JfR4khv8TlJESf6IuUl+FiG7QF8BEm/W4fy3J40US4NqwpgN8Z56vaq+84zgAAAABJRU5ErkJggg=="
+ProjectileSpriteSheetAnimationSpeed = 0.5
+ProjectileSpriteSheetFrames = 12
+weaponDropEffectOnAmmoDepletion = false
+weapon = ExtResource("2_ylws4")
+pickupSound = ExtResource("3_ioopu")
+shootSound = ExtResource("4_gwxor")
+
+[node name="gunSprite" parent="." index="2" unique_id=1094739627]
+texture = ExtResource("2_8tcns")

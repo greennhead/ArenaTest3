@@ -100,17 +100,66 @@ func _on_map_loader_map_switched() -> void:
 	for i in get_tree().get_nodes_in_group("player"):
 		i.canMove = false
 	if multiplayer.is_server():
+		if GameManager.customGMProperties.get("randomizerChance") != 0:
+			if GameManager.customGMProperties.has("randomizerChance"):
+				if randi_range(0,100) < GameManager.customGMProperties.get("randomizerChance"): 
+					announceRound.rpc("Randomized!",false)
+					randomizeMap.rpc(randi_range(0,99999))
+					await get_tree().create_timer(1.0).timeout
+		var config = ConfigFile.new()
+		var err = config.load(GameManager.mapName.path_join("config.cfg"))
+		if err == OK:
+			announceRound.rpc(config.get_value("data","name") + " by " + config.get_value("data","author"),false)
+		else:
+			announceRound.rpc("Error by Error",false)
+		await get_tree().create_timer(1.0).timeout
 		announceRound.rpc(tr("ACTION_ROUND") + " " + str(round) + "/" + str(int(maxRounds)),false)
 		await get_tree().create_timer(1.5).timeout
 		announceRound.rpc(tr("ACTION_READY"),false)
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(0.5).timeout
 		announceRound.rpc(tr("ACTION_GO"),true)
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(0.5).timeout
 		announceRound.rpc("",false)
+
+@rpc("authority","call_local","reliable")
+func randomizeMap(seed):
+	seed(seed)
+	var weaponReplacements = {}
+	var maps = GameManager.getAllMaps()
+	var guns = GameManager.getAllGuns(0)
+	var gunsExplosive = GameManager.getAllGuns(1)
+	var gunsOP = GameManager.getAllGuns(2)
+	var gunsNone = GameManager.getAllGuns(3)
+	gunsOP.shuffle()
+	guns.shuffle()
+	gunsExplosive.shuffle()
+	gunsNone.shuffle()
+	maps.erase(GameManager.mapName)
+	var map = maps.pick_random()
+	mapLoader.world.environment.sky.sky_material.set("panorama",mapLoader.load_image(map.path_join("skybox.png")))
+	if mapLoader.world.environment.sky.sky_material.get("panorama") == load("res://images/brick.png"):
+		mapLoader.world.environment.sky.sky_material.set("panorama",mapLoader.load_image(map.path_join("Skybox.png")))
+	map = maps.pick_random()
+	if ResourceLoader.exists(map.path_join("palette.png")):
+		Palleterizer.set_palette(load(map.path_join("palette.png")))
+	for i in mapLoader.get_children(): 
+		if i is GunPickup:
+			if !weaponReplacements.has(i.weapon):
+				var wep = load(i.weapon).instantiate().weapon #shouldnt cause errors :)
+				if wep.consideredOverpowered:
+					weaponReplacements.set(i.weapon,gunsOP.pop_back())
+				elif wep.consideredUnableToDealDamage:
+					weaponReplacements.set(i.weapon,gunsNone.pop_back())
+				elif wep.consideredTileRemoving:
+					weaponReplacements.set(i.weapon,gunsExplosive.pop_back())
+				else:
+					weaponReplacements.set(i.weapon,guns.pop_back())
+			i.weapon = weaponReplacements.get(i.weapon)
+			i.updateGun()
 
 
 @rpc("authority","call_local","reliable")
-func announceRound(round, canMove ):
+func announceRound(round, canMove):
 	hud.winText.modulate = Color.GRAY
 	hud.showWinText(round)
 	if canMove:

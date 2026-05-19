@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://bwji2no2t48i2"]
 
 [ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_m1luy"]
+[ext_resource type="Texture2D" uid="uid://d3mfs82pkklwo" path="res://images/exampleGun.png" id="2_mwsc6"]
 
 [resource]
 script = ExtResource("1_m1luy")
@@ -11,4 +12,6 @@ Ammo = 16
 selfKnockback = -2
 canZoom = true
 zoomFOV = 30
+singularSprite = ExtResource("2_mwsc6")
+consideredUnableToDealDamage = true
 metadata/_custom_type_script = "uid://5u6ynrpschfs"

@@ -116,3 +116,44 @@ func popup(toptext : String, bottomtext : String):
 	p.toptext.text = toptext
 	p.intext.text = bottomtext
 	return p
+
+
+# probably could have used an enum but its 9 pm
+# tag 0 = all
+# tag 1 = tile removing
+# tag 2 = op
+# tag 3 = cant deal damage
+func getAllGuns(tag := 0):
+	var arr = []
+	for path in GameManager.gunPaths:
+		for i in ResourceLoader.list_directory(path):
+			if i.ends_with(".tscn"):
+				var wep = load(path.path_join(i)).instantiate()
+				##if the line below gives you an error then you messed up your weapon 
+				if wep.weapon != null:
+					if tag == 0:
+						arr.append(path.path_join(i))
+					elif tag == 1 && wep.weapon.consideredTileRemoving:
+						arr.append(path.path_join(i))
+					elif tag == 2 && wep.weapon.consideredOverpowered:
+						arr.append(path.path_join(i))
+					elif tag == 3 && wep.weapon.consideredUnableToDealDamage:
+						arr.append(path.path_join(i))
+	return arr
+
+func getAllMaps(gamemodeRestriction : String = ""):
+	var arr = []
+	for path in GameManager.mapPaths:
+		var dir = DirAccess.open(path)
+		if dir:
+			dir.list_dir_begin()
+			var file_name = dir.get_next()
+			while file_name != "":
+				if dir.current_is_dir():
+					var config = ConfigFile.new()
+					var err = config.load(path.path_join(file_name).path_join("config.cfg"))
+					if err == OK:
+						if config.get_value("data","gamemode") == gamemodeRestriction || gamemodeRestriction == "":
+							arr.append(path.path_join(file_name))
+				file_name = dir.get_next()
+	return arr

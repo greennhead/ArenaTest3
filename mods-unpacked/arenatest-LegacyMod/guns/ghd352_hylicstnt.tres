@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://cc1qu8skt6yk2"]
+
+[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_esnww"]
+[ext_resource type="Texture2D" uid="uid://grjffop4jywg" path="res://mods-unpacked/arenatest-LegacyMod/sprites/ghd352_hylicstnt.png" id="2_esnww"]
+
+[resource]
+script = ExtResource("1_esnww")
+name = "Dynamite"
+projectile = "uid://btxit2c61roca"
+Ammo = 1
+singularSprite = ExtResource("2_esnww")
+legacyName = "ghd352_hylicstnt"
+consideredOverpowered = true
+metadata/_custom_type_script = "uid://5u6ynrpschfs"

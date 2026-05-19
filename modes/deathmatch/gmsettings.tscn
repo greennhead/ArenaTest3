@@ -21,12 +21,6 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath("ScrollContainer/VBoxContainer/randChance:value")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath("ScrollContainer/VBoxContainer/shuffleTex:button_pressed")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath("ScrollContainer/VBoxContainer/chaos:button_pressed")
-properties/4/spawn = true
-properties/4/replication_mode = 1
 
 [node name="gmsettings" type="Panel" unique_id=124499287]
 offset_right = 176.0
@@ -81,16 +75,6 @@ text = "GMDM_Randomizer"
 layout_mode = 2
 tooltip_text = "Chance to randomize the map when it loads."
 suffix = "% Chance"
-
-[node name="shuffleTex" type="CheckButton" parent="ScrollContainer/VBoxContainer" unique_id=89085975]
-layout_mode = 2
-button_pressed = true
-text = "Shuffle Textures"
-
-[node name="chaos" type="CheckButton" parent="ScrollContainer/VBoxContainer" unique_id=1080090428]
-layout_mode = 2
-tooltip_text = "Weapons are fully random!"
-text = "Pure Chaos"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="ScrollContainer/VBoxContainer" unique_id=1451185375]
 root_path = NodePath("../../..")

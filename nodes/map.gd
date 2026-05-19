@@ -65,7 +65,6 @@ func syncNum(num):
 
 @rpc("authority","call_local","reliable")
 func loadMap(map):
-	GameManager.mapnum += 1
 	var save_nodes = get_tree().get_nodes_in_group("editorObject")
 	for i in save_nodes:
 		i.queue_free()
@@ -85,7 +84,7 @@ func loadMap(map):
 	GameManager.mapName = map
 	if ResourceLoader.exists(map.path_join("palette.png")) && changePalette:
 		Palleterizer.set_palette(load(map.path_join("palette.png")))
-	world.environment.sky.sky_material.set("panorama",load_image(map.path_join("/skybox.png")))
+	world.environment.sky.sky_material.set("panorama",load_image(map.path_join("skybox.png")))
 	if world.environment.sky.sky_material.get("panorama") == load("res://images/brick.png"):
 		world.environment.sky.sky_material.set("panorama",load_image(map.path_join("Skybox.png")))
 	var save_file = FileAccess.open(path, FileAccess.READ)
