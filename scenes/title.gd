@@ -8,15 +8,25 @@ extends Node3D
 @onready var joinMenu = preload("res://nodes/menus/join.tscn")
 
 @onready var credits: Label = $Control/credits
+@onready var map_loader: mapLoader = $mapLoader
+@onready var camera: Camera3D = $things/Camera3D
 
 func _ready() -> void:
 	GameManager.testMap = ""
+	map_loader.getMapList()
+	map_loader.nextMap()
+	if get_tree().get_nodes_in_group("spawnPoint").size() > 0:
+		camera.global_position = get_tree().get_nodes_in_group("spawnPoint").pick_random().global_position
+	camera.position.y += 1
+	for i in get_tree().get_nodes_in_group("spawnPoint"):
+		i.queue_free()
 	#GameManager.popup("Info","This is still a beta of the full ARENATEST3 release! Stuff is missing and subject to change.")
 
 func _physics_process(delta: float) -> void:
+	camera.fov = Settings.fov
 	$Control/modsLoaded.text = str(ModLoader.modsLoaded) + " mods loaded"
 	$Control/MarginContainer/Control2/pirate.visible = Settings.bonusLanguages
-	world_environment.environment.sky_rotation.y += 0.0018*2
+	camera.rotation.y += 0.0018*2
 
 
 func _on_us_pressed() -> void:

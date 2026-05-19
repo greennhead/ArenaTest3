@@ -10,7 +10,7 @@ func post_ready():
 			print(i)
 			if i.ends_with(".tscn"):
 				var wep = load(path.path_join(i))
-				##if the line below gives you an error then you messed up your weapon (or didnt export mod correctly)
+				##if the line below gives you an error then you messed up your weapon 
 				if wep.instantiate().weapon != null:
 					if wep.instantiate().weapon.legacyName == weaponName:
 						print_rich("[color=lime]Found legacy weapon: " + weaponName)

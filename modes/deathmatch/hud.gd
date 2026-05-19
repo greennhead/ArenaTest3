@@ -37,7 +37,7 @@ func getMostUsedColor(img : Texture2D):
 	return mostUsedColor
 
 func _ready() -> void:
-	await get_tree().create_timer(0.7).timeout
+	await get_tree().create_timer(1.5,false).timeout
 	var p : Player = GameManager.myPlayer
 	p.changedSkin.connect(changeColor)
 	changeColor()

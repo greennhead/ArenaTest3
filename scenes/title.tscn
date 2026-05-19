@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://ddgtc1k44l7qe" path="res://lang/russian_flag.png" id="8_hiwto"]
 [ext_resource type="Texture2D" uid="uid://b5kicjqflcd7v" path="res://lang/polish_flag.png" id="9_w65of"]
 [ext_resource type="Texture2D" uid="uid://bfi8k2wabe8ma" path="res://lang/pirate_flag.png" id="11_6civk"]
+[ext_resource type="PackedScene" uid="uid://dly618ctmgujq" path="res://nodes/map.tscn" id="12_6civk"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_wosw1"]
 panorama = ExtResource("1_4ignj")
@@ -23,7 +24,6 @@ radiance_size = 0
 [sub_resource type="Environment" id="Environment_pyl7j"]
 background_mode = 2
 sky = SubResource("Sky_p6dhs")
-sky_custom_fov = 112.3
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 reflected_light_source = 1
@@ -43,7 +43,8 @@ environment = SubResource("Environment_pyl7j")
 [node name="things" type="Node3D" parent="." unique_id=1753841719]
 
 [node name="Camera3D" type="Camera3D" parent="things" unique_id=916657327]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 1, 0)
+fov = 99.2
 
 [node name="Control" type="Control" parent="." unique_id=375647897]
 layout_mode = 3
@@ -58,7 +59,7 @@ offset_left = 8.0
 offset_top = 4.0
 offset_right = 184.0
 offset_bottom = 12.0
-text = "Version 3.0 BETA"
+text = "Version 3.-1 BETA"
 label_settings = SubResource("LabelSettings_pyl7j")
 
 [node name="credits" type="Label" parent="Control" unique_id=422819227]
@@ -203,6 +204,13 @@ visible = false
 layout_mode = 2
 theme = ExtResource("4_b3w7a")
 icon = ExtResource("11_6civk")
+
+[node name="mapLoader" parent="." unique_id=279676559 node_paths=PackedStringArray("world") instance=ExtResource("12_6civk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.061245, 38.395645, 118.015144)
+noMultiplayer = true
+changePalette = false
+world = NodePath("../WorldEnvironment")
+loadAllMaps = true
 
 [connection signal="pressed" from="Control/container/VBoxContainer/testmode" to="." method="_on_testmode_pressed"]
 [connection signal="pressed" from="Control/container/VBoxContainer/host" to="." method="_on_host_pressed"]

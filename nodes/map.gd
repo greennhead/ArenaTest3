@@ -5,7 +5,8 @@ var folder
 
 signal outOfMaps
 signal mapSwitched
-
+@export var noMultiplayer := false
+@export var changePalette := true
 @export var world : WorldEnvironment
 @export var mapList = []
 var mapname := ""
@@ -14,7 +15,7 @@ var ends := 0
 var blockNum := 0
 var mapIdx := 0
 @onready var BLOCK = preload("res://nodes/block.tscn")
-
+@export var loadAllMaps := false
 @onready var mat = preload("res://resources/mat.tres")
 @onready var mesh = preload("res://resources/mesh.tres")
 @onready var smesh = preload("res://resources/slope.tres")
@@ -37,10 +38,10 @@ func load_image(path: String, blockify : bool = false):
 	#return texture
 
 func _ready() -> void:
+	GameManager.mapnum = 0
 	var rand = 0
 	for i in GameManager.Players:
 		rand += int(i)
-	GameManager.mapnum += 1
 	GameManager.num = rand
 	print(rand)
 
@@ -49,6 +50,9 @@ func _ready() -> void:
 func nextMap():
 	if mapList.size() == 0:
 		outOfMaps.emit()
+		return
+	if noMultiplayer:
+		loadMap(mapList[GameManager.mapnum])
 		return
 	if multiplayer.is_server():
 		loadMap.rpc(mapList[GameManager.mapnum])
@@ -61,6 +65,7 @@ func syncNum(num):
 
 @rpc("authority","call_local","reliable")
 func loadMap(map):
+	GameManager.mapnum += 1
 	var save_nodes = get_tree().get_nodes_in_group("editorObject")
 	for i in save_nodes:
 		i.queue_free()
@@ -78,11 +83,11 @@ func loadMap(map):
 	mappath = path
 	mapname = path.get_file()
 	GameManager.mapName = map
-	if ResourceLoader.exists(map + "/palette.png"):
-		Palleterizer.set_palette(load_image(map + "/palette.png"))
-	world.environment.sky.sky_material.set("panorama",load_image(map + "/skybox.png"))
+	if ResourceLoader.exists(map.path_join("palette.png")) && changePalette:
+		Palleterizer.set_palette(load(map.path_join("palette.png")))
+	world.environment.sky.sky_material.set("panorama",load_image(map.path_join("/skybox.png")))
 	if world.environment.sky.sky_material.get("panorama") == load("res://images/brick.png"):
-		world.environment.sky.sky_material.set("panorama",load_image(map + "/Skybox.png"))
+		world.environment.sky.sky_material.set("panorama",load_image(map.path_join("Skybox.png")))
 	var save_file = FileAccess.open(path, FileAccess.READ)
 	var progress = 0
 	while save_file.get_position() < save_file.get_length():
@@ -141,7 +146,7 @@ func loadMap(map):
 			if !materials.has(str(node_data["texture"])):
 				var meshmat  = mesh.duplicate()
 				meshmat.material = meshmat.material.duplicate()
-				meshmat.material.set("albedo_texture",load_image(map + "/blockTextures/" + str(node_data["texture"]),true)) 
+				meshmat.material.set("albedo_texture",load_image(map.path_join("blockTextures").path_join(str(node_data["texture"])),true)) 
 				materials.set(str(node_data["texture"]),meshmat.material)
 				indexes.set(str(node_data["texture"]),meshLib.get_last_unused_item_id())
 				meshLib.create_item(meshLib.get_last_unused_item_id())
@@ -179,6 +184,8 @@ func getMapList():
 		mapList = []
 		mapList.append(GameManager.testMap)
 		return
+	mapList = []
+	GameManager.globalMaplist = []
 	for path in GameManager.mapPaths:
 		var dir = DirAccess.open(path)
 		if dir:
@@ -189,19 +196,18 @@ func getMapList():
 					var config = ConfigFile.new()
 					var err = config.load(path.path_join(file_name).path_join("config.cfg"))
 					if err == OK:
-						if config.get_value("data","gamemode") == GameManager.gmName && GameManager.enabledMaps.has(file_name):
+						if (config.get_value("data","gamemode") == GameManager.gmName && GameManager.enabledMaps.has(file_name)) || loadAllMaps:
 							GameManager.globalMaplist.append(file_name)
 							mapList.append(path.path_join(file_name))
 				file_name = dir.get_next()
-	mapList = []
 	var rand = 0
 	for i in GameManager.Players:
 		rand += int(i)
 	var seed = rand
-
 	for i in GameManager.Players:
 		seed += int(GameManager.Players[i].id)
-	seed(seed + ends)
+	if !noMultiplayer:
+		seed(seed + ends)
 	mapList.shuffle()
 	print(mapList)
 	#rand = randf_range(0,10000)
