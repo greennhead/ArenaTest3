@@ -142,7 +142,7 @@ offset_left = 10.0
 offset_top = 60.0
 offset_right = 90.0
 offset_bottom = 68.0
-tooltip_text = "Volume of step sounds."
+tooltip_text = "Game FOV"
 theme = ExtResource("1_72qjk")
 min_value = 60.0
 max_value = 150.0
@@ -158,12 +158,35 @@ text = "SETTINGS_FOV"
 script = ExtResource("3_v00rd")
 usePercent = false
 
-[node name="NameColor" type="LineEdit" parent="." unique_id=1396289925]
+[node name="hudscale" type="HSlider" parent="." unique_id=892077602]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 72.0
 offset_right = 90.0
-offset_bottom = 88.0
+offset_bottom = 80.0
+tooltip_text = "Scale of HUD elements ingame. Mod developers should ideally scale their hud based on this value.
+"
+theme = ExtResource("1_72qjk")
+min_value = 1.0
+max_value = 2.0
+value = 1.0
+rounded = true
+
+[node name="Def" type="Label" parent="hudscale" unique_id=832316032]
+layout_mode = 0
+offset_left = 88.0
+offset_right = 388.0
+offset_bottom = 8.0
+text = "SETTINGS_HUDSCALE"
+script = ExtResource("3_v00rd")
+usePercent = false
+
+[node name="NameColor" type="LineEdit" parent="." unique_id=1396289925]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 88.0
+offset_right = 90.0
+offset_bottom = 104.0
 tooltip_text = "The color of your nickname, in hex code."
 theme = ExtResource("1_72qjk")
 text = "red"
@@ -223,9 +246,9 @@ autowrap_mode = 2
 [node name="myName" type="LineEdit" parent="." unique_id=1531658569]
 layout_mode = 0
 offset_left = 10.0
-offset_top = 92.0
+offset_top = 108.0
 offset_right = 90.0
-offset_bottom = 108.0
+offset_bottom = 124.0
 tooltip_text = "The skin that you will have automatically aplied when joining a game. 
 File should be located in SKINS folder."
 theme = ExtResource("1_72qjk")
@@ -244,9 +267,9 @@ text = "Player Name"
 [node name="Palette" type="CheckButton" parent="." unique_id=1590560825]
 layout_mode = 0
 offset_left = 4.0
-offset_top = 108.0
+offset_top = 124.0
 offset_right = 190.0
-offset_bottom = 124.0
+offset_bottom = 140.0
 theme = ExtResource("1_72qjk")
 button_pressed = true
 text = "Use Palette"
@@ -254,9 +277,9 @@ text = "Use Palette"
 [node name="SillyLanguages" type="CheckButton" parent="." unique_id=1595716806]
 layout_mode = 0
 offset_left = 4.0
-offset_top = 139.0
+offset_top = 155.0
 offset_right = 190.0
-offset_bottom = 155.0
+offset_bottom = 171.0
 tooltip_text = "This will add more languages that may not be so helpful."
 theme = ExtResource("1_72qjk")
 text = "Silly Languages"
@@ -264,9 +287,9 @@ text = "Silly Languages"
 [node name="enableVC" type="CheckButton" parent="." unique_id=1796325800]
 layout_mode = 0
 offset_left = 4.0
-offset_top = 155.0
+offset_top = 171.0
 offset_right = 190.0
-offset_bottom = 171.0
+offset_bottom = 187.0
 tooltip_text = "MENU_VCTooltip"
 theme = ExtResource("1_72qjk")
 disabled = true
@@ -276,9 +299,9 @@ text = "MENU_VC"
 [node name="canVC" type="CheckButton" parent="." unique_id=1989626709]
 layout_mode = 0
 offset_left = 4.0
-offset_top = 172.0
+offset_top = 188.0
 offset_right = 190.0
-offset_bottom = 188.0
+offset_bottom = 204.0
 tooltip_text = "MENU_CanVCTooltip"
 theme = ExtResource("1_72qjk")
 disabled = true
@@ -287,9 +310,9 @@ text = "MENU_CanVC"
 [node name="Fullscreen" type="CheckButton" parent="." unique_id=217090040]
 layout_mode = 0
 offset_left = 4.0
-offset_top = 123.0
+offset_top = 139.0
 offset_right = 190.0
-offset_bottom = 139.0
+offset_bottom = 155.0
 tooltip_text = "This will add more languages that may not be so helpful."
 theme = ExtResource("1_72qjk")
 text = "Fullscreen"

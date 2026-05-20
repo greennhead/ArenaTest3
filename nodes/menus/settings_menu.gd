@@ -39,6 +39,7 @@ func _ready() -> void:
 	$DefaultSkin.text = Settings.defaultSkin
 	$canVC.button_pressed = Settings.haveVC
 	$enableVC.button_pressed = Settings.enableVC
+	$hudscale.value = Settings.hudScale
 
 func _process(delta: float) -> void:
 	super(delta)
@@ -56,6 +57,7 @@ func _process(delta: float) -> void:
 	Settings.defaultSkin = $DefaultSkin.text
 	Settings.haveVC = $canVC.button_pressed
 	Settings.enableVC = $enableVC.button_pressed
+	Settings.hudScale = $hudscale.value
 
 
 func _on_step_sound_value_changed(value: float) -> void:

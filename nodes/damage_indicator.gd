@@ -17,6 +17,8 @@ func _ready() -> void:
 			i.position.y -= 2
 
 func _process(delta: float) -> void:
+	scale = Vector2(Settings.hudScale,Settings.hudScale)
+	position.x = get_viewport_rect().size.x/2 - size.x /2
 	if !visible:
 		return
 	text = str(round(dmg)).replace(".0","")

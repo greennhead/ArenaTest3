@@ -13,7 +13,7 @@ var defaultSkin := ""
 var playerName := "Player"
 var nameColor := "red"
 var language := ""
-var senstivity := 4
+var senstivity := 4.0
 var fov := 110
 var fullscreen := false
 var enableVC := true
@@ -21,6 +21,9 @@ var haveVC := false
 var mappings = {}
 var mappingsRes = Mappings
 var enabledMods := []
+var hudScale := 1
+
+var editableVars = ["senstivity", "soundvolume","stepvolume","palette","senstivity","fov","fullscreen","hudscale","namecolor","language","soundvolume","stepvolume"]
 func updateMappings():
 	var inputs = InputMap.get_actions()
 	for i in mappings:
@@ -68,7 +71,7 @@ func getvarreturn(vari,file):
 	var varr = file.get_var()
 	return varr
 
-
+#This is horrible saving code. please save your mod data using the modmanager stuff
 func saveSettings():
 	var keys = mappingsRes
 	keys.keys = mappings
@@ -89,6 +92,7 @@ func saveSettings():
 	file.store_var(enableVC)
 	file.store_var(haveVC)
 	file.store_var(enabledMods)
+	file.store_var(hudScale) 
 	#file.store_var(mappings,true)
 	file.close()
 	print_rich("[color=green]Saved settings!")
@@ -116,6 +120,7 @@ func loadSettings():
 		getvar("enableVC",file)
 		getvar("haveVC",file)
 		getvar("enabledMods",file)
+		getvar("hudScale",file)
 		#getvar("mappings",file)
 		#var map = getvarreturn("mappings",file)
 		#if map != null:

@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://bn3nnwef0t80s"]
+
+[ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://mods-unpacked/arenatest-LegacyMod/nodes/legacyGun.tscn" id="1_2tma1"]
+[ext_resource type="Resource" uid="uid://73wejgghkk04" path="res://mods-unpacked/arenatest-LegacyMod/guns/nic_fireflower.tres" id="2_2tma1"]
+[ext_resource type="AudioStream" uid="uid://c7f3wta7lnnho" path="res://mods-unpacked/arenatest-LegacyMod/sounds/smb_powerup.ogg" id="3_4okmn"]
+[ext_resource type="AudioStream" uid="uid://blps78hkk1v8o" path="res://mods-unpacked/arenatest-LegacyMod/sounds/smb_fireball.ogg" id="4_uylk4"]
+[ext_resource type="Texture2D" uid="uid://b6oo18ppkp0vi" path="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_fireflower.png" id="5_2tma1"]
+
+[sub_resource type="Animation" id="Animation_4okmn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("gunSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_uylk4"]
+resource_name = "new_animation"
+length = 1.733
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("gunSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.43333334, 0.8666667, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qabeb"]
+_data = {
+&"RESET": SubResource("Animation_4okmn"),
+&"new_animation": SubResource("Animation_uylk4")
+}
+
+[node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_2tma1")]
+damage = 50
+damageSpread = true
+knockback = -5.0
+tracerColor = Color(0.9529412, 0.79607844, 0.34901962, 1)
+speed = 6.0
+grav = 10
+Lifetime = 600
+hitbox = Vector3(0.8, 0.8, 0.8)
+Bounce = true
+MaxBounceAmount = 100
+BounceAcceleration = -100.0
+Sprite = "iVBORw0KGgoAAAANSUhEUgAAAGAAAAAYCAMAAAAyNwimAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAMUExURbUxIOacIf/+/wAAAOoRppgAAAAEdFJOU////wBAKqn0AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAvElEQVRIS+2QwQ6DMAxDKf3/f57rOJDQVlzopE28wxae2xix1cW8Bbf8U8FG9HACM9JiEFz2+ARXSomJA5WvRBYWHCoHsHmPD/R7V2FPCDuP881lTb9jTTm0BgTKLjcUxSsNKvwsLICxs9nzM7BaaODJ81LAtrePJ0H8ZRpShG+SpE9Q0Knb4HrukiBfKIC3jyFjNG/Kg/SHOJ8HXNX3zjwEVLCjKcMrfQi3tmDqWxC2zdY+xltwy68X1PoB6/AXEb/kE6AAAAAASUVORK5CYII="
+ProjectileSpriteSheetAnimationSpeed = 0.1
+ProjectileSpriteSheetFrames = 4
+weaponDropEffectOnAmmoDepletion = false
+weapon = ExtResource("2_2tma1")
+pickupSound = ExtResource("3_4okmn")
+shootSound = ExtResource("4_uylk4")
+
+[node name="gunSprite" parent="." index="2" unique_id=1094739627]
+texture = ExtResource("5_2tma1")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4" unique_id=451377965]
+libraries/ = SubResource("AnimationLibrary_qabeb")
+autoplay = &"new_animation"
+speed_scale = 2.0

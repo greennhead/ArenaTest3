@@ -29,15 +29,6 @@ func _ready() -> void:
 	ModLoader.connect("current_config_changed", Callable(self, "_on_ModLoader_current_config_changed"))
 
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		if event.pressed and event.keycode == KEY_U:
-			hide() if visible else show()
-
-	# Click outside handling
-	if event is InputEventMouseButton and event.is_pressed():
-		if not get_global_rect().has_point(get_global_mouse_position()):
-			hide()
 
 
 func apply_config(config: ModConfig) -> void:

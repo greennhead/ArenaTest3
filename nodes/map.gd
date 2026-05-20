@@ -142,10 +142,11 @@ func loadMap(map):
 				#var rot = gridMap.get_orthogonal_index_from_basis(Quaternion(rad_to_deg(node_data["rotation_x"]/90),1,rad_to_deg(node_data["rotation_z"]/90),node_data["rotation_y"]))
 				#gridMap.set_cell_item(Vector3(node_data["pos_x"], node_data["pos_y"],node_data["pos_z"]),indexes[str(node_data["texture"])+ "_slope"],rot)
 		if node_data["name"] == "block":
-			if !materials.has(str(node_data["texture"])):
+			if !materials.has(str(node_data["texture"])) || node_data["texture"] == null:
 				var meshmat  = mesh.duplicate()
 				meshmat.material = meshmat.material.duplicate()
-				meshmat.material.set("albedo_texture",load_image(map.path_join("blockTextures").path_join(str(node_data["texture"])),true)) 
+				if node_data["texture"] != null:
+					meshmat.material.set("albedo_texture",load_image(map.path_join("blockTextures").path_join(str(node_data["texture"])),true)) 
 				materials.set(str(node_data["texture"]),meshmat.material)
 				indexes.set(str(node_data["texture"]),meshLib.get_last_unused_item_id())
 				meshLib.create_item(meshLib.get_last_unused_item_id())

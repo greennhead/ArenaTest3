@@ -15,6 +15,8 @@ func _ready() -> void:
 	GameManager.testMap = ""
 	map_loader.getMapList()
 	map_loader.nextMap()
+	if GameManager.mapName != "":
+		$Control/version.text += "\n\nShown Map: " + GameManager.getMapData(GameManager.mapName,"name") + " by " + GameManager.getMapData(GameManager.mapName,"author")
 	if get_tree().get_nodes_in_group("spawnPoint").size() > 0:
 		camera.global_position = get_tree().get_nodes_in_group("spawnPoint").pick_random().global_position
 	camera.position.y += 1

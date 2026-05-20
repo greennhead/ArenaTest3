@@ -47,6 +47,7 @@ func sendGameInfo(started : bool,gamemode : int = -1):
 		queue_free()
 
 func _ready() -> void:
+	GameManager.rules = GameManager.rulesDefault.duplicate()
 	GameManager.Players = {}
 	if GameManager.myName == "":
 		GameManager.myName = Settings.playerName
@@ -311,3 +312,12 @@ func mapEnabled(name):
 
 func _on_tree_exiting() -> void:
 	peer.close()
+@onready var chat: MenuWindow = $chat
+
+
+func _on_closechat_pressed() -> void:
+	chat.hide()
+
+
+func _on_chat_open_pressed() -> void:
+	chat.show()

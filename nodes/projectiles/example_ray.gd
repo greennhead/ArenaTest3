@@ -1,6 +1,6 @@
 extends RayCast3D
 class_name ExampleRay
-var damage := 0
+@export var damage := 8
 var knockback := 0
 var Owner = null
 var timer := 0
@@ -28,3 +28,4 @@ func check():
 				hit = get_collider().player
 			if hit != Owner:
 				hit.hurt(damage,knockback,self)
+				queue_free()

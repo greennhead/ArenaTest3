@@ -52,12 +52,12 @@ vertical_alignment = 1
 layout_mode = 2
 
 [node name="Control" type="Control" parent="CenterContainer2/HBoxContainer" unique_id=513723067]
-visible = false
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 script = ExtResource("2_ewnl2")
 
 [node name="icon" type="Sprite2D" parent="CenterContainer2/HBoxContainer/Control" unique_id=1352622815]
+visible = false
 texture = ExtResource("3_uu43c")
 region_enabled = true
 region_rect = Rect2(4, 132, 11, 11)
@@ -71,18 +71,26 @@ region_rect = Rect2(48, 96, 192, 24)
 offset_right = 640.0
 offset_bottom = 719.0
 
-[node name="hudPlate" type="TextureRect" parent="CenterContainer" unique_id=567655388]
+[node name="control" type="Control" parent="CenterContainer" unique_id=1300457589]
 layout_mode = 2
+
+[node name="hudPlate" type="TextureRect" parent="CenterContainer/control" unique_id=567655388]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 0
+offset_left = -320.0
+offset_top = -120.0
+offset_right = 320.0
+offset_bottom = 120.0
 texture = ExtResource("2_ml6nh")
 
-[node name="hudFace" type="Sprite2D" parent="CenterContainer/hudPlate" unique_id=1806314644]
+[node name="hudFace" type="Sprite2D" parent="CenterContainer/control/hudPlate" unique_id=1806314644]
 position = Vector2(320, 224)
 texture = ExtResource("3_uu43c")
 hframes = 8
 region_enabled = true
 region_rect = Rect2(48, 96, 192, 24)
 
-[node name="hudText" type="Label" parent="CenterContainer/hudPlate" unique_id=2090182210]
+[node name="hudText" type="Label" parent="CenterContainer/control/hudPlate" unique_id=2090182210]
 layout_mode = 0
 offset_left = 168.0
 offset_top = 213.0
@@ -90,7 +98,7 @@ offset_right = 307.0
 offset_bottom = 244.0
 label_settings = SubResource("LabelSettings_twpnc")
 
-[node name="hudText2" type="Label" parent="CenterContainer/hudPlate" unique_id=763997895]
+[node name="hudText2" type="Label" parent="CenterContainer/control/hudPlate" unique_id=763997895]
 layout_mode = 0
 offset_left = 344.0
 offset_top = 213.0

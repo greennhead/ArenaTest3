@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://de3fryspiedku"]
+
+[ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://mods-unpacked/arenatest-LegacyMod/nodes/legacyGun.tscn" id="1_hxljm"]
+[ext_resource type="Resource" uid="uid://bv5jgbj84nw30" path="res://mods-unpacked/arenatest-LegacyMod/guns/mbx_shitfuck5000.tres" id="2_hxljm"]
+[ext_resource type="Texture2D" uid="uid://dnnyk8p00nj72" path="res://mods-unpacked/arenatest-LegacyMod/sprites/mbx_shitfucker.png" id="5_ll4an"]
+
+[node name="legacyGun" unique_id=15249170 instance=ExtResource("1_hxljm")]
+damage = 30
+knockback = 20.0
+FireAnimationRotation = 360.0
+tracerColor = Color(1, 1, 1, 1)
+speed = 10.0
+grav = -2
+Lifetime = 600
+acceleration = -1.0
+piercing = true
+Bounce = true
+MaxBounceAmount = 100
+BounceAcceleration = 100.0
+Sprite = "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAFBhaW50Lk5FVCA1LjEuN4vW9zkAAAC2ZVhJZklJKgAIAAAABQAaAQUAAQAAAEoAAAAbAQUAAQAAAFIAAAAoAQMAAQAAAAIAAAAxAQIAEAAAAFoAAABphwQAAQAAAGoAAAAAAAAAYAAAAAEAAABgAAAAAQAAAFBhaW50Lk5FVCA1LjEuNwADAACQBwAEAAAAMDIzMAGgAwABAAAAAQAAAAWgBAABAAAAlAAAAAAAAAACAAEAAgAEAAAAUjk4AAIABwAEAAAAMDEwMAAAAAAlR56NozS1xQAAAYVJREFUWEetk1tuwzAMBMXe/87qR7zGakQytuMBUiR8Lkk1Rs+k4SpzXksNGoxZFYmIpQF/u11k/tEI2JqzyZXijuIZe1nAW2yDLN4PW3MmvckfDeRbcz/FVTyH2dv0Dpt1sR0+1NcNiKw5bU5EnJ8O927TS2lWRLHZibJ4wTxFTjr9t5OJ8rgul0TECJ+c07AY/RldTFavFSCYeIdqU/ItAtwh6HMqYd0g3PD2X+BF53FrF+Qohiivwn2LACn0on4eFpWNvuq7WLYg2+awTUgY7RmVn/bj9ykvFeCrrAoK+kUVRwGHb2/iIo6gJUaw0cD2OIgE+BsIFvFmnqgPmfZ+KqGEVdItHI7N9oRuA4e93oLj0/4CBaTwHTh3V07yqskpRnEO2WmjnbnVCcR5Cp9ca68e4bB4NffYVCQNIN2EUwkRVb420Gd/mMPeQVXwLt9O4ISf5AmeyzpXBIhjZ7uQzOb4w+MG+8ya8yxPufMGOh4JUfPzzwssCjpB3nz58jK1AvT8B9IlSErM7bUqAAAAAElFTkSuQmCC"
+ProjectileSpriteSheetAnimationSpeed = 0.3
+ProjectileSpriteSheetFrames = 3
+explosive = true
+explosionDamage = 14.0
+explosionKnockback = 50.0
+explosionRadius = 10.0
+weapon = ExtResource("2_hxljm")
+
+[node name="hand" parent="." index="0" unique_id=974286624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.544965, -0.166306, -0.7736475)
+
+[node name="hand2" parent="." index="1" unique_id=915277237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20988512, -0.080212474, -1.2045224)
+
+[node name="gunSprite" parent="." index="2" unique_id=1094739627]
+texture = ExtResource("5_ll4an")
+
+[node name="shootPoint" parent="." index="3" unique_id=762613811]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38290846, 0.1606412, -0.96002436)

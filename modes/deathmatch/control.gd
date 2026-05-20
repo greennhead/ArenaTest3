@@ -6,6 +6,8 @@ var dead := false
 var pnode
 var shake = 0
 func _physics_process(delta: float) -> void:
+	scale.x = Settings.hudScale
+	scale.y = Settings.hudScale
 	if shake > 0:
 		shake -= 0.5
 		icon.offset = Vector2(randf_range(-shake/4,shake/4),randf_range(-shake/4,shake/4))

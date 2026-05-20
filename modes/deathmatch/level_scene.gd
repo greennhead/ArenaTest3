@@ -82,7 +82,7 @@ func announceWin(winner):
 		if i.id == winner:
 			winPlayer = i
 	if winPlayer == null:
-		hud.winText.modulate = Color.GRAY
+		hud.winText.modulate = Color.WHITE
 		hud.showWinText(tr("ACTION_STALEMATE"))
 	else:
 		hud.winText.modulate = winPlayer.playerName.modulate
@@ -90,6 +90,7 @@ func announceWin(winner):
 	await get_tree().create_timer(2.0).timeout
 	if round < maxRounds && multiplayer.is_server():
 		mapLoader.nextMap()
+		return
 	if round >= maxRounds:
 		hud.showWinText(tr("ACTION_END"))
 
@@ -100,18 +101,14 @@ func _on_map_loader_map_switched() -> void:
 	for i in get_tree().get_nodes_in_group("player"):
 		i.canMove = false
 	if multiplayer.is_server():
+		await get_tree().create_timer(1.0).timeout
 		if GameManager.customGMProperties.get("randomizerChance") != 0:
 			if GameManager.customGMProperties.has("randomizerChance"):
 				if randi_range(0,100) < GameManager.customGMProperties.get("randomizerChance"): 
 					announceRound.rpc("Randomized!",false)
-					randomizeMap.rpc(randi_range(0,99999))
+					randomizeMap.rpc(GameManager.num)
 					await get_tree().create_timer(1.0).timeout
-		var config = ConfigFile.new()
-		var err = config.load(GameManager.mapName.path_join("config.cfg"))
-		if err == OK:
-			announceRound.rpc(config.get_value("data","name") + " by " + config.get_value("data","author"),false)
-		else:
-			announceRound.rpc("Error by Error",false)
+		announceRound.rpc(GameManager.getMapData(GameManager.mapName,"name") + " by " + GameManager.getMapData(GameManager.mapName,"author"),false)
 		await get_tree().create_timer(1.0).timeout
 		announceRound.rpc(tr("ACTION_ROUND") + " " + str(round) + "/" + str(int(maxRounds)),false)
 		await get_tree().create_timer(1.5).timeout
@@ -123,22 +120,29 @@ func _on_map_loader_map_switched() -> void:
 
 @rpc("authority","call_local","reliable")
 func randomizeMap(seed):
-	seed(seed)
+	GameManager.num = seed
+	seed(GameManager.num)
 	var weaponReplacements = {}
 	var maps = GameManager.getAllMaps()
 	var guns = GameManager.getAllGuns(0)
 	var gunsExplosive = GameManager.getAllGuns(1)
 	var gunsOP = GameManager.getAllGuns(2)
 	var gunsNone = GameManager.getAllGuns(3)
+	seed(GameManager.num)
 	gunsOP.shuffle()
+	seed(GameManager.num)
 	guns.shuffle()
+	seed(GameManager.num)
 	gunsExplosive.shuffle()
+	seed(GameManager.num)
 	gunsNone.shuffle()
 	maps.erase(GameManager.mapName)
+	seed(GameManager.num)
 	var map = maps.pick_random()
 	mapLoader.world.environment.sky.sky_material.set("panorama",mapLoader.load_image(map.path_join("skybox.png")))
 	if mapLoader.world.environment.sky.sky_material.get("panorama") == load("res://images/brick.png"):
 		mapLoader.world.environment.sky.sky_material.set("panorama",mapLoader.load_image(map.path_join("Skybox.png")))
+	seed(GameManager.num)
 	map = maps.pick_random()
 	if ResourceLoader.exists(map.path_join("palette.png")):
 		Palleterizer.set_palette(load(map.path_join("palette.png")))
@@ -160,7 +164,7 @@ func randomizeMap(seed):
 
 @rpc("authority","call_local","reliable")
 func announceRound(round, canMove):
-	hud.winText.modulate = Color.GRAY
+	hud.winText.modulate = Color.WHITE
 	hud.showWinText(round)
 	if canMove:
 		for i in get_tree().get_nodes_in_group("player"):

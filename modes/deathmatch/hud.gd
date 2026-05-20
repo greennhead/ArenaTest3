@@ -1,10 +1,10 @@
 extends CanvasLayer
-@onready var hudText: Label = $CenterContainer/hudPlate/hudText
-@onready var hudPlate: TextureRect = $CenterContainer/hudPlate
-@onready var hudFace: Sprite2D = $CenterContainer/hudPlate/hudFace
+@onready var hudText: Label = $CenterContainer/control/hudPlate/hudText
+@onready var hudPlate: TextureRect = $CenterContainer/control/hudPlate
+@onready var hudFace: Sprite2D =$CenterContainer/control/hudPlate/hudFace
 @onready var centerContainer: CenterContainer = $CenterContainer
 
-@onready var hudText2: Label = $CenterContainer/hudPlate/hudText2
+@onready var hudText2: Label = $CenterContainer/control/hudPlate/hudText2
 @onready var winText: Label = $CenterContainer2/Control/winText
 
 
@@ -37,7 +37,8 @@ func getMostUsedColor(img : Texture2D):
 	return mostUsedColor
 
 func _ready() -> void:
-	await get_tree().create_timer(1.5,false).timeout
+	await get_tree().create_timer(1.0,false).timeout
+	await get_tree().process_frame
 	var p : Player = GameManager.myPlayer
 	p.changedSkin.connect(changeColor)
 	changeColor()
@@ -59,9 +60,17 @@ func changeColor():
 @onready var centerContainer2: CenterContainer = $CenterContainer2
 
 func _physics_process(delta: float) -> void:
-	centerContainer2.size.x = get_viewport().get_visible_rect().size.x
-	centerContainer.size = get_viewport().get_visible_rect().size
+	centerContainer2.size.x = get_viewport().get_visible_rect().size.x 
+	centerContainer.size = get_viewport().get_visible_rect().size 
 	centerContainer.size.y *= 1.5
+	
+	if Settings.hudScale == 2: #if double scale 
+		centerContainer.size /= 3
+		centerContainer.size.x *= 1.5 
+		centerContainer.scale = Vector2(Settings.hudScale,Settings.hudScale)
+		winText.scale = Vector2(Settings.hudScale,Settings.hudScale)
+		centerContainer2.size.x /= 1.5
+	
 	var p : Player = GameManager.myPlayer
 	if p != null:
 		hudText2.text = ""

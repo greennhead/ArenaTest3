@@ -25,7 +25,7 @@ var customObjects : Array[mapObject]
 var testMap := ""
 const modsPath := "user://mods/" 
 var myName := ""
-var mods = []
+#var mods = []
 var address = "localhost"
 var enabledMaps = []
 var customGMProperties = {}
@@ -33,6 +33,12 @@ var customGMProperties = {}
 var gunPaths : Array[String] = ["res://nodes/weapons/"]
 var mapPaths : Array[String] = ["res://maps/"]
 var gamemodePaths : Array[String] = ["res://modes/"]
+
+var rules := {
+	"bhop" : 0,
+	"autobhop" : 0
+}
+var rulesDefault := {}
 
 var modProfile
 
@@ -45,6 +51,7 @@ func _ready() -> void:
 			print_rich("[color=green]Loaded custom object: "+ res) 
 			customObjects.append(load(path+res))
 	addModeNodes()
+	rulesDefault = rules.duplicate()
 func _init() -> void:
 	Settings.loadSettings()
 	loadMods()
@@ -157,3 +164,10 @@ func getAllMaps(gamemodeRestriction : String = ""):
 							arr.append(path.path_join(file_name))
 				file_name = dir.get_next()
 	return arr
+
+func getMapData(path : String, data : String = "name"):
+	var config = ConfigFile.new()
+	var err = config.load((path).path_join("config.cfg"))
+	if err == OK:
+		return config.get_value("data",data)
+	return "Error"

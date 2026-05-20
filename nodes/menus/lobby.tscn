@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bp8lkc3ukjnna" path="res://nodes/menus/errorWindow.tscn" id="2_ayhb5"]
 [ext_resource type="Texture2D" uid="uid://dybdk0toudmvx" path="res://images/window.png" id="3_pw2cy"]
 [ext_resource type="PackedScene" uid="uid://b3sghukfmnnpi" path="res://nodes/menus/mapPicker.tscn" id="4_o6di7"]
+[ext_resource type="Script" uid="uid://d3afr87rvcnap" path="res://resources/menuWindow.gd" id="6_q755k"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hatrp"]
 texture = ExtResource("3_pw2cy")
@@ -194,10 +195,44 @@ offset_top = 256.0
 offset_right = 48.0
 offset_bottom = 296.0
 
+[node name="chat" type="Control" parent="." unique_id=374461244 node_paths=PackedStringArray("sizePanel")]
+visible = false
+anchors_preset = 0
+offset_left = 128.0
+offset_top = 88.0
+offset_right = 480.0
+offset_bottom = 312.0
+script = ExtResource("6_q755k")
+sizePanel = NodePath("Panel")
+metadata/_custom_type_script = "uid://d3afr87rvcnap"
+
+[node name="Panel" type="Panel" parent="chat" unique_id=795471732]
+layout_mode = 0
+offset_right = 352.0
+offset_bottom = 224.0
+
+[node name="closechat" type="Button" parent="chat" unique_id=607320720]
+layout_mode = 0
+offset_left = 340.0
+offset_right = 352.0
+offset_bottom = 13.0
+text = "X"
+
+[node name="Name" type="Label" parent="chat" unique_id=1538320832]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 304.0
+offset_bottom = 11.0
+theme = ExtResource("1_n06no")
+text = "MENU_LOBBY"
+
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="pressed" from="Panel/MapPicker/ToggleAll" to="Panel/MapPicker" method="_on_toggle_all_pressed"]
 [connection signal="pressed" from="close" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="chatOpen" to="." method="_on_chat_open_pressed"]
 [connection signal="item_selected" from="gamemodeSelector" to="." method="_on_gamemode_selector_item_selected"]
+[connection signal="pressed" from="chat/closechat" to="." method="_on_closechat_pressed"]
 
 [editable path="Panel/MapPicker"]

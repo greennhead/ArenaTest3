@@ -94,6 +94,8 @@ var lasthitbytype = "player"
 
 var nameColor : Color = Color.WHITE
 
+var bSPEED = SPEED # speed used for bhops
+
 func _ready() -> void:
 	hp = maxhp
 	var playback = voip.get_stream_playback()
@@ -225,10 +227,13 @@ func _physics_process(delta: float) -> void:
 	doState(state,delta)
 	if mulSync.get_multiplayer_authority() != multiplayer.get_unique_id():
 		return
+	if GameManager.rules.get("bhop") == 1:
+		update_frame_timer()
 	voiceThings()
 	if position.y > DEATH_ZONE:
 		if not is_on_floor():
-			velocity += grav * delta
+			if GameManager.rules.get("bhop") == 0:
+				velocity += grav * delta
 			if coyote > 0:
 				coyote -= 1
 		else:
@@ -383,7 +388,7 @@ func normalState(delta):
 			return
 		if weapon.weapon.autofire:
 			shoot = Input.is_action_pressed("fire")
-		if shoot:
+		if shoot && canMove:
 			weapon.shoot.rpc(camera.global_rotation)
 		if weapon.weapon.canZoom:
 			if Input.is_action_pressed("altfire"):
@@ -404,21 +409,98 @@ func normalState(delta):
 			emitSound.rpc("res://sounds/ct_footstep_" + str(randi_range(0,3))+ ".ogg",position,linear_to_db(Settings.stepVolume/100) ,randf_range(0.9,1.1))
 	if stepDelay > 0:
 		stepDelay -= 60*delta
-	if Input.is_action_just_pressed("jump") && coyote > 0:
+	var jump = Input.is_action_just_pressed("jump")
+	if GameManager.rules.get("autobhop") == 1:
+		jump = Input.is_action_pressed("jump")
+	if !canMove || Console.is_visible() == true:
+		jump = false
+	if jump && coyote > 0 && canMove && Console.is_visible() == false && GameManager.rules.get("bhop") == 0:
 		coyote = 0
 		velocity.y = JUMP_VELOCITY
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	var spd = icyness
-	if direction && canMove:
-		billb.animationSpeed = animationSpeed
-		velocity.x = move_toward(velocity.x,direction.x * SPEED,deltaify(spd,delta))
-		velocity.z = move_toward(velocity.z,direction.z * SPEED,deltaify(spd,delta))
+	if GameManager.rules.get("bhop") == 0:
+		if direction && canMove && Console.is_visible() == false:
+			billb.animationSpeed = animationSpeed
+			velocity.x = move_toward(velocity.x,direction.x * SPEED,deltaify(spd,delta))
+			velocity.z = move_toward(velocity.z,direction.z * SPEED,deltaify(spd,delta))
+		else:
+			billb.animationSpeed = 0
+			velocity.x = move_toward(velocity.x,0.0,deltaify(spd,delta))
+			velocity.z = move_toward(velocity.z,0.0,deltaify(spd,delta))
 	else:
-		billb.animationSpeed = 0
-		velocity.x = move_toward(velocity.x,0.0,deltaify(spd,delta))
-		velocity.z = move_toward(velocity.z,0.0,deltaify(spd,delta))
+		billb.animationSpeed = (abs(velocity.x) + abs(velocity.z))*0.2
+		velocity = get_next_velocity(velocity,delta,jump)
 	move_and_slide()
+
+# credit to bhop3d by birddt https://github.com/BirDt/bhop3d/blob/main/addons/bhop3d/src/bhop3d.gd
+#region bhop
+@export var bhop_frames : int = 3
+@export var additive_bhop : bool = true
+@export var friction : float = 6
+@export var air_accelerate : float = 85
+## Max velocity on the ground
+@export var ground_accelerate : float = 250
+@export var max_ground_velocity : float = 10.0
+## Max velocity in the air
+@export var max_air_velocity : float = 1.5
+func get_next_velocity(previousVelocity, delta,jump):
+	var grounded = is_on_floor()
+	var can_jump = grounded # Jumping is a seperate var in case of additive bunnyhopping modifying grounded
+	
+	# Apply friction if player is grounded, and if the frame_timer indicates it should be applied
+	if grounded and (frame_timer >= bhop_frames):
+		var speed = previousVelocity.length()
+		if speed != 0:
+			var drop = speed * friction * delta
+			previousVelocity *= max(speed - drop, 0) / speed
+	else:
+		# If bunnyhopping is additive, we should use the air velocity and accelerate values for all frames
+		# that the bunnyhop is possible
+		if not additive_bhop:
+			grounded = false
+	var max_vel = SPEED *0.8 if grounded else  max_air_velocity
+	var accel = ground_accelerate if grounded else air_accelerate
+	
+	# Calculate velocity for next frame
+	var velocity = accelerate(get_wishdir(), previousVelocity, accel, max_vel, delta)
+	# Apply gravity
+	velocity += grav * delta
+	
+	# Apply jump if desired
+	if (jump && grounded) \
+			and canMove:
+		print(frame_timer, "/",bhop_frames)
+		print(grounded)
+		velocity.y = JUMP_VELOCITY
+	# Return the new velocity
+	return velocity
+
+## Count of frames since last grounded
+var frame_timer = bhop_frames
+## Update frame timer if necessary
+func update_frame_timer():
+	if is_on_floor():
+		frame_timer += 1
+	else:
+		frame_timer = 0
+
+func accelerate(accelDir, prevVelocity, acceleration, max_vel, delta):
+	# Calculate projected velocity for the next frame
+	var projectedVel = prevVelocity.dot(accelDir)
+	# Calculate the accelerated velocity given the maximum velocity, projected velocity, and current acceleration
+	var accelVel = clamp(max_vel - projectedVel, 0, acceleration * delta)
+	# Return the previous velocity in addition to the new velocity post acceleration
+	return prevVelocity + accelDir * accelVel
+
+func get_wishdir():
+	if not canMove || Console.is_visible() == true:
+		return Vector3.ZERO
+	return Vector3.ZERO + \
+			(camera.global_transform.basis.z * Input.get_axis("up", "down")) +\
+			(camera.global_transform.basis.x * Input.get_axis("left", "right"))
+#endregion
 
 func _input(event):
 	if mulSync.get_multiplayer_authority() != multiplayer.get_unique_id():

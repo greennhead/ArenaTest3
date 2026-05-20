@@ -151,7 +151,42 @@ func _exit_tree() -> void:
 			write_index += 1
 
 
+func die():
+	if GameManager.myPlayer != null:
+		GameManager.myPlayer.hp -= 999
+
+func setsetting(setting,value):
+	if Settings.editableVars.has(setting.to_lower()):
+		Settings.set(setting,str(value))
+		print_info(setting + " set to " + value)
+		Settings.saveSettings()
+	else:
+		print_error("Can't set that")
+
+
+
+func setRule(rule,value):
+	if !multiplayer.is_server():
+		print_error("Not a host.")
+		return
+	if value == "":
+		value = 0
+	elif value == "true":
+		value = 1
+	elif value == "false":
+		value = 0
+	doSetRule.rpc(rule,value)
+
+@rpc("call_local","authority","reliable")
+func doSetRule(rule,value):
+	GameManager.rules.set(rule,int(value))
+	print_info(rule + " has been set to " + str(value) + " by game host.")
+	GameManager.message(":red:" + rule + " has been set to " + str(value) + " by game host.",true)
+
 func _ready() -> void:
+	add_command("setrule",setRule,["Rule", "Value"],2, "Sets a game rule for the current server")
+	add_command("setsetting",setsetting,["Setting","Value"],2,"Sets a setting.")
+	add_command("die",die,0,0,"Kills you.")
 	add_command("quit", quit, 0, 0, "Quits the game.")
 	add_command("exit", quit, 0, 0, "Quits the game.")
 	add_command("clear", clear, 0, 0, "Clears the text on the console.")
@@ -474,7 +509,9 @@ func delete_history() -> void:
 func help() -> void:
 	rich_label.append_text(" Built in commands:
 		[color=light_green]calc[/color]: Calculates a given expresion.
+		[color=light_green]set_setting[/color]: Set a setting value.
 		[color=light_green]clear[/color]: Clears the registry view.
+		[color=light_green]die[/color]: Kills you!
 		[color=light_green]commands[/color]: Shows a reduced list of all the currently registered commands.
 		[color=light_green]commands_list[/color]: Shows a detailed list of all the currently registered commands.
 		[color=light_green]delete_history[/color]: Deletes the commands history.
