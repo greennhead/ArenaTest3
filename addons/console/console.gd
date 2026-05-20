@@ -181,6 +181,8 @@ func setRule(rule,value):
 func doSetRule(rule,value):
 	GameManager.rules.set(rule,int(value))
 	print_info(rule + " has been set to " + str(value) + " by game host.")
+	if rule == "bhop":
+		print_line("credits to BirDt and Flafla2!")
 	GameManager.message(":red:" + rule + " has been set to " + str(value) + " by game host.",true)
 
 func _ready() -> void:

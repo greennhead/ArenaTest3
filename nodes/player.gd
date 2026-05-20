@@ -434,7 +434,7 @@ func normalState(delta):
 		velocity = get_next_velocity(velocity,delta,jump)
 	move_and_slide()
 
-# credit to bhop3d by birddt https://github.com/BirDt/bhop3d/blob/main/addons/bhop3d/src/bhop3d.gd
+# credit to bhop3d by birdt https://github.com/BirDt/bhop3d/blob/main/addons/bhop3d/src/bhop3d.gd
 #region bhop
 @export var bhop_frames : int = 3
 @export var additive_bhop : bool = true
@@ -460,7 +460,7 @@ func get_next_velocity(previousVelocity, delta,jump):
 		# that the bunnyhop is possible
 		if not additive_bhop:
 			grounded = false
-	var max_vel = SPEED *0.8 if grounded else  max_air_velocity
+	var max_vel = SPEED *0.9 if grounded else  max_air_velocity
 	var accel = ground_accelerate if grounded else air_accelerate
 	
 	# Calculate velocity for next frame
@@ -471,7 +471,6 @@ func get_next_velocity(previousVelocity, delta,jump):
 	# Apply jump if desired
 	if (jump && grounded) \
 			and canMove:
-		print(frame_timer, "/",bhop_frames)
 		print(grounded)
 		velocity.y = JUMP_VELOCITY
 	# Return the new velocity
@@ -497,9 +496,14 @@ func accelerate(accelDir, prevVelocity, acceleration, max_vel, delta):
 func get_wishdir():
 	if not canMove || Console.is_visible() == true:
 		return Vector3.ZERO
-	return Vector3.ZERO + \
-			(camera.global_transform.basis.z * Input.get_axis("up", "down")) +\
-			(camera.global_transform.basis.x * Input.get_axis("left", "right"))
+	if GameManager.rules.get("bhopwiggle") == 0:
+		return Vector3.ZERO + \
+				(head.global_transform.basis.z * Input.get_axis("up", "down")) +\
+				(head.global_transform.basis.x * Input.get_axis("left", "right"))
+	else:
+				return Vector3.ZERO + \
+				(camera.global_transform.basis.z * Input.get_axis("up", "down")) +\
+				(camera.global_transform.basis.x * Input.get_axis("left", "right"))
 #endregion
 
 func _input(event):

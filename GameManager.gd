@@ -35,8 +35,9 @@ var mapPaths : Array[String] = ["res://maps/"]
 var gamemodePaths : Array[String] = ["res://modes/"]
 
 var rules := {
-	"bhop" : 0,
-	"autobhop" : 0
+	"bhop" : 0, #Enables quake-like movement
+	"autobhop" : 0, #Autojump
+	"bhopwiggle" : 0 #Can fly by wiggling ASD in air if bhop is 1
 }
 var rulesDefault := {}
 
