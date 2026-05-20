@@ -22,7 +22,7 @@ func _process(delta: float) -> void:
 		Frame += 1
 	if global_transform.origin.is_equal_approx(get_viewport().get_camera_3d().global_position):
 		return
-	node.look_at(get_viewport().get_camera_3d().global_position) 
+	node.look_at(get_viewport().get_camera_3d().global_position)
 	sprite_frame = round(node.rotation_degrees.y / 45)
 	flip_h = false
 	set_sprite(sprite_frame)

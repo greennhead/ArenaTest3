@@ -54,8 +54,7 @@ func isHeldByLocalPlayer():
 	return player.mulSync.get_multiplayer_authority() == multiplayer.get_unique_id()
 
 func _physics_process(delta: float) -> void:
-	if isHeldByLocalPlayer():
-		sprite.no_depth_test = true
+	sprite.no_depth_test = isHeldByLocalPlayer()
 	if delay > 0:
 		delay -= 1
 	if delay == 0 && ammo == 0:

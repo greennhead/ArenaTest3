@@ -430,7 +430,7 @@ func normalState(delta):
 			velocity.x = move_toward(velocity.x,0.0,deltaify(spd,delta))
 			velocity.z = move_toward(velocity.z,0.0,deltaify(spd,delta))
 	else:
-		billb.animationSpeed = (abs(velocity.x) + abs(velocity.z))*0.2
+		billb.animationSpeed = (abs(velocity.x) + abs(velocity.z))*0.02
 		velocity = get_next_velocity(velocity,delta,jump)
 	move_and_slide()
 
@@ -460,7 +460,7 @@ func get_next_velocity(previousVelocity, delta,jump):
 		# that the bunnyhop is possible
 		if not additive_bhop:
 			grounded = false
-	var max_vel = SPEED *0.9 if grounded else  max_air_velocity
+	var max_vel = SPEED *0.6 if grounded else  max_air_velocity
 	var accel = ground_accelerate if grounded else air_accelerate
 	
 	# Calculate velocity for next frame

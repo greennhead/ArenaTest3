@@ -15,4 +15,4 @@ region_rect = Rect2(0, 0, 192, 24)
 script = ExtResource("2_ig6rx")
 animation = ExtResource("3_kmru7")
 
-[node name="Node3D" type="Node3D" parent="." unique_id=1460401015]
+[node name="Node3D" type="Node3D" parent="." unique_id=1613717869]
