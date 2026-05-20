@@ -11,7 +11,6 @@ var sprite_frame = 0
 var an = 0
 var currArr = []
 @onready var node: Node3D = $Node3D
-@onready var mesh: MeshInstance3D = $MeshInstance3D
 var legacy := false
 # WARNING THIS IS THE BILLBOARD SCRIPT DO NOT EDIT IT
 func _process(delta: float) -> void:
@@ -23,9 +22,7 @@ func _process(delta: float) -> void:
 		Frame += 1
 	if global_transform.origin.is_equal_approx(get_viewport().get_camera_3d().global_position):
 		return
-	node.look_at(get_viewport().get_camera_3d().global_position)
-	mesh.look_at(get_viewport().get_camera_3d().global_position)
-	mesh.global_rotation.x = 0
+	node.look_at(get_viewport().get_camera_3d().global_position) 
 	sprite_frame = round(node.rotation_degrees.y / 45)
 	flip_h = false
 	set_sprite(sprite_frame)

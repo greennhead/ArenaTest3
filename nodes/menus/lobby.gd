@@ -166,8 +166,6 @@ func getChecksum():
 				if dir.current_is_dir():
 					c += str(file_name[0])
 				file_name = dir.get_next()
-	for i in Settings.enabledMods:
-		c += i
 	return c 
 
 
