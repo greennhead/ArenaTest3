@@ -73,7 +73,7 @@ func getvarreturn(vari,file):
 
 #This is horrible saving code. please save your mod data using the modmanager stuff
 func saveSettings():
-	var keys = mappingsRes
+	var keys = mappingsRes.new()
 	keys.keys = mappings
 	ResourceSaver.save(keys,inputsPath)
 	language = TranslationServer.get_locale()
