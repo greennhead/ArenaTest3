@@ -94,7 +94,14 @@ var lasthitbytype = "player"
 
 var nameColor : Color = Color.WHITE
 
+@onready var playerMenu: CanvasLayer = $PlayerMenu
+
+@export var playermenuOpenable := true
+var GMplayerMenuDict = ""
+var GMscene = null
+
 var bSPEED = SPEED # speed used for bhops
+var tookDamageFrom
 
 func _ready() -> void:
 	hp = maxhp
@@ -212,6 +219,26 @@ func skinStuff():
 		hand1.texture = billb.texture
 		hand2.texture = billb.texture
 
+@onready var pmvb: VBoxContainer = $PlayerMenu/MenuWindow/ScrollContainer/VBoxContainer
+@onready var pmpog: Panel = $PlayerMenu/MenuWindow/ScrollContainer/VBoxContainer/player
+
+func playerMenuStuff():
+	if playermenuOpenable:
+		playerMenu.visible = Input.is_action_pressed("tab")
+	if playerMenu.visible:
+		for i in pmvb.get_children():
+			if i != pmpog:
+				i.queue_free()
+	for i in get_tree().get_nodes_in_group("player"):
+		var p = pmpog.duplicate()
+		p.show()
+		pmvb.add_child(p)
+		p.tiedTo = i
+		p.pname.text = "[color=" + str(i.nameColor) + "]" +  i.displayName + "[/color] "
+		p.icon.texture = i.billb.texture
+		if GMplayerMenuDict != null && GMscene != null:
+			p.pname.text += str(GMscene.get(GMplayerMenuDict)[i.id][0]) + ": " + str(GMscene.get(GMplayerMenuDict)[i.id][1]) + " "
+
 func _physics_process(delta: float) -> void:
 	if GameManager.Players[id].has("color"):
 		playerName.modulate = GameManager.Players[id]["color"]
@@ -227,6 +254,7 @@ func _physics_process(delta: float) -> void:
 	doState(state,delta)
 	if mulSync.get_multiplayer_authority() != multiplayer.get_unique_id():
 		return
+	playerMenuStuff()
 	if GameManager.rules.get("bhop") == 1:
 		update_frame_timer()
 	voiceThings()
@@ -531,13 +559,17 @@ func hurt(damage,knockback = -5,source = null):
 	if invincible:
 		ouchTime = 15
 		return
+	tookDamage.emit(hp)
 	emitSound.rpc("res://sounds/hurt.ogg",position)
 	ouchTime = 60
 	var dmg = damage
 	hp -= dmg
 	if source != null:
-		if source.Owner != null:
+		if source.Owner != null && source.Owner is Player:
+			tookDamageFrom = source.Owner
 			damageIndicate.rpc_id(source.Owner.id,source.Owner.id,dmg*-1)
+	if tookDamageFrom == null || source == null:
+		tookDamageFrom = "Shenanigans"
 	if blood.modulate.a < 1:
 		blood.modulate.a += 0.3
 	if blood.modulate.a > 0.4:

@@ -33,7 +33,7 @@ var customGMProperties = {}
 var gunPaths : Array[String] = ["res://nodes/weapons/"]
 var mapPaths : Array[String] = ["res://maps/"]
 var gamemodePaths : Array[String] = ["res://modes/"]
-
+var peer : ENetMultiplayerPeer = null
 var rules := {
 	"bhop" : 0, #Enables quake-like movement
 	"autobhop" : 0, #Autojump
@@ -108,6 +108,7 @@ func load_image(path: String):
 
 @rpc("any_peer")
 func message(message : String,system : bool = false):
+	Console.print_line(message)
 	var msg = message
 	msg = msg.replace("[","{")
 	msg = msg.replace("]","}")

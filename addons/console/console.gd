@@ -185,7 +185,15 @@ func doSetRule(rule,value):
 		print_line("credits to BirDt and Flafla2!")
 	GameManager.message(":red:" + rule + " has been set to " + str(value) + " by game host.",true)
 
+func disconnectToMenu():
+	if GameManager.main.scenecont.main_node != load("res://scenes/title.tscn"):
+		GameManager.main.changeScene("res://scenes/title.tscn")
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	GameManager.myPlayer = null
+	GameManager.peer.close()
+
 func _ready() -> void:
+	add_command("disconnect",disconnectToMenu,0,0,"Quits back to main menu.")
 	add_command("setrule",setRule,["Rule", "Value"],2, "Sets a game rule for the current server")
 	add_command("setsetting",setsetting,["Setting","Value"],2,"Sets a setting.")
 	add_command("die",die,0,0,"Kills you.")

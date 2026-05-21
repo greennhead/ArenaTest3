@@ -10,13 +10,24 @@
 [ext_resource type="Script" uid="uid://ctlbdoxhklqhy" path="res://nodes/bullet_detector.gd" id="6_2wrp4"]
 [ext_resource type="Texture2D" uid="uid://bwc022qf4aql6" path="res://images/crosshairs.png" id="7_46y3y"]
 [ext_resource type="Script" uid="uid://dm0ouu470n0hx" path="res://nodes/crosshair.gd" id="8_ejohg"]
+[ext_resource type="Script" uid="uid://d3afr87rvcnap" path="res://resources/menuWindow.gd" id="9_gggum"]
 [ext_resource type="Texture2D" uid="uid://dus8k0lqsj84u" path="res://images/crosshairIndicator.png" id="9_qbdof"]
+[ext_resource type="Script" uid="uid://iyuqhh0d6l3v" path="res://nodes/playerNameList.gd" id="10_ea43s"]
 [ext_resource type="Script" uid="uid://byoicsb4yghi4" path="res://nodes/damage_indicator.gd" id="10_hg0js"]
+[ext_resource type="Texture2D" uid="uid://b6sis4vnrci18" path="res://images/deadPlayer.png" id="10_k5sjp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bms3g"]
 size = Vector3(0.8, 0.8, 0.8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_me0cc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ea43s"]
+bg_color = Color(0.05490196, 0.05490196, 0.05490196, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.17254902, 0.18039216, 0.21568628, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_5m3aa"]
 font_size = 8
@@ -157,6 +168,57 @@ shape = SubResource("BoxShape3D_me0cc")
 [node name="PlayerMenu" type="CanvasLayer" parent="." unique_id=957966112]
 visible = false
 
+[node name="MenuWindow" type="Control" parent="PlayerMenu" unique_id=375770460 node_paths=PackedStringArray("sizePanel")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("9_gggum")
+sizePanel = NodePath("Panel")
+metadata/_custom_type_script = "uid://d3afr87rvcnap"
+
+[node name="Panel" type="Panel" parent="PlayerMenu/MenuWindow" unique_id=464402247]
+layout_mode = 0
+offset_right = 512.0
+offset_bottom = 320.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PlayerMenu/MenuWindow" unique_id=1459694802]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 16.0
+offset_right = 504.0
+offset_bottom = 312.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerMenu/MenuWindow/ScrollContainer" unique_id=404117417]
+layout_mode = 2
+
+[node name="player" type="Panel" parent="PlayerMenu/MenuWindow/ScrollContainer/VBoxContainer" unique_id=1393561903]
+visible = false
+custom_minimum_size = Vector2(496, 18)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ea43s")
+script = ExtResource("10_ea43s")
+
+[node name="pname" type="RichTextLabel" parent="PlayerMenu/MenuWindow/ScrollContainer/VBoxContainer/player" unique_id=959142444]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 6.0
+offset_right = 368.0
+offset_bottom = 14.0
+bbcode_enabled = true
+text = "PlayerName"
+
+[node name="icon" type="Sprite2D" parent="PlayerMenu/MenuWindow/ScrollContainer/VBoxContainer/player" unique_id=757219371]
+position = Vector2(13, 9)
+texture = ExtResource("3_me0cc")
+region_enabled = true
+region_rect = Rect2(4, 132, 11, 11)
+
+[node name="cross" type="Sprite2D" parent="PlayerMenu/MenuWindow/ScrollContainer/VBoxContainer/player/icon" unique_id=2126004770]
+visible = false
+texture = ExtResource("10_k5sjp")
+region_rect = Rect2(48, 96, 192, 24)
+
 [node name="CROSSHAIR" type="CanvasLayer" parent="." unique_id=122563698]
 
 [node name="crosshair" type="Sprite2D" parent="CROSSHAIR" unique_id=626508452]
@@ -187,6 +249,7 @@ offset_top = -5000.0
 offset_right = 5000.0
 offset_bottom = 5000.0
 color = Color(1, 0, 0, 1)
+metadata/_edit_lock_ = true
 
 [node name="damageIndicator" type="Label" parent="CROSSHAIR" unique_id=1714641931]
 visible = false

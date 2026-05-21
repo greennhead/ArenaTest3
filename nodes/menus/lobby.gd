@@ -8,7 +8,7 @@ var selectedMode = ""
 var started = false
 @export var Adress ="127.0.0.1"
 @export var port = 8914
-var peer
+
 var oldPlayers = {}
 var hosted = false
 var selectedModeIdx := -1
@@ -58,8 +58,8 @@ func _ready() -> void:
 	print_rich("[color=yellow]Checksum: " + checksum)
 	if hosted: # host game
 		GameManager.myName = Settings.playerName
-		peer = ENetMultiplayerPeer.new()
-		var error = peer.create_server(port,8)
+		GameManager.peer = ENetMultiplayerPeer.new()
+		var error = GameManager.peer.create_server(port,8)
 		if error != OK:
 			var p = errorWindow.instantiate()
 			get_tree().current_scene.add_child(p)
@@ -71,8 +71,8 @@ func _ready() -> void:
 			queue_free()
 			return
 		hosted = true
-		peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
-		multiplayer.set_multiplayer_peer(peer)
+		GameManager.peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
+		multiplayer.set_multiplayer_peer(GameManager.peer)
 		print("waiting for players!")
 		hostChecksum = checksum
 		SendPlayerInfo(GameManager.myName,multiplayer.get_unique_id(),checksum,Settings.nameColor)
@@ -80,13 +80,13 @@ func _ready() -> void:
 	else: # join game
 		print("joining game..")
 		mapPicker.joinMode = true
-		peer = ENetMultiplayerPeer.new()
+		GameManager.peer = ENetMultiplayerPeer.new()
 		Adress = GameManager.address
-		peer.create_client(Adress,port)
-		peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
+		GameManager.peer.create_client(Adress,port)
+		GameManager.peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 		joined = true
 		joining = true
-		multiplayer.set_multiplayer_peer(peer)
+		multiplayer.set_multiplayer_peer(GameManager.peer)
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)
@@ -117,6 +117,7 @@ func connection_failed():
 func peer_connected(id):
 	sendGameInfo.rpc_id(id,started,selectedModeIdx)
 	print("Player connected " + str(id))
+	Console.print_info("Player connected " +  " ("+ str(id) + ")")
 	if !started && GameManager.Players.has(str(id)):
 		GameManager.message(GameManager.Players[str(id)]["name"] + " connected!",true)
 
@@ -134,6 +135,8 @@ func peer_disconnected(id):
 	for i in get_tree().get_nodes_in_group("player"):
 		if i.id == id:
 			i.queue_free()
+	if GameManager.Players.has(str(id)):
+		GameManager.message(GameManager.Players[str(id)]["name"] + " disconnected!",true)
 	GameManager.Players.erase(id)
 	updatePList()
 
@@ -309,7 +312,7 @@ func mapEnabled(name):
 
 
 func _on_tree_exiting() -> void:
-	peer.close()
+	GameManager.peer.close()
 @onready var chat: MenuWindow = $chat
 
 

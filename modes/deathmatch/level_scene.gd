@@ -6,6 +6,8 @@ var round := 0
 var noPlayerTime := 0
 @onready var hud: CanvasLayer = $dmhud
 
+var playerScores = {}
+
 @rpc("authority","call_local","reliable")
 func spawnPlayers():
 	for i in get_tree().get_nodes_in_group("spawnPoint"):
@@ -30,7 +32,13 @@ func _ready() -> void:
 		currentPlayer.name = str(GameManager.Players[i].id)
 		currentPlayer.id = GameManager.Players[i].id
 		currentPlayer.displayName = str(GameManager.Players[i].name)
+		currentPlayer.GMplayerMenuDict = "playerScores"
+		currentPlayer.GMscene = self
 		add_child(currentPlayer)
+		playerScores.set(currentPlayer.id,["Score",0]) #wanna do this if you wanna have scores show up in score board
+		playerScores.set(currentPlayer.id,["Kills",0])
+		playerScores.set(currentPlayer.id,["Deaths",0])
+		# index 0 of array is value name and 1 is it's value
 		index += 1
 		if GameManager.customGMProperties.has("health"):
 			currentPlayer.hp = GameManager.customGMProperties.get("health") # set properties
@@ -85,6 +93,7 @@ func announceWin(winner):
 		hud.winText.modulate = Color.WHITE
 		hud.showWinText(tr("ACTION_STALEMATE"))
 	else:
+		playerScores[winPlayer.id][1] += 1
 		hud.winText.modulate = winPlayer.playerName.modulate
 		hud.showWinText(tr("ACTION_WINS") % winPlayer.displayName)
 	await get_tree().create_timer(2.0).timeout
