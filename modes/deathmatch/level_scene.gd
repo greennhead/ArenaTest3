@@ -25,6 +25,8 @@ func spawnPlayers():
 		i.respawn()
 		idx += 1
 
+
+
 func _ready() -> void:
 	var index = 0
 	for i in GameManager.Players: # spawn players
@@ -35,9 +37,8 @@ func _ready() -> void:
 		currentPlayer.GMplayerMenuDict = "playerScores"
 		currentPlayer.GMscene = self
 		add_child(currentPlayer)
-		playerScores.set(currentPlayer.id,["Score",0]) #wanna do this if you wanna have scores show up in score board
-		playerScores.set(currentPlayer.id,["Kills",0])
-		playerScores.set(currentPlayer.id,["Deaths",0])
+		currentPlayer.connect("died",giveKill)
+		playerScores.set(currentPlayer.id,[["Score",0],["Kills",0],["Deaths",0]]) #wanna do this if you wanna have scores show up in score board
 		# index 0 of array is value name and 1 is it's value
 		index += 1
 		if GameManager.customGMProperties.has("health"):
@@ -49,6 +50,25 @@ func _ready() -> void:
 	if multiplayer.is_server():
 		mapLoader.getMapList()
 		mapLoader.nextMap()
+
+
+func giveKill(hp, killer,id):
+	var weapon = "Nothing"
+	var killername = "Nobody"
+	var victimname = "Nobody"
+	if GameManager.getPlayerByID(id) != null:
+		victimname = GameManager.getPlayerByID(id).displayName
+	if GameManager.getPlayerByID(killer) != null:
+		if GameManager.getPlayerByID(killer).weapon != null:
+			weapon = GameManager.getPlayerByID(killer).weapon.weapon.name
+		killername = GameManager.getPlayerByID(killer).displayName
+		
+	Console.print_line("%s has killed %s using %s." % [killername,victimname,weapon])
+	for i in get_tree().get_nodes_in_group("player"):
+		if str(i.id) == str(killer):
+			playerScores[i.id][1][1] += 1 # [1] is kills
+		if str(i.id) == str(id):
+			playerScores[id][2][1] += 1 # [2] is deaths
 
 func getAlivePlayers():
 	var alive = 0
@@ -93,7 +113,7 @@ func announceWin(winner):
 		hud.winText.modulate = Color.WHITE
 		hud.showWinText(tr("ACTION_STALEMATE"))
 	else:
-		playerScores[winPlayer.id][1] += 1
+		playerScores[winPlayer.id][0][1] += 1
 		hud.winText.modulate = winPlayer.playerName.modulate
 		hud.showWinText(tr("ACTION_WINS") % winPlayer.displayName)
 	await get_tree().create_timer(2.0).timeout

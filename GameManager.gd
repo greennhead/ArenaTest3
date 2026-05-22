@@ -88,6 +88,12 @@ func loadMods():
 			else:
 				print_rich("[b][color=red]Mod failed to be loaded: " + path + i + "/mod.pck")
 
+func getPlayerByID(id):
+	for i in get_tree().get_nodes_in_group("player"):
+		if str(i.id) == str(id):
+			return i
+	return null
+
 #func _physics_process(delta: float) -> void:
 	#if mappath != oldmappath:
 		#oldmappath = mappath
@@ -108,7 +114,6 @@ func load_image(path: String):
 
 @rpc("any_peer")
 func message(message : String,system : bool = false):
-	Console.print_line(message)
 	var msg = message
 	msg = msg.replace("[","{")
 	msg = msg.replace("]","}")
@@ -117,6 +122,8 @@ func message(message : String,system : bool = false):
 	msg = msg.replace(":green:","[color=green]")
 	msg = msg.replace(":yellow:","[color=yellow]")
 	msg = msg.replace(":white:","[color=white]")
+	msg += "[/color]"
+	Console.print_line(msg)
 	messageSent.emit(msg)
 
 func popup(toptext : String, bottomtext : String):

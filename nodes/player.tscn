@@ -208,6 +208,15 @@ offset_bottom = 14.0
 bbcode_enabled = true
 text = "PlayerName"
 
+[node name="pscores" type="RichTextLabel" parent="PlayerMenu/MenuWindow/ScrollContainer/VBoxContainer/player" unique_id=1392082342]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 6.0
+offset_right = 488.0
+offset_bottom = 14.0
+bbcode_enabled = true
+text = "	"
+
 [node name="icon" type="Sprite2D" parent="PlayerMenu/MenuWindow/ScrollContainer/VBoxContainer/player" unique_id=757219371]
 position = Vector2(13, 9)
 texture = ExtResource("3_me0cc")

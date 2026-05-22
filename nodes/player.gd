@@ -1,15 +1,15 @@
 extends CharacterBody3D
 class_name Player
 
-signal died(hp : int)
-signal tookDamage(damage : int,knockback : Vector3,source)
-signal gotWeapon(weapon : Weapon, heldWeapon : HeldWeapon)
-signal droppedWeapon(weapon : Weapon, heldWeapon : HeldWeapon)
-signal changedSkin
-signal taunted
-signal untaunted
+signal died(hp : int, killer,id )
+signal tookDamage(damage : int,knockback : Vector3,source, id)
+signal gotWeapon(weapon : Weapon, heldWeapon : HeldWeapon, id)
+signal droppedWeapon(weapon : Weapon, heldWeapon : HeldWeapon, id)
+signal changedSkin(id)
+signal taunted(id)
+signal untaunted(id)
 
-
+var tabdictold = {}
 @export var animationSpeed := 0.18
 @onready var head: Node3D = $head
 
@@ -222,13 +222,21 @@ func skinStuff():
 @onready var pmvb: VBoxContainer = $PlayerMenu/MenuWindow/ScrollContainer/VBoxContainer
 @onready var pmpog: Panel = $PlayerMenu/MenuWindow/ScrollContainer/VBoxContainer/player
 
+var pmenutime := 0
+
 func playerMenuStuff():
+	pmenutime += 1
 	if playermenuOpenable:
 		playerMenu.visible = Input.is_action_pressed("tab")
-	if playerMenu.visible:
-		for i in pmvb.get_children():
-			if i != pmpog:
-				i.queue_free()
+	if pmenutime % 120 == 0:
+		pmenutime = 0
+		updatePlayerMenu()
+
+
+func updatePlayerMenu():
+	for i in pmvb.get_children():
+		if i != pmpog:
+			i.queue_free()
 	for i in get_tree().get_nodes_in_group("player"):
 		var p = pmpog.duplicate()
 		p.show()
@@ -237,7 +245,10 @@ func playerMenuStuff():
 		p.pname.text = "[color=" + str(i.nameColor) + "]" +  i.displayName + "[/color] "
 		p.icon.texture = i.billb.texture
 		if GMplayerMenuDict != null && GMscene != null:
-			p.pname.text += str(GMscene.get(GMplayerMenuDict)[i.id][0]) + ": " + str(GMscene.get(GMplayerMenuDict)[i.id][1]) + " "
+			for j in GMscene.get(GMplayerMenuDict)[i.id].size():
+				p.pscores.text += str(GMscene.get(GMplayerMenuDict)[i.id][j][0]) + ": " + str(GMscene.get(GMplayerMenuDict)[i.id][j][1])
+				if j < GMscene.get(GMplayerMenuDict)[i.id].size()-1:
+					p.pscores.text += " - "
 
 func _physics_process(delta: float) -> void:
 	if GameManager.Players[id].has("color"):
@@ -368,7 +379,7 @@ func deathState(delta):
 		removeWeapon.rpc()
 	deadTime += 1
 	if deadTime == 1:
-		died.emit(hp)
+		doSignal.rpc("died",[hp,tookDamageFrom,id])
 		if hp > GIB_MARGIN:
 			emitSound.rpc(deathSound,position,0,randf_range(0.9,1.2))
 		else:
@@ -553,20 +564,26 @@ func emitSound(sound : String,pos,volume = 0,pitch = 1.0):
 	s.global_position = pos
 
 
+@rpc("any_peer","reliable","call_local")
+func doSignal(signalName, args : Array = []):
+	var call_args = [signalName]
+	for i in args:
+		call_args.append(i)
+	emit_signal.callv(call_args)
 
 
 func hurt(damage,knockback = -5,source = null):
 	if invincible:
 		ouchTime = 15
 		return
-	tookDamage.emit(hp)
+	doSignal.rpc("tookDamage",[damage,knockback,source,id])
 	emitSound.rpc("res://sounds/hurt.ogg",position)
 	ouchTime = 60
 	var dmg = damage
 	hp -= dmg
 	if source != null:
 		if source.Owner != null && source.Owner is Player:
-			tookDamageFrom = source.Owner
+			tookDamageFrom = source.Owner.id
 			damageIndicate.rpc_id(source.Owner.id,source.Owner.id,dmg*-1)
 	if tookDamageFrom == null || source == null:
 		tookDamageFrom = "Shenanigans"
