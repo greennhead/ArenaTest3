@@ -21,6 +21,7 @@ extends "res://nodes/weapons/pistol.gd"
 @export var Stick : bool
 @export var MaxBounceAmount : int
 @export var BounceAcceleration : float
+@export_category("vvv Projectile sprite")
 @export var Sprite  : String
 @export var ProjectileSpriteSheetAnimationSpeed : float
 @export var ProjectileSpriteSheetFrames : int

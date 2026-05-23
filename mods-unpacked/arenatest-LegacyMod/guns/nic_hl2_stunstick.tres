@@ -7,6 +7,8 @@
 script = ExtResource("1_3ljfv")
 name = "Stunstick"
 attackSpeed = 48
+autofire = true
+projectile = "uid://btxit2c61roca"
 Ammo = 8
 singularSprite = ExtResource("2_3ljfv")
 legacyName = "nik_hl2_stunstick"

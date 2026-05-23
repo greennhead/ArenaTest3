@@ -7,12 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://dnaoskp6dldal" path="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_stunstick.png" id="5_nxih4"]
 
 [node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_1t2w7")]
+damage = 40
+knockback = -20.0
 FireAnimationRotation = -45.0
+tracerColor = Color(0, 0, 0, 0)
 speed = 2.0
 Lifetime = 1
 hitbox = Vector3(0.8, 0.8, 0.8)
 piercing = true
-Sprite = "iVBORw0KGgoAAAANSUhEUgAAAAwAAAAaCAMAAAC0JE1TAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACcUExURQAAACAfHmVnZyUlJVQ6MDEaFBYRFlQ8L0szKzQlHz4qIjEfGlxBNSYmJi8vLxQPDDExMURERCQiIy4uLjU2MyEhIX5+fjY3NCAgIC4vLjEwMDs7OzY2NiIiIjk6OSwsLDg5Ny0tLT4+Pjg5OSQlJiAhIRAXFysrKB0dHR0eGygpKRcXFS0uLFNTUystLB4eHBcZFyQmIxYYFwAAADrM0OIAAAA0dFJOU////////////////////////////////////////////////////////////////////wBLVyJlAAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAi0lEQVQoU03L1xrCMAgF4KO4ta5Yrda998r7v5tJIFQugP87AMuFUhmkqFRrEBDqjWYEWu2OniHp9mAjqD8oMDQgAWGUuo2B8cQFEdnUL4JZoiDkcwUWS/8iWOU8Q1tvFIRtuApAugsBwxgFYX9QIDueCpwv/B9wvXHgQLhL4IDHUwKP1/sPny/D2h9BTyt7SIVGFwAAAABJRU5ErkJggg=="
 ProjectileSpriteSheetFrames = 1
 ExplodeOnHitPlayer = false
 ExplodeOnHitBlock = false
