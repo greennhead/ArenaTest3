@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://caduvc4woscbb"]
+
+[ext_resource type="Script" uid="uid://dbnxradgon0iv" path="res://nodes/menus/quitconfirm.gd" id="1_ah6md"]
+
+[node name="MenuWindow" type="Control" unique_id=3516639 node_paths=PackedStringArray("sizePanel")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 192.0
+offset_bottom = 128.0
+script = ExtResource("1_ah6md")
+sizePanel = NodePath("Panel")
+metadata/_custom_type_script = "uid://d3afr87rvcnap"
+
+[node name="Panel" type="Panel" parent="." unique_id=1568021028]
+layout_mode = 0
+offset_right = 192.0
+offset_bottom = 128.0
+
+[node name="Label" type="Label" parent="." unique_id=1033573999]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 32.0
+offset_right = 184.0
+offset_bottom = 64.0
+text = "Really quit?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="." unique_id=1233857902]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 186.0
+offset_bottom = 10.0
+text = "Warning"
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="." unique_id=1050747974]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 104.0
+offset_right = 180.0
+offset_bottom = 117.0
+text = "No"
+
+[node name="Button2" type="Button" parent="." unique_id=1168139960]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 104.0
+offset_right = 36.0
+offset_bottom = 117.0
+text = "Yes"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]

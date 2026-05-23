@@ -8,6 +8,7 @@ signal droppedWeapon(weapon : Weapon, heldWeapon : HeldWeapon, id)
 signal changedSkin(id)
 signal taunted(id)
 signal untaunted(id)
+@onready var pause_vbox: VBoxContainer = $PAUSE/VBoxContainer
 
 var tabdictold = {}
 @export var animationSpeed := 0.18
@@ -169,12 +170,12 @@ func cursorLock():
 	if Input.is_action_just_pressed("escape") && !cursorLocked:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		cursorLocked = true
-		pauseMenu.show()
+		pauseMenu.hide()
 		return
 	if Input.is_action_just_pressed("escape") && cursorLocked:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		cursorLocked = false
-		pauseMenu.hide()
+		pauseMenu.show()
 		return
 
 @onready var crosshairIndicator: Sprite2D = $CROSSHAIR/crosshairIndicator
@@ -296,6 +297,8 @@ func chatStuff():
 		chatBox.text = ""
 		return
 
+
+var canActuallyMove = true
 func _physics_process(delta: float) -> void:
 	if GameManager.Players[id].has("color"):
 		playerName.modulate = GameManager.Players[id]["color"]
@@ -312,6 +315,7 @@ func _physics_process(delta: float) -> void:
 	doState(state,delta)
 	if mulSync.get_multiplayer_authority() != multiplayer.get_unique_id():
 		return
+	canActuallyMove = canMove && Console.is_visible() == false && chatBox.visible == false && pauseMenu.visible == false
 	playerMenuStuff()
 	chatStuff()
 	if GameManager.rules.get("bhop") == 1:
@@ -475,7 +479,6 @@ func watchForDeath():
 func normalState(delta):
 	if mulSync.get_multiplayer_authority() != multiplayer.get_unique_id():
 		return
-	var canActuallyMove = canMove && Console.is_visible() == false && chatBox.visible == false
 	billb.show()
 	if !taunting:
 		animation = normalAnim
@@ -605,7 +608,7 @@ func accelerate(accelDir, prevVelocity, acceleration, max_vel, delta):
 	return prevVelocity + accelDir * accelVel
 
 func get_wishdir():
-	if not canMove || Console.is_visible() == true || chatBox.visible:
+	if !canActuallyMove:
 		return Vector3.ZERO
 	if GameManager.rules.get("bhopwiggle") == 0:
 		return Vector3.ZERO + \
