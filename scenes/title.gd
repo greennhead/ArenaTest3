@@ -12,6 +12,7 @@ extends Node3D
 @onready var camera: Camera3D = $things/Camera3D
 
 func _ready() -> void:
+	Palleterizer.set_palette(load("res://images/palette.png"))
 	GameManager.testMap = ""
 	map_loader.getMapList()
 	map_loader.nextMap()

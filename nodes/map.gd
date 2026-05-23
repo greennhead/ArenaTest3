@@ -68,10 +68,10 @@ func loadMap(map):
 	var save_nodes = get_tree().get_nodes_in_group("editorObject")
 	for i in get_tree().get_nodes_in_group("disposeOnMapSwitch"):
 		i.queue_free()
-		print_rich("[color=red]Deleted " + i.name)
+		#print_rich("[color=red]Deleted " + i.name)
 	for i in save_nodes:
 		i.queue_free()
-		print_rich("[color=red]Deleted " + i.name)
+		#print_rich("[color=red]Deleted " + i.name)
 	print_rich("[color=yellow]Loading map " + map +"...")
 	for i in get_children():
 		if i != gridMap:
@@ -121,7 +121,7 @@ func loadMap(map):
 							b.set(ii,node_data[str(ii)])
 				if b.has_method("post_ready"):
 					b.post_ready()
-				print_rich("[color=green]Spawned " + b.name)
+				#print_rich("[color=green]Spawned " + b.name)
 				for ch in b.get_children():
 					if ch.is_in_group("editorOnly"):
 						ch.hide()

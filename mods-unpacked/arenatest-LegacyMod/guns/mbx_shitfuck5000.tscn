@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://mods-unpacked/arenatest-LegacyMod/nodes/legacyGun.tscn" id="1_hxljm"]
 [ext_resource type="Resource" uid="uid://bv5jgbj84nw30" path="res://mods-unpacked/arenatest-LegacyMod/guns/mbx_shitfuck5000.tres" id="2_hxljm"]
+[ext_resource type="AudioStream" uid="uid://tlgkgvvs5qf3" path="res://mods-unpacked/arenatest-LegacyMod/sounds/mbx_shitfucker_pickup.ogg" id="3_gmq8p"]
+[ext_resource type="AudioStream" uid="uid://hh3riydn7rdm" path="res://mods-unpacked/arenatest-LegacyMod/sounds/mbx_shitfucker_shoot.ogg" id="4_hxljm"]
 [ext_resource type="Texture2D" uid="uid://dnnyk8p00nj72" path="res://mods-unpacked/arenatest-LegacyMod/sprites/mbx_shitfucker.png" id="5_ll4an"]
 
 [node name="legacyGun" unique_id=15249170 instance=ExtResource("1_hxljm")]
@@ -25,6 +27,8 @@ explosionDamage = 14.0
 explosionKnockback = 50.0
 explosionRadius = 10.0
 weapon = ExtResource("2_hxljm")
+pickupSound = ExtResource("3_gmq8p")
+shootSound = ExtResource("4_hxljm")
 
 [node name="hand" parent="." index="0" unique_id=974286624]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.544965, -0.166306, -0.7736475)

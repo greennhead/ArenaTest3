@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://doykoqfa8ufgw"]
+
+[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_wkeb1"]
+[ext_resource type="Texture2D" uid="uid://b1s55ggy7t0ba" path="res://mods-unpacked/arenatest-LegacyMod/sprites/tristone_lerifle.png" id="2_wkeb1"]
+
+[resource]
+script = ExtResource("1_wkeb1")
+name = "LE's Rifle"
+attackSpeed = 2
+autofire = true
+projectile = "uid://btxit2c61roca"
+Ammo = 50
+selfKnockback = -2
+canZoom = true
+zoomFOV = 40
+singularSprite = ExtResource("2_wkeb1")
+legacyName = "hs_LErifle"

@@ -12,3 +12,4 @@ projectile = "uid://btxit2c61roca"
 Ammo = 5
 singularSprite = ExtResource("2_gxmb8")
 legacyName = "mbx_fazballs_gun"
+consideredOverpowered = true

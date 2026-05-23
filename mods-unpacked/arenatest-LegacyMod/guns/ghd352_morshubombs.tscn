@@ -1,15 +1,12 @@
 [gd_scene format=3 uid="uid://luondx1aex3a"]
 
-[ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://nodes/LegacyMod/legacyGun.tscn" id="1_xro6g"]
-[ext_resource type="Resource" uid="uid://b1uyt0ho7t7li" path="res://nodes/weapons/ghd352_morshubombs.tres" id="2_1xv3k"]
-[ext_resource type="AudioStream" uid="uid://tbeub13v1oi6" path="res://sounds/legacyMod/legacyMod/ghd352_bombsyou.ogg" id="3_bn6t0"]
-[ext_resource type="AudioStream" uid="uid://cbxejvf4bvb12" path="res://sounds/legacyMod/legacyMod/ghd352_yours.ogg" id="4_cyxrr"]
-[ext_resource type="Texture2D" uid="uid://3t60h5m606ap" path="res://images/weaponry/legacyMod/ghd352_bombs.png" id="5_la67t"]
+[ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://mods-unpacked/arenatest-LegacyMod/nodes/legacyGun.tscn" id="1_xro6g"]
+[ext_resource type="Resource" uid="uid://b1uyt0ho7t7li" path="res://mods-unpacked/arenatest-LegacyMod/guns/ghd352_morshubombs.tres" id="2_1xv3k"]
+[ext_resource type="AudioStream" uid="uid://tbeub13v1oi6" path="res://mods-unpacked/arenatest-LegacyMod/sounds/ghd352_bombsyou.ogg" id="3_bn6t0"]
+[ext_resource type="AudioStream" uid="uid://cbxejvf4bvb12" path="res://mods-unpacked/arenatest-LegacyMod/sounds/ghd352_yours.ogg" id="4_cyxrr"]
+[ext_resource type="Texture2D" uid="uid://3t60h5m606ap" path="res://mods-unpacked/arenatest-LegacyMod/sprites/ghd352_bombs.png" id="5_la67t"]
 
 [node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_xro6g")]
-weapon = ExtResource("2_1xv3k")
-pickupSound = ExtResource("3_bn6t0")
-shootSound = ExtResource("4_cyxrr")
 oldPhysics = false
 knockback = -1.0
 tracerColor = Color(0.99607843, 0.50980395, 0.007843138, 1)
@@ -27,12 +24,9 @@ explosionSpriteSpeed = 0.3
 explosionSpriteFrames = 17.0
 explosionDestroyTiles = true
 weaponDropEffectOnAmmoDepletion = false
-
-[node name="hand" parent="." index="0" unique_id=974286624]
-texture = null
-
-[node name="hand2" parent="." index="1" unique_id=915277237]
-texture = null
+weapon = ExtResource("2_1xv3k")
+pickupSound = ExtResource("3_bn6t0")
+shootSound = ExtResource("4_cyxrr")
 
 [node name="gunSprite" parent="." index="2" unique_id=1094739627]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.36769682, 0.07040885, -0.8026623)

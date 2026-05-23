@@ -29,6 +29,9 @@ var coyote := 0
 var id := 1
 var ouchTime := 0
 var smirkTime := 0
+
+
+
 @export var canMoveMouse := true
 @export var canMove := true
 
@@ -495,7 +498,7 @@ func normalState(delta):
 	if weapon != null:
 		hand1.position = lerp(hand1.position,weapon.handGuide1.position,0.7)
 		hand2.position = lerp(hand2.position,weapon.handGuide2.position,0.7)
-		var shoot = Input.is_action_just_pressed("fire")
+		var shoot = Input.is_action_just_pressed("fire") && canActuallyMove
 		if Input.is_action_just_pressed("throw") && weapon.canBeThrown:
 			removeWeapon.rpc()
 			return
@@ -504,7 +507,7 @@ func normalState(delta):
 		if shoot && canMove:
 			weapon.shoot.rpc(camera.global_rotation)
 		if weapon.weapon.canZoom:
-			if Input.is_action_pressed("altfire"):
+			if Input.is_action_pressed("altfire") && canActuallyMove:
 				camera.fov = lerp(camera.fov,float(weapon.weapon.zoomFOV),0.2)
 				sensetivity = Settings.senstivity *0.00035
 			else:

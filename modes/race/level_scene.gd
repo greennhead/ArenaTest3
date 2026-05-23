@@ -10,20 +10,20 @@ var playerScores = {}
 
 @rpc("authority","call_local","reliable")
 func spawnPlayers():
-	for i in get_tree().get_nodes_in_group("spawnPoint"):
-		i.queue_free()
 	seed(GameManager.num)
 	GameManager.num += 1
 	var idx = 0
 	var order = get_tree().get_nodes_in_group("spawnPoint")
 	order.shuffle()
+	await get_tree().create_timer(0.1).timeout
 	for i in get_tree().get_nodes_in_group("player"):
 		if idx > order.size():
 			idx = 0
 		i.global_position = order[idx].global_position
 		i.respawn()
 		idx += 1
-
+	for i in get_tree().get_nodes_in_group("spawnPoint"):
+		i.queue_free()
 
 
 func _ready() -> void:

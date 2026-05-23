@@ -91,6 +91,7 @@ func _ready() -> void:
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)
 	multiplayer.connection_failed.connect(connection_failed)
+	started = false
 	await get_tree().create_timer(2.0).timeout
 	if joining == true:
 		var p = errorWindow.instantiate()
