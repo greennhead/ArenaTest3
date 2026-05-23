@@ -3,7 +3,7 @@
 # unless youre porting something
 extends Area3D
 
-
+@export var killType : int = GameManager.deathAnimation.NORMAL
 @export var tracerColor : Color
 @export var speed : float
 @export var onHitExplosion : bool
@@ -338,7 +338,7 @@ func hit(body):
 			hurtDelay = 5
 			$MultiplayerSynchronizer.set_multiplayer_authority(body.id)
 			if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
-				body.hurt(damage,knockback,self)
+				body.hurt(damage,knockback,self,killType)
 	if body is Player && bounceOffPlayers:
 		seed(int(name)^2 + wallbounces)
 		rotation_degrees.y += 180 + randi_range(-wallBounceSpread,wallBounceSpread)

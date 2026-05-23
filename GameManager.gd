@@ -43,6 +43,13 @@ var rulesDefault := {}
 
 var modProfile
 
+
+enum deathAnimation {
+	NORMAL = 0,
+	HEADSHOT = 1,
+	SLICED = 2
+}
+
 @onready var errorWindow = preload("uid://bp8lkc3ukjnna")
 func _ready() -> void:
 	var path = "res://objects/"
@@ -112,8 +119,8 @@ func load_image(path: String):
 	var texture = ImageTexture.create_from_image(image)
 	return texture
 
-@rpc("any_peer")
-func message(message : String,system : bool = false):
+@rpc("any_peer","call_local","reliable")
+func message(message : String,system : bool = false,prefix : String = ""):
 	var msg = message
 	msg = msg.replace("[","{")
 	msg = msg.replace("]","}")
@@ -122,9 +129,10 @@ func message(message : String,system : bool = false):
 	msg = msg.replace(":green:","[color=green]")
 	msg = msg.replace(":yellow:","[color=yellow]")
 	msg = msg.replace(":white:","[color=white]")
+	msg = "[color=white]" + msg
 	msg += "[/color]"
-	Console.print_line(msg)
-	messageSent.emit(msg)
+	Console.print_line(prefix + msg)
+	messageSent.emit(prefix + msg)
 
 func popup(toptext : String, bottomtext : String):
 	var p = errorWindow.instantiate()

@@ -6,6 +6,7 @@
 
 [node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_f60bl")]
 script = ExtResource("2_d3ykv")
+damageType = 0
 oldPhysics = true
 damage = 0
 damageSpread = false

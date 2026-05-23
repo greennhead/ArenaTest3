@@ -66,6 +66,9 @@ func syncNum(num):
 @rpc("authority","call_local","reliable")
 func loadMap(map):
 	var save_nodes = get_tree().get_nodes_in_group("editorObject")
+	for i in get_tree().get_nodes_in_group("disposeOnMapSwitch"):
+		i.queue_free()
+		print_rich("[color=red]Deleted " + i.name)
 	for i in save_nodes:
 		i.queue_free()
 		print_rich("[color=red]Deleted " + i.name)

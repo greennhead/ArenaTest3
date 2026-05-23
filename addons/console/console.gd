@@ -88,7 +88,7 @@ func _enter_tree() -> void:
 			control.theme = theme
 
 	var canvas_layer := CanvasLayer.new()
-	canvas_layer.layer = 3
+	canvas_layer.layer = 128
 	add_child(canvas_layer)
 	control.anchor_bottom = 1.0
 	control.anchor_right = 1.0

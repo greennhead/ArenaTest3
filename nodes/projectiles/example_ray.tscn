@@ -8,7 +8,7 @@ shading_mode = 0
 [sub_resource type="BoxMesh" id="BoxMesh_5j068"]
 material = SubResource("StandardMaterial3D_eh8ix")
 
-[node name="exampleRay" type="RayCast3D" unique_id=727080518]
+[node name="exampleRay" type="RayCast3D" unique_id=727080518 groups=["disposeOnMapSwitch"]]
 target_position = Vector3(0, 0, -50)
 collision_mask = 7
 collide_with_areas = true

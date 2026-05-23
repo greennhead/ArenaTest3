@@ -134,9 +134,8 @@ func peer_disconnected(id):
 	print("Player disconnected " + str(id))
 	for i in get_tree().get_nodes_in_group("player"):
 		if i.id == id:
+			GameManager.message(i.displayName + " disconnected!",true)
 			i.queue_free()
-	if GameManager.Players.has(str(id)):
-		GameManager.message(GameManager.Players[str(id)]["name"] + " disconnected!",true)
 	GameManager.Players.erase(id)
 	updatePList()
 

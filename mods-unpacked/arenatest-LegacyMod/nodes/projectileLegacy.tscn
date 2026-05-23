@@ -69,7 +69,7 @@ uv1_triplanar = true
 [sub_resource type="BoxMesh" id="BoxMesh_3aid6"]
 material = SubResource("StandardMaterial3D_mdias")
 
-[node name="Projectile" type="Area3D" unique_id=279019013 groups=["clearMe", "projectile"]]
+[node name="Projectile" type="Area3D" unique_id=279019013 groups=["clearMe", "disposeOnMapSwitch", "projectile"]]
 collision_layer = 8
 collision_mask = 7
 script = ExtResource("1_p1biq")

@@ -14,7 +14,8 @@ var tabdictold = {}
 @onready var head: Node3D = $head
 
 @onready var playerName: Label3D = $playerName
-
+@export var canChat := true
+@onready var chatBox: LineEdit = $CROSSHAIR/crosshair/chatBox
 
 @export var hp := 100
 @export var maxhp := 100
@@ -33,6 +34,7 @@ var smirkTime := 0
 @export var animation = "res://resources/anim_WALK.tres"
 @onready var normalAnim = "res://resources/anim_WALK.tres"
 @onready var deadAnim = "res://resources/anim_DEAD.tres"
+@onready var headlessAnim = "res://resources/anim_DECAP.tres"
 @onready var tauntAnim = "res://resources/anim_TAUNT.tres"
 
 @onready var billb: directionalBillboard = $DirectionalBillboard
@@ -81,6 +83,8 @@ var lasthitbytype = "player"
 
 @export_file("*.ogg") var deathSound = "res://sounds/die.ogg"
 @export_file("*.ogg") var gibSound = "res://sounds/die_gib.ogg"
+@export_file("*.ogg") var decapSound = "res://sounds/die_sliced.ogg"
+@export_file("*.ogg") var headshotSound = "res://sounds/die_headshot.ogg"
 @onready var tabMenu: CanvasLayer = $PlayerMenu
 
 
@@ -102,8 +106,9 @@ var GMscene = null
 
 var bSPEED = SPEED # speed used for bhops
 var tookDamageFrom
-
+var tookDamageType := 0
 func _ready() -> void:
+	GameManager.connect("messageSent",self.addChatMessage)
 	hp = maxhp
 	var playback = voip.get_stream_playback()
 	crosshairCanvasLayer.visible = hasCrosshair
@@ -155,15 +160,18 @@ func giveWeapon(newweapon):
 func deltaify(v,delta):
 	v = (v*60)*delta
 	return v
+@onready var pauseMenu: CanvasLayer = $PAUSE
 
 func cursorLock():
 	if Input.is_action_just_pressed("escape") && !cursorLocked:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		cursorLocked = true
+		pauseMenu.show()
 		return
 	if Input.is_action_just_pressed("escape") && cursorLocked:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		cursorLocked = false
+		pauseMenu.hide()
 		return
 
 @onready var crosshairIndicator: Sprite2D = $CROSSHAIR/crosshairIndicator
@@ -228,7 +236,7 @@ func playerMenuStuff():
 	pmenutime += 1
 	if playermenuOpenable:
 		playerMenu.visible = Input.is_action_pressed("tab")
-	if pmenutime % 120 == 0:
+	if pmenutime % 60 == 0:
 		pmenutime = 0
 		updatePlayerMenu()
 
@@ -242,7 +250,7 @@ func updatePlayerMenu():
 		p.show()
 		pmvb.add_child(p)
 		p.tiedTo = i
-		p.pname.text = "[color=" + str(i.nameColor) + "]" +  i.displayName + "[/color] "
+		p.pname.text = "[color=#" + i.nameColor.to_html(false) + "]" +  i.displayName + "[/color] "
 		p.icon.texture = i.billb.texture
 		if GMplayerMenuDict != null && GMscene != null:
 			for j in GMscene.get(GMplayerMenuDict)[i.id].size():
@@ -250,9 +258,45 @@ func updatePlayerMenu():
 				if j < GMscene.get(GMplayerMenuDict)[i.id].size()-1:
 					p.pscores.text += " - "
 
+
+@onready var chat: CanvasLayer = $CHAT
+@onready var chatMessage: RichTextLabel = $CHAT/chatMessage
+@onready var chat_vbox: VBoxContainer = $CHAT/chatContainer/VBoxContainer
+var inactiveChatTime := 0
+func addChatMessage(text):
+	print(text)
+	inactiveChatTime = 600
+	if chat_vbox.get_children().size() > 10:
+		chat_vbox.get_children()[0].queue_free()
+	var c = chatMessage.duplicate()
+	chat_vbox.add_child(c)
+	c.text = text
+	c.show()
+
+func chatStuff():
+	inactiveChatTime -= 1
+	if inactiveChatTime < 0:
+		chat_vbox.modulate.a = 0.3
+	else:
+		chat_vbox.modulate.a = 1.0
+	if !canChat || Console.is_visible():
+		return
+	typingIcon.visible = chatBox.visible
+	if Input.is_action_just_pressed("chat") && !chatBox.visible:
+		chatBox.show()
+		chatBox.grab_focus()
+		return
+	if Input.is_action_just_pressed("chat") && chatBox.visible:
+		if chatBox.text.replace(" ", "") != "":
+			GameManager.message.rpc(chatBox.text,false,"[color=#" + nameColor.to_html() + "]<" + displayName +  ">[/color] "  )
+		chatBox.hide()
+		chatBox.text = ""
+		return
+
 func _physics_process(delta: float) -> void:
 	if GameManager.Players[id].has("color"):
 		playerName.modulate = GameManager.Players[id]["color"]
+	nameColor = playerName.modulate
 	skinStuff()
 	billb.set_animation(animation)
 	playerName.text = displayName
@@ -266,6 +310,7 @@ func _physics_process(delta: float) -> void:
 	if mulSync.get_multiplayer_authority() != multiplayer.get_unique_id():
 		return
 	playerMenuStuff()
+	chatStuff()
 	if GameManager.rules.get("bhop") == 1:
 		update_frame_timer()
 	voiceThings()
@@ -381,21 +426,43 @@ func deathState(delta):
 	if deadTime == 1:
 		doSignal.rpc("died",[hp,tookDamageFrom,id])
 		if hp > GIB_MARGIN:
-			emitSound.rpc(deathSound,position,0,randf_range(0.9,1.2))
+			if tookDamageType == GameManager.deathAnimation.NORMAL:
+				animation = deadAnim
+				emitSound.rpc(deathSound,position,0,randf_range(0.9,1.2))
+			elif tookDamageType == GameManager.deathAnimation.HEADSHOT:
+				animation = headlessAnim
+				emitSound.rpc(headshotSound,position,0,randf_range(0.9,1.2))
+				doGibEffect.rpc(position,8,false)
+			elif tookDamageType == GameManager.deathAnimation.SLICED:
+				animation = headlessAnim
+				emitSound.rpc(decapSound,position,0,randf_range(0.9,1.2))
+				doGibEffect.rpc(position,4,false)
+				doDecapEffect.rpc(position)
 		else:
+			emitSound.rpc(gibSound,position,0,randf_range(0.9,1.2))
 			doGibEffect.rpc(position)
 			billb.hide()
 		velocity.y = JUMP_VELOCITY * 0.8
-	animation = deadAnim
+	
 	move_and_slide()
 
+@onready var decapEffect = preload("res://nodes/player_head.tscn")
+
 @rpc("call_local","any_peer","reliable")
-func doGibEffect(pos):
-	emitSound(gibSound,pos,0,randf_range(0.9,1.2))
+func doDecapEffect(pos):
+	var gib = decapEffect.instantiate()
+	gib.position = pos
+	gib.texture = billb.texture
+	GameManager.scene.add_child(gib)
+
+@rpc("call_local","any_peer","reliable")
+func doGibEffect(pos,power := 32,hide := true):
 	var gib = gibEffect.instantiate()
+	gib.power = power
 	gib.texture = billb.texture
 	gib.position = pos
-	billb.hide()
+	if hide:
+		billb.hide()
 	GameManager.scene.add_child(gib)
 
 func watchForDeath():
@@ -405,6 +472,7 @@ func watchForDeath():
 func normalState(delta):
 	if mulSync.get_multiplayer_authority() != multiplayer.get_unique_id():
 		return
+	var canActuallyMove = canMove && Console.is_visible() == false && chatBox.visible == false
 	billb.show()
 	if !taunting:
 		animation = normalAnim
@@ -451,16 +519,16 @@ func normalState(delta):
 	var jump = Input.is_action_just_pressed("jump")
 	if GameManager.rules.get("autobhop") == 1:
 		jump = Input.is_action_pressed("jump")
-	if !canMove || Console.is_visible() == true:
+	if !canActuallyMove:
 		jump = false
-	if jump && coyote > 0 && canMove && Console.is_visible() == false && GameManager.rules.get("bhop") == 0:
+	if jump && coyote > 0 && canActuallyMove && GameManager.rules.get("bhop") == 0:
 		coyote = 0
 		velocity.y = JUMP_VELOCITY
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	var spd = icyness
 	if GameManager.rules.get("bhop") == 0:
-		if direction && canMove && Console.is_visible() == false:
+		if direction && canActuallyMove:
 			billb.animationSpeed = animationSpeed
 			velocity.x = move_toward(velocity.x,direction.x * SPEED,deltaify(spd,delta))
 			velocity.z = move_toward(velocity.z,direction.z * SPEED,deltaify(spd,delta))
@@ -475,6 +543,7 @@ func normalState(delta):
 
 # credit to bhop3d by birdt https://github.com/BirDt/bhop3d/blob/main/addons/bhop3d/src/bhop3d.gd
 #region bhop
+@export_group("setrule bhop settings")
 @export var bhop_frames : int = 3
 @export var additive_bhop : bool = true
 @export var friction : float = 6
@@ -533,7 +602,7 @@ func accelerate(accelDir, prevVelocity, acceleration, max_vel, delta):
 	return prevVelocity + accelDir * accelVel
 
 func get_wishdir():
-	if not canMove || Console.is_visible() == true:
+	if not canMove || Console.is_visible() == true || chatBox.visible:
 		return Vector3.ZERO
 	if GameManager.rules.get("bhopwiggle") == 0:
 		return Vector3.ZERO + \
@@ -572,7 +641,7 @@ func doSignal(signalName, args : Array = []):
 	emit_signal.callv(call_args)
 
 
-func hurt(damage,knockback = -5,source = null):
+func hurt(damage,knockback = -5,source = null, damageType : int = GameManager.deathAnimation.NORMAL):
 	if invincible:
 		ouchTime = 15
 		return
@@ -581,6 +650,7 @@ func hurt(damage,knockback = -5,source = null):
 	ouchTime = 60
 	var dmg = damage
 	hp -= dmg
+	tookDamageType = damageType
 	if source != null:
 		if source.Owner != null && source.Owner is Player:
 			tookDamageFrom = source.Owner.id

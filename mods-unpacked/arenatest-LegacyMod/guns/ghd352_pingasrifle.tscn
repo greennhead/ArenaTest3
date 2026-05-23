@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://vfi506qg2nxm"]
 
-[ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://nodes/LegacyMod/legacyGun.tscn" id="1_m21c3"]
-[ext_resource type="Resource" uid="uid://bamb6c11sa6ps" path="res://nodes/weapons/ghd352_pingasrifle.tres" id="2_8x4d3"]
-[ext_resource type="AudioStream" uid="uid://ds7tmha4cfy4w" path="res://sounds/legacyMod/ghd352_pingasget.ogg" id="3_5mi5a"]
-[ext_resource type="AudioStream" uid="uid://dbqesjvtbsxcs" path="res://sounds/legacyMod/ghd352_pingasshoot.ogg" id="4_gefyh"]
-[ext_resource type="Texture2D" uid="uid://wnwwj68kms0j" path="res://images/weaponry/legacyMod/ghd352_pingas.png" id="5_40p4q"]
+[ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://mods-unpacked/arenatest-LegacyMod/nodes/legacyGun.tscn" id="1_m21c3"]
+[ext_resource type="Resource" uid="uid://bamb6c11sa6ps" path="res://mods-unpacked/arenatest-LegacyMod/guns/ghd352_pingasrifle.tres" id="2_8x4d3"]
+[ext_resource type="AudioStream" uid="uid://ds7tmha4cfy4w" path="res://mods-unpacked/arenatest-LegacyMod/sounds/ghd352_pingasget.ogg" id="3_5mi5a"]
+[ext_resource type="AudioStream" uid="uid://dbqesjvtbsxcs" path="res://mods-unpacked/arenatest-LegacyMod/sounds/ghd352_pingasshoot.ogg" id="4_gefyh"]
+[ext_resource type="Texture2D" uid="uid://wnwwj68kms0j" path="res://mods-unpacked/arenatest-LegacyMod/sprites/ghd352_pingas.png" id="5_40p4q"]
 
 [node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_m21c3")]
+damageType = 1
 oldPhysics = false
 damage = 46
 knockback = -6.0

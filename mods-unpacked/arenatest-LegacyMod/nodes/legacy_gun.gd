@@ -1,5 +1,6 @@
 extends "res://nodes/weapons/pistol.gd"
 
+@export_enum("Normal","Headshot","Decapitation") var damageType := 0
 @export_category("LegacyProjectile properties")
 @export var oldPhysics := false
 @export var damage : int
@@ -43,6 +44,7 @@ extends "res://nodes/weapons/pistol.gd"
 func preBullet(bullet):
 	if bullet.script != load("res://mods-unpacked/arenatest-LegacyMod/nodes/projectile_legacy.gd"): #because modloader doesnt support class_name
 		return
+	bullet.killType = damageType
 	bullet.oldPhysics = oldPhysics
 	bullet.damage = damage
 	bullet.knockback = knockback

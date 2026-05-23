@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://g6p4cbtfwryh"]
+
+[ext_resource type="Texture2D" uid="uid://7g38e14rkehr" path="res://images/default.png" id="1_n61vv"]
+[ext_resource type="Script" uid="uid://djjirl2u7onhn" path="res://nodes/player_head.gd" id="1_uwk74"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_uwk74"]
+friction = 0.86
+bounce = 0.59
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n61vv"]
+
+[sub_resource type="Curve" id="Curve_dh4l4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fuokv"]
+curve = SubResource("Curve_dh4l4")
+
+[sub_resource type="Curve" id="Curve_obwtg"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_feebb"]
+curve = SubResource("Curve_obwtg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uwk74"]
+lifetime_randomness = 1.0
+emission_shape = 3
+emission_box_extents = Vector3(0.2, 0.2, 0.2)
+angle_min = -720.0
+angle_max = 720.0
+spread = 180.0
+initial_velocity_max = 0.099999994
+gravity = Vector3(0, -3, 0)
+scale_min = 0.19999999
+scale_max = 0.59999996
+scale_curve = SubResource("CurveTexture_feebb")
+alpha_curve = SubResource("CurveTexture_fuokv")
+anim_offset_min = 0.9
+anim_offset_max = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nkkti"]
+transparency = 1
+albedo_texture = ExtResource("1_n61vv")
+texture_filter = 0
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 6
+particles_anim_loop = false
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qlmvs"]
+material = SubResource("StandardMaterial3D_nkkti")
+size = Vector2(1, 1)
+orientation = 2
+
+[node name="playerHead" type="RigidBody3D" unique_id=1656558478 groups=["disposeOnMapSwitch"]]
+collision_layer = 0
+physics_material_override = SubResource("PhysicsMaterial_uwk74")
+can_sleep = false
+lock_rotation = true
+script = ExtResource("1_uwk74")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=150558666]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.74376583, 0)
+pixel_size = 0.05
+billboard = 2
+texture_filter = 0
+texture = ExtResource("1_n61vv")
+hframes = 8
+vframes = 6
+frame = 41
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1440319378]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0206078, 0)
+shape = SubResource("BoxShape3D_n61vv")
+
+[node name="gibEffect" type="GPUParticles3D" parent="." unique_id=469430413 groups=["clearMe"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.54311514, 0)
+amount = 64
+lifetime = 4.0
+process_material = SubResource("ParticleProcessMaterial_uwk74")
+draw_pass_1 = SubResource("PlaneMesh_qlmvs")
+
+[node name="Timer" type="Timer" parent="." unique_id=388354861]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
