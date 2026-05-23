@@ -108,7 +108,7 @@ var bSPEED = SPEED # speed used for bhops
 var tookDamageFrom
 var tookDamageType := 0
 
-var team := -1 #team -1 can damage any team and own team
+@export var team := -1 #team -1 can damage any team and own team
 
 func _ready() -> void:
 	GameManager.connect("messageSent",self.addChatMessage)
