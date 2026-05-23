@@ -4,6 +4,7 @@ class_name ExampleRay
 var knockback := 0
 var Owner = null
 var timer := 0
+var team = -1 #no team by default
 @onready var trail: MeshInstance3D = $trail
 
 
@@ -26,6 +27,9 @@ func check():
 			var hit = get_collider()
 			if get_collider() is BulletCollider:
 				hit = get_collider().player
+			if hit is Player:
+				if hit.team == team && team != -1:
+					return #pass trough teammates
 			if hit != Owner:
 				hit.hurt(damage,knockback,self)
 				queue_free()

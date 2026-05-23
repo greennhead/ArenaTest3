@@ -77,6 +77,7 @@ func shoot(rot):
 	var bullet
 	for i in weapon.projectileAmount:
 		bullet = projectile.instantiate()
+		bullet.team = player.team
 		bullet.rotation = rot
 		bullet.rotation_degrees.x += randf_range(-weapon.projectileSpread,weapon.projectileSpread)
 		bullet.rotation_degrees.y += randf_range(-weapon.projectileSpread,weapon.projectileSpread)

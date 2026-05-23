@@ -107,6 +107,9 @@ var GMscene = null
 var bSPEED = SPEED # speed used for bhops
 var tookDamageFrom
 var tookDamageType := 0
+
+var team := -1 #team -1 can damage any team and own team
+
 func _ready() -> void:
 	GameManager.connect("messageSent",self.addChatMessage)
 	hp = maxhp
@@ -645,6 +648,9 @@ func hurt(damage,knockback = -5,source = null, damageType : int = GameManager.de
 	if invincible:
 		ouchTime = 15
 		return
+	if source != null:
+		if source.team == team && team != -1:
+			return
 	doSignal.rpc("tookDamage",[damage,knockback,source,id])
 	emitSound.rpc("res://sounds/hurt.ogg",position)
 	ouchTime = 60

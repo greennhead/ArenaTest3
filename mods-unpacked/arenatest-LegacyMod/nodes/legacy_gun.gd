@@ -44,6 +44,7 @@ extends "res://nodes/weapons/pistol.gd"
 func preBullet(bullet):
 	if bullet.script != load("res://mods-unpacked/arenatest-LegacyMod/nodes/projectile_legacy.gd"): #because modloader doesnt support class_name
 		return
+	bullet.team = player.team
 	bullet.killType = damageType
 	bullet.oldPhysics = oldPhysics
 	bullet.damage = damage

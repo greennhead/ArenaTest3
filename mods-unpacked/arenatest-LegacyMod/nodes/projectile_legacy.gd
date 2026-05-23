@@ -2,6 +2,7 @@
 # and its not good dont use it
 # unless youre porting something
 extends Area3D
+var team = -1 #no team by default
 
 @export var killType : int = GameManager.deathAnimation.NORMAL
 @export var tracerColor : Color
@@ -330,15 +331,16 @@ func checkcol():
 func hit(body):
 	if hurtDelay == 0:
 		if body is Player:
-			lasthit = "player"
-			body.lasthitby = Owner
-			body.lasthitbytype = "player"
-			if isFromTurret:
-				body.lasthitbytype = "turret"
-			hurtDelay = 5
-			$MultiplayerSynchronizer.set_multiplayer_authority(body.id)
-			if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
-				body.hurt(damage,knockback,self,killType)
+			if body.team != team && team != -1:
+				lasthit = "player"
+				body.lasthitby = Owner
+				body.lasthitbytype = "player"
+				if isFromTurret:
+					body.lasthitbytype = "turret"
+				hurtDelay = 5
+				$MultiplayerSynchronizer.set_multiplayer_authority(body.id)
+				if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
+					body.hurt(damage,knockback,self,killType)
 	if body is Player && bounceOffPlayers:
 		seed(int(name)^2 + wallbounces)
 		rotation_degrees.y += 180 + randi_range(-wallBounceSpread,wallBounceSpread)
