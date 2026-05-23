@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://b7js7xv6b87jf"]
+
+[ext_resource type="Script" uid="uid://bo1c6yvtveh30" path="res://modes/race/hud.gd" id="1_koe6h"]
+[ext_resource type="FontFile" uid="uid://cjbxi8elr5y2e" path="res://images/PressStart2P-Regular.ttf" id="2_by327"]
+[ext_resource type="Texture2D" uid="uid://7g38e14rkehr" path="res://images/default.png" id="4_nunge"]
+[ext_resource type="Texture2D" uid="uid://dcbe80xd2dhrw" path="res://images/hud.png" id="6_rtf86"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6ugqh"]
+font = ExtResource("2_by327")
+font_size = 8
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+stacked_outline_count = 1
+stacked_outline_0/size = 4
+stacked_outline_0/color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_twpnc"]
+font_size = 8
+font_color = Color(1, 0, 0, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[node name="racehud" type="CanvasLayer" unique_id=1717100198]
+script = ExtResource("1_koe6h")
+
+[node name="CenterContainer2" type="CenterContainer" parent="." unique_id=2062417333]
+offset_right = 640.0
+offset_bottom = 24.0
+
+[node name="Control" type="Control" parent="CenterContainer2" unique_id=224592535]
+layout_mode = 2
+
+[node name="winText" type="Label" parent="CenterContainer2/Control" unique_id=843817302]
+visible = false
+layout_mode = 0
+offset_left = -192.0
+offset_top = 148.0
+offset_right = 192.0
+offset_bottom = 204.0
+text = "PLAYER WINS"
+label_settings = SubResource("LabelSettings_6ugqh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=277164784]
+offset_right = 640.0
+offset_bottom = 719.0
+
+[node name="control" type="Control" parent="CenterContainer" unique_id=1300457589]
+layout_mode = 2
+
+[node name="hudPlate" type="TextureRect" parent="CenterContainer/control" unique_id=567655388]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 0
+offset_left = -320.0
+offset_top = -120.0
+offset_right = 320.0
+offset_bottom = 120.0
+texture = ExtResource("6_rtf86")
+
+[node name="hudFace" type="Sprite2D" parent="CenterContainer/control/hudPlate" unique_id=1806314644]
+position = Vector2(320, 224)
+texture = ExtResource("4_nunge")
+hframes = 8
+region_enabled = true
+region_rect = Rect2(48, 96, 192, 24)
+
+[node name="hudText" type="Label" parent="CenterContainer/control/hudPlate" unique_id=2090182210]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 213.0
+offset_right = 307.0
+offset_bottom = 244.0
+label_settings = SubResource("LabelSettings_twpnc")

@@ -42,6 +42,8 @@ func _ready() -> void:
 	$hudscale.value = Settings.hudScale
 
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("escape"):
+		queue_free()
 	super(delta)
 	if stepDelay > 0:
 		stepDelay -= 1

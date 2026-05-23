@@ -524,7 +524,7 @@ func normalState(delta):
 		stepDelay -= 60*delta
 	var jump = Input.is_action_just_pressed("jump")
 	if GameManager.rules.get("autobhop") == 1:
-		jump = Input.is_action_pressed("jump")
+		jump = Input.is_action_pressed("jump") && coyote > 0
 	if !canActuallyMove:
 		jump = false
 	if jump && coyote > 0 && canActuallyMove && GameManager.rules.get("bhop") == 0:
@@ -561,7 +561,6 @@ func normalState(delta):
 @export var max_air_velocity : float = 1.5
 func get_next_velocity(previousVelocity, delta,jump):
 	var grounded = is_on_floor()
-	var can_jump = grounded # Jumping is a seperate var in case of additive bunnyhopping modifying grounded
 	
 	# Apply friction if player is grounded, and if the frame_timer indicates it should be applied
 	if grounded and (frame_timer >= bhop_frames):
@@ -583,9 +582,8 @@ func get_next_velocity(previousVelocity, delta,jump):
 	velocity += grav * delta
 	
 	# Apply jump if desired
-	if (jump && grounded) \
-			and canMove:
-		print(grounded)
+	if (jump && canActuallyMove && coyote > 0):
+		coyote = 0
 		velocity.y = JUMP_VELOCITY
 	# Return the new velocity
 	return velocity

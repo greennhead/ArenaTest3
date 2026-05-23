@@ -192,12 +192,24 @@ func _on_close_pressed() -> void:
 @rpc("authority","reliable","call_local")
 func selectGM(idx):
 	selectedModeIdx = idx
-	GameManager.customGMProperties = {}
 	selectedMode = gamemodeSelector.get_item_text(idx).to_lower()
+	GameManager.customGMProperties = {}
+	var ppath
+	for path in GameManager.gamemodePaths:
+		var dir = DirAccess.open(path)
+		if dir:
+			dir.list_dir_begin()
+			var file_name = dir.get_next()
+			while file_name != "":
+				if dir.current_is_dir():
+					if file_name == selectedMode.to_lower():
+						ppath = path.path_join(file_name).path_join("/mode.tres") 
+				file_name = dir.get_next()
+	GameManager.gmName =  load(ppath).name 
 	gamemodeSelector.select(idx)
 	mapPicker.gamemodeRestriction = gamemodeSelector.get_item_text(idx).to_lower()
 	mapPicker.reSpawn()
-	var ppath
+	ppath = null
 	for path in GameManager.gamemodePaths:
 		var dir = DirAccess.open(path)
 		if dir:

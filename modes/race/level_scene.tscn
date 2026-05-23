@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://cjfahk5wm4vxu"]
+
+[ext_resource type="Script" uid="uid://d3r7a665o568q" path="res://modes/race/level_scene.gd" id="1_yc7fo"]
+[ext_resource type="PackedScene" uid="uid://d1xo4y86517pi" path="res://nodes/player.tscn" id="2_ba825"]
+[ext_resource type="PackedScene" uid="uid://dly618ctmgujq" path="res://nodes/map.tscn" id="3_afum7"]
+[ext_resource type="Texture2D" uid="uid://bsaw6jipjhbr" path="res://images/sky.png" id="4_2ruby"]
+[ext_resource type="PackedScene" uid="uid://b7js7xv6b87jf" path="res://modes/race/hud.tscn" id="4_62ulh"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_c8xsp"]
+panorama = ExtResource("4_2ruby")
+filter = false
+
+[sub_resource type="Sky" id="Sky_s87lg"]
+sky_material = SubResource("PanoramaSkyMaterial_c8xsp")
+radiance_size = 0
+
+[sub_resource type="Environment" id="Environment_fkwfp"]
+background_mode = 2
+sky = SubResource("Sky_s87lg")
+reflected_light_source = 2
+
+[node name="levelScene" type="Node3D" unique_id=364424055]
+script = ExtResource("1_yc7fo")
+PlayerScene = ExtResource("2_ba825")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=413428785]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_max_distance = 1.0
+sky_mode = 1
+
+[node name="mapLoader" parent="." unique_id=144097624 node_paths=PackedStringArray("world") instance=ExtResource("3_afum7")]
+world = NodePath("../WorldEnvironment")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2034504865]
+environment = SubResource("Environment_fkwfp")
+
+[node name="racehud" parent="." unique_id=1717100198 instance=ExtResource("4_62ulh")]
+
+[connection signal="mapSwitched" from="mapLoader" to="." method="_on_map_loader_map_switched"]
+[connection signal="outOfMaps" from="mapLoader" to="." method="_on_map_loader_out_of_maps"]
+
+[editable path="mapLoader"]

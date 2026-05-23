@@ -5,4 +5,5 @@
 [resource]
 script = ExtResource("1_n3bqd")
 name = "race"
+levelScene = "uid://cjfahk5wm4vxu"
 metadata/_custom_type_script = "uid://eore7nsvhk4"

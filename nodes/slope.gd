@@ -8,7 +8,9 @@ func post_ready() -> void:
 	if texture == null:
 		txtr = load("res://images/brick.png")
 	else:
-		txtr = load(map + "/blockTextures/" + texture)
+		txtr = load(map.path_join("/blockTextures/").path_join(texture))
+	if txtr == null:
+		txtr = load("res://images/brick.png")
 	mesh.material_override = mesh.material_override.duplicate()
 	txtr = txtr.get_image()
 	txtr.resize(24,24)

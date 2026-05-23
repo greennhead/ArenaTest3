@@ -169,6 +169,9 @@ func setRule(rule,value):
 	if !multiplayer.is_server():
 		print_error("Not a host.")
 		return
+	if !GameManager.rules.has(rule):
+		print_error("No such rule")
+		return
 	if value == "":
 		value = 0
 	elif value == "true":
@@ -190,7 +193,8 @@ func disconnectToMenu():
 		GameManager.main.changeScene("res://scenes/title.tscn")
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	GameManager.myPlayer = null
-	GameManager.peer.close()
+	if GameManager.peer != null:
+		GameManager.peer.close()
 
 func _ready() -> void:
 	add_command("disconnect",disconnectToMenu,0,0,"Quits back to main menu.")
