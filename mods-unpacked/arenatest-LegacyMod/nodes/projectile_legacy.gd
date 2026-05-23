@@ -331,7 +331,7 @@ func checkcol():
 func hit(body):
 	if hurtDelay == 0:
 		if body is Player:
-			if body.team != team && team != -1:
+			if body.team != team || team == -1:
 				lasthit = "player"
 				body.lasthitby = Owner
 				body.lasthitbytype = "player"
@@ -381,6 +381,7 @@ func explode(position):
 	a.Owner = Owner
 	a.explosionAffectsShooterOnly = explosionAffectsShooterOnly
 	a.destroyTiles = explosionDestroyTiles
+	a.team = team
 	GameManager.scene.add_child(a) 
 	a.position = position
 	emitSound(explodeSound,position,0.0,randf_range(0.9,1.1))

@@ -13,6 +13,7 @@ var damageSpread = false
 var Owner
 var time = 0
 var explosionAffectsShooterOnly = false
+var team = -1
 @onready var rubble = preload("uid://dsat22nybbv46")
 func _ready() -> void:
 	if radius <= 0:
@@ -67,7 +68,8 @@ func _process(delta: float) -> void:
 					i.lasthitbytype = "turret"
 				$MultiplayerSynchronizer.set_multiplayer_authority(i.id)
 				if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
-					i.hurt(round(damage),0,self)
+					if i.team != team || team == -1:
+						i.hurt(round(damage),0,self)
 				var k = i.global_position.direction_to(global_position)
 				i.velocity += k*knockback
 				time = 1
