@@ -271,7 +271,6 @@ func updatePlayerMenu():
 @onready var chat_vbox: VBoxContainer = $CHAT/chatContainer/VBoxContainer
 var inactiveChatTime := 0
 func addChatMessage(text):
-	print(text)
 	inactiveChatTime = 600
 	if chat_vbox.get_children().size() > 10:
 		chat_vbox.get_children()[0].queue_free()

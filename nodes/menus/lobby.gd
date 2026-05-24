@@ -47,6 +47,7 @@ func sendGameInfo(started : bool,gamemode : int = -1):
 		queue_free()
 
 func _ready() -> void:
+	GameManager.connect("messageSent",self.addChatMessage)
 	GameManager.lobbyWindow = self
 	GameManager.rules = GameManager.rulesDefault.duplicate()
 	GameManager.Players = {}
@@ -242,7 +243,41 @@ func _on_gamemode_selector_item_selected(index: int) -> void:
 @onready var players : VBoxContainer = $players/VBoxContainer
 @onready var ogplayerName: RichTextLabel = $players/VBoxContainer/playerName
 
+@onready var chatBox: LineEdit = $chat/LineEdit
+@onready var chatMessage: RichTextLabel = $chat/chatmessage
+@onready var chatVB: VBoxContainer = $chat/VBoxContainer
+
+
+func flashChatBar():
+	if chat.visible:
+		return
+	for i in 3:
+		$chatOpen.modulate = Color.PINK
+		await get_tree().create_timer(0.1).timeout
+		$chatOpen.modulate = Color.RED
+		await get_tree().create_timer(0.1).timeout
+		$chatOpen.modulate = Color.PINK
+		await get_tree().create_timer(0.1).timeout
+		$chatOpen.modulate = Color.WHITE
+		await get_tree().create_timer(0.1).timeout
+
+
+func addChatMessage(text):
+	flashChatBar()
+	if chatVB.get_children().size() > 14:
+		chatVB.get_children()[0].queue_free()
+	var c = chatMessage.duplicate()
+	chatVB.add_child(c)
+	c.text = text
+	c.show()
+
+
 func _physics_process(delta: float) -> void:
+	if chat.visible:
+		if chatBox.text.replace(" ","") != "" && Input.is_action_just_pressed("chat"):
+			GameManager.message.rpc(chatBox.text,false,"[color=" + Settings.nameColor + "]<" + GameManager.myName +  ">[/color] "  )
+			chatBox.text = ""
+			chatBox.grab_focus()
 	if joined:
 		for i in get_tree().get_nodes_in_group("disableIfClient"):
 			i.disabled = true
