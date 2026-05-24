@@ -183,6 +183,7 @@ offset_left = 8.0
 offset_top = 416.0
 offset_right = 480.0
 offset_bottom = 440.0
+mouse_filter = 2
 bbcode_enabled = true
 text = "MENU_SUMWARNING"
 horizontal_alignment = 1

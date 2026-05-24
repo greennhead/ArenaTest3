@@ -160,7 +160,7 @@ func getChecksum():
 			dir.list_dir_begin()
 			var file_name = dir.get_next()
 			while file_name != "":
-				c += str(file_name.length())
+				c += str(file_name[0])
 				file_name = dir.get_next()
 	for path in GameManager.gamemodePaths:
 		dir = DirAccess.open(path)
