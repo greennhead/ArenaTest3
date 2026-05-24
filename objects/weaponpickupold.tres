@@ -6,6 +6,8 @@
 [resource]
 script = ExtResource("1_n0hty")
 properties = {
+"currdelay": 0.0,
+"delay": 0.0,
 "weaponName": "weapon"
 }
 node = "uid://dw0vj8wygaf0a"

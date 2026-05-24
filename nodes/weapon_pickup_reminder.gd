@@ -4,6 +4,8 @@ var weaponName := ""
 const weaponsPath = "res://nodes/weapons/"
 @onready var trueWeaponPickup = preload("res://nodes/weapon_pickup.tscn")
 @onready var sprite: Sprite3D = $sprite
+var delay = 10
+var currdelay = 0
 func post_ready():
 	$name.text = weaponName 
 	for path in GameManager.gunPaths:
@@ -20,6 +22,8 @@ func post_ready():
 						p.position = position
 						p.weapon = path.path_join(i)
 						p.name = "converted_" + name
+						p.delay = delay
+						p.currdelay = currdelay
 						get_parent().add_child(p)
 						return
 	#var dir = DirAccess.open(path)

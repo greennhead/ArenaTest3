@@ -52,12 +52,12 @@ vertical_alignment = 1
 layout_mode = 2
 
 [node name="Control" type="Control" parent="CenterContainer2/HBoxContainer" unique_id=513723067]
+visible = false
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 script = ExtResource("2_ewnl2")
 
 [node name="icon" type="Sprite2D" parent="CenterContainer2/HBoxContainer/Control" unique_id=1352622815]
-visible = false
 texture = ExtResource("3_uu43c")
 region_enabled = true
 region_rect = Rect2(4, 132, 11, 11)

@@ -193,6 +193,8 @@ func disconnectToMenu():
 		GameManager.main.changeScene("res://scenes/title.tscn")
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	GameManager.myPlayer = null
+	GameManager.lobbyWindow = null
+	GameManager.rules = GameManager.rulesDefault.duplicate()
 	if GameManager.peer != null:
 		GameManager.peer.close()
 

@@ -21,7 +21,7 @@ var num := 0:
 		print_rich("[color=pink]Num just set to " + str(value))
 var mapnum := -1
 var level 
-var customObjects : Array[mapObject]
+var customObjects : Array[mapObject] #add to this array in your mod_main for custom objects
 var testMap := ""
 const modsPath := "user://mods/" 
 var myName := ""
@@ -34,10 +34,12 @@ var gunPaths : Array[String] = ["res://nodes/weapons/"]
 var mapPaths : Array[String] = ["res://maps/"]
 var gamemodePaths : Array[String] = ["res://modes/"]
 var peer : ENetMultiplayerPeer = null
+var lobbyWindow
 var rules := {
 	"bhop" : 0, #Enables quake-like movement
 	"autobhop" : 0, #Autojump
-	"bhopwiggle" : 0 #Can fly by wiggling ASD in air if bhop is 1
+	"bhopwiggle" : 0, #Can fly by wiggling ASD in air if bhop is 1
+	"ants" : 0 #really tiny players
 }
 var rulesDefault := {}
 

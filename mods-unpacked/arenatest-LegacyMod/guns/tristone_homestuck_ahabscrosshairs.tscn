@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://vvqqfn4d472a" path="res://mods-unpacked/arenatest-LegacyMod/sprites/tristone_ahabs.png" id="5_gl6fx"]
 
 [node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_yrurf")]
-damageType = 2
+damageType = 1
 damage = 100
 knockback = -5.0
 tracerColor = Color(1, 1, 1, 1)
@@ -32,4 +32,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22615409, -0.163248, -1.418
 texture = ExtResource("5_gl6fx")
 
 [node name="shootPoint" parent="." index="3" unique_id=762613811]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46022153, -0.24928951, -0.7237188)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46022153, 0.10126114, -1.2826023)

@@ -46,7 +46,6 @@ _data = {
 
 [node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_2tma1")]
 damage = 50
-damageSpread = true
 knockback = -5.0
 tracerColor = Color(0.9529412, 0.79607844, 0.34901962, 1)
 speed = 6.0
@@ -59,7 +58,6 @@ BounceAcceleration = -100.0
 Sprite = "iVBORw0KGgoAAAANSUhEUgAAAGAAAAAYCAMAAAAyNwimAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAMUExURbUxIOacIf/+/wAAAOoRppgAAAAEdFJOU////wBAKqn0AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAvElEQVRIS+2QwQ6DMAxDKf3/f57rOJDQVlzopE28wxae2xix1cW8Bbf8U8FG9HACM9JiEFz2+ARXSomJA5WvRBYWHCoHsHmPD/R7V2FPCDuP881lTb9jTTm0BgTKLjcUxSsNKvwsLICxs9nzM7BaaODJ81LAtrePJ0H8ZRpShG+SpE9Q0Knb4HrukiBfKIC3jyFjNG/Kg/SHOJ8HXNX3zjwEVLCjKcMrfQi3tmDqWxC2zdY+xltwy68X1PoB6/AXEb/kE6AAAAAASUVORK5CYII="
 ProjectileSpriteSheetAnimationSpeed = 0.1
 ProjectileSpriteSheetFrames = 4
-weaponDropEffectOnAmmoDepletion = false
 weapon = ExtResource("2_2tma1")
 pickupSound = ExtResource("3_4okmn")
 shootSound = ExtResource("4_uylk4")
@@ -67,6 +65,9 @@ shootSound = ExtResource("4_uylk4")
 [node name="gunSprite" parent="." index="2" unique_id=1094739627]
 texture = ExtResource("5_2tma1")
 hframes = 4
+
+[node name="shootPoint" parent="." index="3" unique_id=762613811]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3080333, 0.5220257, -0.7976972)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4" unique_id=451377965]
 libraries/ = SubResource("AnimationLibrary_qabeb")

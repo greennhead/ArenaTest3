@@ -57,6 +57,8 @@ func _physics_process(delta: float) -> void:
 	sprite.no_depth_test = isHeldByLocalPlayer()
 	if delay > 0:
 		delay -= 1
+		if GameManager.rules.get("ants") == 1 && delay > 0:
+			delay -= 1
 	if delay == 0 && ammo == 0:
 		player.removeWeapon.rpc()
 
@@ -118,5 +120,7 @@ func emitSound(sound : AudioStream,volume = 0.0,pitch = 1.0):
 	s.position = shootPoint.global_position
 	s.volume_db = volume
 	s.pitch_scale = pitch + randf_range(0.1,-0.1)
+	if GameManager.rules.get("ants") == 1:
+		s.pitch_scale += 1.0
 	GameManager.scene.add_child.call_deferred(s)
 	s.source = shootPoint

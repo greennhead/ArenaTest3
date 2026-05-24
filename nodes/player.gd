@@ -303,6 +303,8 @@ func chatStuff():
 
 var canActuallyMove = true
 func _physics_process(delta: float) -> void:
+	if GameManager.rules.get("ants") == 1:
+		scale = Vector3(0.4,0.4,0.4)
 	if GameManager.Players[id].has("color"):
 		playerName.modulate = GameManager.Players[id]["color"]
 	nameColor = playerName.modulate
@@ -395,6 +397,7 @@ func sendMicData(data : PackedVector2Array):
 
 func respawn():
 	removeWeapon()
+	scale = Vector3.ONE
 	hp = maxhp
 	state = STATES.NORMAL
 	dead = false
@@ -636,6 +639,8 @@ func emitSound(sound : String,pos,volume = 0,pitch = 1.0):
 	s.stream = load(sound)
 	s.volume_db = volume
 	s.pitch_scale = pitch
+	if GameManager.rules.get("ants") == 1:
+		s.pitch_scale += 1.0
 	GameManager.scene.add_child(s)
 	s.global_position = pos
 

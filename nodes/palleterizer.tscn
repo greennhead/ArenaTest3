@@ -9,7 +9,7 @@ shader = ExtResource("1_fcidm")
 shader_parameter/palette = ExtResource("2_yphxt")
 
 [node name="palleterizer" type="CanvasLayer" unique_id=849223279]
-layer = 16
+layer = 64
 script = ExtResource("1_yphxt")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1444449915]

@@ -47,6 +47,7 @@ func sendGameInfo(started : bool,gamemode : int = -1):
 		queue_free()
 
 func _ready() -> void:
+	GameManager.lobbyWindow = self
 	GameManager.rules = GameManager.rulesDefault.duplicate()
 	GameManager.Players = {}
 	if GameManager.myName == "":
