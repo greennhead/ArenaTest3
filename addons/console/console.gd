@@ -198,6 +198,30 @@ func disconnectToMenu():
 	if GameManager.peer != null:
 		GameManager.peer.close()
 
+
+func godot():
+	print_info("This game uses Godot Engine, available under the following license:
+Copyright (c) 2014-present Godot Engine contributors.
+Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the \"Software\"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.")
+
 func _ready() -> void:
 	add_command("disconnect",disconnectToMenu,0,0,"Quits back to main menu.")
 	add_command("setrule",setRule,["Rule", "Value"],2, "Sets a game rule for the current server")
@@ -212,6 +236,7 @@ func _ready() -> void:
 	add_command("commands", commands, 0, 0, "Lists commands with no descriptions.")
 	add_command("calc", calculate, ["mathematical expression to evaluate"], 0, "Evaluates the math passed in for quick arithmetic.")
 	add_command("echo", print_line, ["string"], 1, "Prints given string to the console.")
+	add_command("godot",godot,0,0,"Godot!")
 	#add_command("echo_warning", print_warning, ["string"], 1, "Prints given string as warning to the console.")
 	#add_command("echo_info", print_info, ["string"], 1, "Prints given string as info to the console.")
 	#add_command("echo_error", print_error, ["string"], 1, "Prints given string as an error to the console.")
