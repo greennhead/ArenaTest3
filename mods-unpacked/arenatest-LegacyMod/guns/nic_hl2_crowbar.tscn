@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://bmnxtq0fx5uig" path="res://mods-unpacked/arenatest-LegacyMod/guns/nic_hl2_crowbar.tres" id="2_jnyfy"]
 [ext_resource type="AudioStream" uid="uid://cvpyqnerib6t5" path="res://mods-unpacked/arenatest-LegacyMod/sounds/hl2_pickup.ogg" id="3_dkq1g"]
 [ext_resource type="AudioStream" uid="uid://b5cvqio0vkei0" path="res://mods-unpacked/arenatest-LegacyMod/sounds/crowbar_hit.ogg" id="4_jrlmk"]
-[ext_resource type="Texture2D" uid="uid://b1luqn26nbx37" path="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_crowbar.png" id="5_dkq1g"]
+[ext_resource type="Texture2D" uid="uid://lha1mkyixlon" path="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_crowbar.png" id="5_dkq1g"]
 
 [node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_jnyfy")]
 damage = 25

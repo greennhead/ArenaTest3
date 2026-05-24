@@ -7,6 +7,7 @@
 script = ExtResource("1_sye62")
 name = ".357 Magnum"
 attackSpeed = 53
+autofire = true
 projectile = "uid://btxit2c61roca"
 Ammo = 6
 canZoom = true

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://eoyhni8qktrl"]
+
+[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_lskky"]
+[ext_resource type="Texture2D" uid="uid://4k316di13sef" path="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_smg.png" id="2_f2lm6"]
+
+[resource]
+script = ExtResource("1_lskky")
+name = "SMG"
+attackSpeed = 10
+autofire = true
+projectile = "uid://btxit2c61roca"
+Ammo = 45
+singularSprite = ExtResource("2_f2lm6")
+legacyName = "nik_hl2_smg_headshot"
+metadata/_custom_type_script = "uid://5u6ynrpschfs"

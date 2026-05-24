@@ -1,12 +1,13 @@
 [gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://bmnxtq0fx5uig"]
 
 [ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_qa4cv"]
-[ext_resource type="Texture2D" uid="uid://b1luqn26nbx37" path="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_crowbar.png" id="2_wp6hs"]
+[ext_resource type="Texture2D" uid="uid://lha1mkyixlon" path="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_crowbar.png" id="2_wp6hs"]
 
 [resource]
 script = ExtResource("1_qa4cv")
 name = "Crowbar"
 attackSpeed = 24
+autofire = true
 projectile = "uid://btxit2c61roca"
 Ammo = 10
 singularSprite = ExtResource("2_wp6hs")
