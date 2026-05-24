@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://c4edyrmclpd6l"]
+
+[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_sye62"]
+[ext_resource type="Texture2D" uid="uid://kxn8o47rhqjg" path="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_magnum.png" id="2_o5gsv"]
+
+[resource]
+script = ExtResource("1_sye62")
+name = ".357 Magnum"
+attackSpeed = 53
+projectile = "uid://btxit2c61roca"
+Ammo = 6
+canZoom = true
+zoomFOV = 10
+singularSprite = ExtResource("2_o5gsv")
+legacyName = "nik_hl2_magnum"
+metadata/_custom_type_script = "uid://5u6ynrpschfs"

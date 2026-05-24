@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://22mq8m27ig6v"]
+
+[ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://mods-unpacked/arenatest-LegacyMod/nodes/legacyGun.tscn" id="1_j2ygg"]
+[ext_resource type="Resource" uid="uid://dml7rub45iv84" path="res://mods-unpacked/arenatest-LegacyMod/guns/nic_hl2_grenade.tres" id="2_tislx"]
+[ext_resource type="AudioStream" uid="uid://cvpyqnerib6t5" path="res://mods-unpacked/arenatest-LegacyMod/sounds/hl2_pickup.ogg" id="3_ces5q"]
+[ext_resource type="Texture2D" uid="uid://m20ut4n6eruc" path="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_grenade.png" id="4_j2ygg"]
+
+[node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_j2ygg")]
+damage = 90
+knockback = -5.0
+FireAnimationRotation = -45.0
+tracerColor = Color(0.101960786, 0.101960786, 0.101960786, 1)
+speed = 6.0
+grav = 10
+Lifetime = 600
+hitbox = Vector3(0.8, 0.8, 0.8)
+Bounce = true
+MaxBounceAmount = 3
+BounceAcceleration = -100.0
+Sprite = "res://mods-unpacked/arenatest-LegacyMod/sprites/nic_grenade.png"
+ProjectileSpriteSheetFrames = 1
+explosive = true
+explosionDamage = 90.0
+explosionKnockback = -40.0
+explosionRadius = 5.0
+explodeSound = "uid://dxf0odlh2b1tl"
+explosionSprite = "res://mods-unpacked/arenatest-LegacyMod/sprites/ghd352_explosion.png"
+explosionSpriteSpeed = 0.4
+explosionSpriteFrames = 17.0
+weaponDropEffectOnAmmoDepletion = false
+weapon = ExtResource("2_tislx")
+pickupSound = ExtResource("3_ces5q")
+shootSound = ExtResource("3_ces5q")
+
+[node name="hand" parent="." index="0" unique_id=974286624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.202, -0.8)
+
+[node name="hand2" parent="." index="1" unique_id=915277237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.43, -0.2, -0.333)
+
+[node name="gunSprite" parent="." index="2" unique_id=1094739627]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.489, -0.14, -0.899)
+texture = ExtResource("4_j2ygg")
