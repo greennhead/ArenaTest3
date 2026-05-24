@@ -145,6 +145,7 @@ func peer_disconnected(id):
 func getChecksum():
 	var dir
 	var c = ""
+	var numm = 0
 	for path in GameManager.mapPaths:
 		dir = DirAccess.open(path)
 		if dir:
@@ -152,16 +153,20 @@ func getChecksum():
 			var file_name = dir.get_next()
 			while file_name != "":
 				if dir.current_is_dir():
-					c += str(file_name[1])
+					numm += file_name.length()
 				file_name = dir.get_next()
+	c += str(numm)
+	numm = 0
 	for path in GameManager.gunPaths:
 		dir = DirAccess.open(path)
 		if dir:
 			dir.list_dir_begin()
 			var file_name = dir.get_next()
 			while file_name != "":
-				c += str(file_name[0])
+				numm += file_name.length()
 				file_name = dir.get_next()
+	c += str(numm*16)
+	numm = 0
 	for path in GameManager.gamemodePaths:
 		dir = DirAccess.open(path)
 		if dir:
@@ -169,8 +174,10 @@ func getChecksum():
 			var file_name = dir.get_next()
 			while file_name != "":
 				if dir.current_is_dir():
-					c += str(file_name[0])
+					numm += file_name.length()
 				file_name = dir.get_next()
+		c += str(numm*64)
+	numm = 0
 	return c 
 
 
