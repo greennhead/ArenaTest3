@@ -8,7 +8,8 @@ script = ExtResource("1_3lci0")
 properties = {
 "exit": false,
 "id": 0,
-"randomExit": false
+"randomExit": false,
+"sound": ""
 }
 node = "uid://b41brvwsymhau"
 name = "teleport"
