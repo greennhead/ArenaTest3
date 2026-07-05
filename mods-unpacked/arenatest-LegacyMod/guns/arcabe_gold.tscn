@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://dck5dqnvv4lgw"]
 
-[ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://nodes/LegacyMod/legacyGun.tscn" id="1_h8y5f"]
-[ext_resource type="AudioStream" uid="uid://321qrlhbtj1j" path="res://sounds/legacyMod/legacyMod/arcabe_goldget.ogg" id="2_ats5i"]
-[ext_resource type="Resource" uid="uid://nlved85qtr5y" path="res://nodes/weapons/arcabe_gold.tres" id="2_hw7hh"]
-[ext_resource type="Texture2D" uid="uid://b2hbphpberxou" path="res://images/weaponry/legacyMod/arcabe_gold.png" id="2_t1y16"]
-[ext_resource type="AudioStream" uid="uid://bui0nbhh5s83g" path="res://sounds/legacyMod/legacyMod/arcabe_goldshoot.ogg" id="3_hw7hh"]
+[ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://mods-unpacked/arenatest-LegacyMod/nodes/legacyGun.tscn" id="1_h8y5f"]
+[ext_resource type="AudioStream" uid="uid://321qrlhbtj1j" path="res://mods-unpacked/arenatest-LegacyMod/sounds/arcabe_goldget.ogg" id="2_ats5i"]
+[ext_resource type="Resource" uid="uid://nlved85qtr5y" path="res://mods-unpacked/arenatest-LegacyMod/guns/arcabe_gold.tres" id="2_hw7hh"]
+[ext_resource type="Texture2D" uid="uid://b2hbphpberxou" path="res://mods-unpacked/arenatest-LegacyMod/sprites/arcabe_gold.png" id="2_t1y16"]
+[ext_resource type="AudioStream" uid="uid://bui0nbhh5s83g" path="res://mods-unpacked/arenatest-LegacyMod/sounds/arcabe_goldshoot.ogg" id="3_hw7hh"]
 
 [node name="legacyGun" unique_id=15249170 instance=ExtResource("1_h8y5f")]
+originalRes = null
 damage = 15
 knockback = -4.0
 FireAnimationRotation = 50.0
