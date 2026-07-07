@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://cpmrtl0glg21s"]
+
+[ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://mods-unpacked/arenatest-LegacyMod/nodes/legacyGun.tscn" id="1_n5uhw"]
+[ext_resource type="Resource" uid="uid://bj8lf7k2itikc" path="res://mods-unpacked/arenatest-LegacyMod/guns/mbx_uncanny.tres" id="2_n5uhw"]
+[ext_resource type="AudioStream" uid="uid://d3wfbt0cyhixv" path="res://mods-unpacked/arenatest-LegacyMod/sounds/mbx_sfxHardMode.ogg" id="3_3l43d"]
+[ext_resource type="AudioStream" uid="uid://dqwdabrh801nw" path="res://mods-unpacked/arenatest-LegacyMod/sounds/mbx_sfxUncannyDeath.ogg" id="4_r4h6f"]
+[ext_resource type="Texture2D" uid="uid://c1mxpe4x63acw" path="res://mods-unpacked/arenatest-LegacyMod/sprites/mbx_uncanny.png" id="5_uhykj"]
+
+[node name="legacyGun" unique_id=15249170 instance=ExtResource("1_n5uhw")]
+damage = 999
+knockback = 40.0
+tracerColor = Color(1, 1, 1, 1)
+speed = 9.0
+Lifetime = 600
+hitbox = Vector3(5, 5, 5)
+phantom = true
+piercing = true
+Sprite = "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"
+weapon = ExtResource("2_n5uhw")
+pickupSound = ExtResource("3_3l43d")
+shootSound = ExtResource("4_r4h6f")
+
+[node name="hand" parent="." index="0" unique_id=974286624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.544965, -0.049526557, -1.0140951)
+
+[node name="hand2" parent="." index="1" unique_id=915277237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5391071, -0.080212474, -0.76706815)
+
+[node name="gunSprite" parent="." index="2" unique_id=1094739627]
+texture = ExtResource("5_uhykj")
+
+[node name="shootPoint" parent="." index="3" unique_id=762613811]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38290846, 0.1606412, -0.96002436)

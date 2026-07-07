@@ -48,77 +48,77 @@ extends "res://nodes/weapons/pistol.gd"
 
 
 #func generateFromL():
-    #if originalRes == null:
-        #return
-    #
-    #print("Parameters set! Put sprite info, sounds and legacy name manually...")
-    #weapon.name = originalRes.name
-    #weapon.attackSpeed = originalRes.attackSpeed
-    #if weapon.attackSpeed < 60: # i guess
-        #weapon.autofire = true
-    #weapon.projectile = "res://mods-unpacked/arenatest-LegacyMod/nodes/projectileLegacy.tscn"
-    #weapon.projectileSpread = originalRes.projectileSpread
-    #weapon.projectileAmount = originalRes.projectileAmount
-    #weapon.Ammo = originalRes.Ammo
-    #weapon.selfKnockback = originalRes.selfKnockback
-    #weapon.canZoom = originalRes.canZoom
-    #weapon.zoomFOV = originalRes.zoomFOV
-    #oldPhysics = originalRes.oldProjectilePhysics
-    #damage = originalRes.damage
-    #damageSpread = originalRes.DamageSpreads
-    
+	#if originalRes == null:
+		#return
+	#
+	#print("Parameters set! Put sprite info, sounds and legacy name manually...")
+	#weapon.name = originalRes.name
+	#weapon.attackSpeed = originalRes.attackSpeed
+	#if weapon.attackSpeed < 60: # i guess
+		#weapon.autofire = true
+	#weapon.projectile = "res://mods-unpacked/arenatest-LegacyMod/nodes/projectileLegacy.tscn"
+	#weapon.projectileSpread = originalRes.projectileSpread
+	#weapon.projectileAmount = originalRes.projectileAmount
+	#weapon.Ammo = originalRes.Ammo
+	#weapon.selfKnockback = originalRes.selfKnockback
+	#weapon.canZoom = originalRes.canZoom
+	#weapon.zoomFOV = originalRes.zoomFOV
+	#oldPhysics = originalRes.oldProjectilePhysics
+	#damage = originalRes.damage
+	#damageSpread = originalRes.DamageSpreads
+	
 
 func preBullet(bullet):
-    if animationPlayer != null:
-        animationPlayer.play("shoot")
-    if bullet.script != load("res://mods-unpacked/arenatest-LegacyMod/nodes/projectile_legacy.gd"): #because modloader doesnt support class_name
-        return
-    bullet.team = player.team
-    bullet.killType = damageType
-    bullet.oldPhysics = oldPhysics
-    bullet.damage = damage
-    bullet.knockback = knockback
-    bullet.damageSpread = damageSpread
-    bullet.tracerColor = tracerColor
-    bullet.speed = speed
-    bullet.onHitExplosion = onHitExplosion
-    bullet.onKillExposion = onKillExposion
-    bullet.grav = grav
-    bullet.Lifetime = Lifetime
-    bullet.acceleration = acceleration
-    bullet.hitbox = hitbox
-    bullet.phantom = phantom
-    bullet.piercing = piercing
-    bullet.Bounce = Bounce
-    bullet.Stick = Stick
-    bullet.MaxBounceAmount = MaxBounceAmount
-    bullet.BounceAcceleration = BounceAcceleration
-    bullet.Sprite = Sprite
-    bullet.SpriteSheetAnimationSpeed = ProjectileSpriteSheetAnimationSpeed
-    bullet.SpriteSheetFrames = ProjectileSpriteSheetFrames
-    bullet.raycast = raycast
-    bullet.raycast_dist = raycast_dist
-    bullet.explosive = explosive
-    bullet.explosionDamage = explosionDamage
-    bullet.explosionRadius = explosionRadius
-    bullet.explodeSound = explodeSound
-    bullet.explosionSprite = explosionSprite
-    bullet.explosionSpriteFrames = explosionSpriteFrames
-    bullet.explosionSpriteSpeed = explosionSpriteSpeed
-    bullet.ExplodeOnHitBlock = ExplodeOnHitBlock
-    bullet.ExplodeOnHitPlayer = ExplodeOnHitPlayer
-    bullet.ExplodeOnLifetimeEnd = ExplodeOnLifetimeEnd
-    bullet.explosionDestroyTiles = explosionDestroyTiles
-    bullet.explosionKnockback = explosionKnockback
-    bullet.explosionAffectsShooterOnly = explosionAffectsShooterOnly
-    bullet.eightDirectional = eightRotational
+	if animationPlayer != null:
+		animationPlayer.play("shoot")
+	if bullet.script != load("res://mods-unpacked/arenatest-LegacyMod/nodes/projectile_legacy.gd"): #because modloader doesnt support class_name
+		return
+	bullet.team = player.team
+	bullet.killType = damageType
+	bullet.oldPhysics = oldPhysics
+	bullet.damage = damage
+	bullet.knockback = knockback
+	bullet.damageSpread = damageSpread
+	bullet.tracerColor = tracerColor
+	bullet.speed = speed
+	bullet.onHitExplosion = onHitExplosion
+	bullet.onKillExposion = onKillExposion
+	bullet.grav = grav
+	bullet.Lifetime = Lifetime
+	bullet.acceleration = acceleration
+	bullet.hitbox = hitbox
+	bullet.phantom = phantom
+	bullet.piercing = piercing
+	bullet.Bounce = Bounce
+	bullet.Stick = Stick
+	bullet.MaxBounceAmount = MaxBounceAmount
+	bullet.BounceAcceleration = BounceAcceleration
+	bullet.Sprite = Sprite
+	bullet.SpriteSheetAnimationSpeed = ProjectileSpriteSheetAnimationSpeed
+	bullet.SpriteSheetFrames = ProjectileSpriteSheetFrames
+	bullet.raycast = raycast
+	bullet.raycast_dist = raycast_dist
+	bullet.explosive = explosive
+	bullet.explosionDamage = explosionDamage
+	bullet.explosionRadius = explosionRadius
+	bullet.explodeSound = explodeSound
+	bullet.explosionSprite = explosionSprite
+	bullet.explosionSpriteFrames = explosionSpriteFrames
+	bullet.explosionSpriteSpeed = explosionSpriteSpeed
+	bullet.ExplodeOnHitBlock = ExplodeOnHitBlock
+	bullet.ExplodeOnHitPlayer = ExplodeOnHitPlayer
+	bullet.ExplodeOnLifetimeEnd = ExplodeOnLifetimeEnd
+	bullet.explosionDestroyTiles = explosionDestroyTiles
+	bullet.explosionKnockback = explosionKnockback
+	bullet.explosionAffectsShooterOnly = explosionAffectsShooterOnly
+	bullet.eightDirectional = eightRotational
 
 
 
 func postShoot(bullet):
-    sprite.rotation_degrees.z = FireAnimationRotation
+	sprite.rotation_degrees.z = FireAnimationRotation
 
 
 func _physics_process(delta: float) -> void:
-    super(delta)
-    sprite.rotation_degrees.z = lerp(sprite.rotation_degrees.z,0.0,0.1)
+	super(delta)
+	sprite.rotation_degrees.z = lerp(sprite.rotation_degrees.z,0.0,0.1)
