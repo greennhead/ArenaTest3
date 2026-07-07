@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3v6s12ym2pgx"
-path="res://.godot/imported/GitterWall.png-8b70b45a6bcecb015558ca2cbb5f846d.ctex"
+uid="uid://v7auhg1pg277"
+path="res://.godot/imported/preview.png-311730509ccaf143ba9a4ecbb511d8cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/arenatest-LegacyMod/maps/legacymod_arcabe_quartz/blockTextures/GitterWall.png"
-dest_files=["res://.godot/imported/GitterWall.png-8b70b45a6bcecb015558ca2cbb5f846d.ctex"]
+source_file="res://mods-unpacked/arenatest-LegacyMod/maps/legacymod_nic_rocketpain/preview.png"
+dest_files=["res://.godot/imported/preview.png-311730509ccaf143ba9a4ecbb511d8cd.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0d8jsf6w6xp5"
-path="res://.godot/imported/TileA.png-c4084d3045d7e7583203f6146324df6f.ctex"
+uid="uid://bui6gopg1pytm"
+path="res://.godot/imported/nic_youwin.png-0818ec458e8b25b792c7077311b87724.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/arenatest-LegacyMod/maps/legacymod_arcabe_quartz/blockTextures/TileA.png"
-dest_files=["res://.godot/imported/TileA.png-c4084d3045d7e7583203f6146324df6f.ctex"]
+source_file="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_youwin.png"
+dest_files=["res://.godot/imported/nic_youwin.png-0818ec458e8b25b792c7077311b87724.ctex"]
 
 [params]
 
