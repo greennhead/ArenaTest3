@@ -57,6 +57,8 @@ func getMapList():
 							newmap.path = path.path_join(file_name)
 							newmap.gamemode = config.get_value("data","gamemode")
 							newmap.preview.texture = load_image(path.path_join(file_name).path_join("preview.png"))
+							if load_image(path.path_join(file_name).path_join("preview.png")) == load("res://images/preview.png"):
+								newmap.preview.texture = load_image(path.path_join(file_name).path_join("Preview.png"))
 							newmap.namelabel.text = config.get_value("data","name")
 							newmap.author.text = tr("MENU_Author") + ": " + config.get_value("data","author") + "\n" + tr("MENU_Gamemode") + ": " + config.get_value("data","gamemode").to_pascal_case() 
 							newmap.switchto.connect("pressed",pickedMap.bind(newmap.gamemode,newmap.path))

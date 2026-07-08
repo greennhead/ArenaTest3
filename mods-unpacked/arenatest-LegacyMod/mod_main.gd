@@ -32,8 +32,8 @@ func _init() -> void:
 
 
 func install_script_extensions() -> void:
-	ModLoaderMod.install_script_extension("res://mods-unpacked/arenatest-LegacyMod/nodes/legacy_gun.gd")
-
+	#ModLoaderMod.install_script_extension("res://mods-unpacked/arenatest-LegacyMod/nodes/legacy_gun.gd")
+	pass
 	# ! Add extensions (longform version of the above)
 	#ModLoaderMod.install_script_extension("res://mods-unpacked/AuthorName-ModName/extensions/main.gd")
 	#ModLoaderMod.install_script_extension("res://mods-unpacked/AuthorName-ModName/extensions/entities/units/player/player.gd")
@@ -58,9 +58,5 @@ func add_translations() -> void:
 
 func _ready() -> void:
 	GameManager.mapPaths.append(mod_dir_path.path_join("maps")) # Add maps from this mod to map list
-	GameManager.gunPaths.append(mod_dir_path.path_join("guns"))
+	GameManager.gunPaths.append(mod_dir_path.path_join("guns")) # add guns to gun list
 	ModLoaderLog.info("Ready", LOG_NAME)
-
-	# ! This uses Godot's native `tr` func, which translates a string. You'll
-	# ! find this particular string in the example CSV here: translations/modname.csv
-	ModLoaderLog.info("Translation Demo: " + tr("MODNAME_READY_TEXT"), LOG_NAME)

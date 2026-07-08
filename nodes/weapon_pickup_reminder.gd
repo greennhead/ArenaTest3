@@ -10,7 +10,6 @@ func post_ready():
 	$name.text = weaponName 
 	for path in GameManager.gunPaths:
 		for i in ResourceLoader.list_directory(path):
-			print(i)
 			if i.ends_with(".tscn"):
 				var wep = load(path.path_join(i)).instantiate()
 				##if the line below gives you an error then you messed up your weapon 
@@ -26,6 +25,7 @@ func post_ready():
 						p.currdelay = currdelay
 						get_parent().add_child(p)
 						return
+	print_rich("[color=red]No legacy weapon: " + weaponName)
 	#var dir = DirAccess.open(path)
 	#if dir:
 		#dir.list_dir_begin()

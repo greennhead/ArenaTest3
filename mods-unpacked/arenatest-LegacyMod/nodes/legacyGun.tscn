@@ -45,7 +45,6 @@ ExplodeOnLifetimeEnd = true
 explosionDestroyTiles = false
 explosionAffectsShooterOnly = false
 eightRotational = false
-weapon = null
 shootSound = ExtResource("4_s2lfe")
 
 [node name="hand" parent="." index="0" unique_id=974286624]

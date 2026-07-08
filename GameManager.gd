@@ -18,7 +18,7 @@ var trackNum := true
 var num := 0:
 	set(value):
 		num = value
-		print_rich("[color=pink]Num just set to " + str(value))
+		print_rich("[color=pink]Gamemanager.num: " + str(value))
 var mapnum := -1
 var level 
 var customObjects : Array[mapObject] #add to this array in your mod_main for custom objects
