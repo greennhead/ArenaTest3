@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://142m2tsk45yx"]
+
+[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_yds55"]
+[ext_resource type="Texture2D" uid="uid://s0n3c5g6t02v" path="res://mods-unpacked/arenatest-LegacyMod/sprites/arcabe_sniperSingular.png" id="2_yds55"]
+
+[resource]
+script = ExtResource("1_yds55")
+name = "Prof."
+attackSpeed = 85
+autofire = true
+projectile = "res://mods-unpacked/arenatest-LegacyMod/nodes/projectileLegacy.tscn"
+Ammo = 1
+selfKnockback = -5
+canZoom = true
+zoomFOV = 10
+singularSprite = ExtResource("2_yds55")
+legacyName = "arcabe_sniper"

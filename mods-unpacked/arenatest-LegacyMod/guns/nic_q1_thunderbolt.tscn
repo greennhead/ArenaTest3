@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://48ffeyd47kav"]
+
+[ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://mods-unpacked/arenatest-LegacyMod/nodes/legacyGun.tscn" id="1_3r8ka"]
+[ext_resource type="Resource" uid="uid://b7iox8n5je6uy" path="res://mods-unpacked/arenatest-LegacyMod/guns/nic_q1_thunderbolt.tres" id="2_3r8ka"]
+[ext_resource type="AudioStream" uid="uid://cbbsrik4s4cw7" path="res://mods-unpacked/arenatest-LegacyMod/sounds/q1_pickup.ogg" id="3_7meo3"]
+[ext_resource type="AudioStream" uid="uid://dm5u7f6i756ai" path="res://mods-unpacked/arenatest-LegacyMod/sounds/q1_laser_hit.ogg" id="4_u03db"]
+[ext_resource type="Texture2D" uid="uid://cifp2hlte66ec" path="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_thunder.png" id="5_3r8ka"]
+
+[node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_3r8ka")]
+damage = 10
+knockback = -1.0
+FireAnimationRotation = 10.0
+tracerColor = Color(1, 1, 1, 1)
+speed = 8.0
+Lifetime = 6
+hitbox = Vector3(0.7, 0.7, 0.7)
+Sprite = "iVBORw0KGgoAAAANSUhEUgAAAA8AAAAjCAMAAAB8ZqA1AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAIxUExURdDX9NbV8ezx9PP8/urr7/L3//H06+Pi6dDV9e76/+To//T8/9Da7uLn/fT99dfk+Ki61MjX77a/6f39/NLd/9Hc7c3e68zc+7fD9/X5+rvK7evt9tba9sXU8tff9eT0/uHk883c9rrF/fL39L/L7ODw/sjc7M7c8uHt/Ofs89/m/tXZ+975/tXi+6y23Njc+Ovq9bPJ4fH4/7G6/MDR7eLx/6256Nnd+K+736+76d3h6s/X7aSu27TA7c7f79Hg8eTk/sPZ8O32/8vU+9DY6tXj+Nnh8b7E6snS+dPe8uDm9tbe9bzO87fE7sHP7Nvi+/Dw8rXB8+T0/8vT9sPe+Of4/87Y8Nni8tnm98/W9Oby/bfH8dPg9r3V8bPI6ubn9MjV6Njn9eHk9dvl+tvp/Nfc+9zn/N3x/+fp8+7x+ub5+NDd7tbc6tvg+9jf/Oz/9tbZ9ejn5t3m88zg9NDg9NHW87bA6+Xv/9ze7tLY7ODg++Pm/9TT6vL9/c/W8OLu+uLo89ne+uz6/tnc/s/a8cba98fe89ff9+n/+dvl/Mvb89vf+8ra99zi+sTU573V7tjo/8DL5c7a8tHU9dnk+szZ6ePr+N3f6cbc8dLY/+v9/ujs9en+/s3a/Nbj9MHV7uD9/uXj7tft/9Tb9rvO78zh+tf1/efs+9Tf7M7f9+Hp+9Po+sbR9N76/7W99eLj5MTO+9v4/7/Z7svX7dnf9N3i+sTT9Nr+/cXN7Nr4/QAAAKYjFNAAAAC7dFJOU////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////wBh8v5oAAAACXBIWXMAAA7CAAAOwgEVKEqAAAABWElEQVQoU0XLhzfQURQH8F9k7xXZ2WQTQnZ22VSUvUeSLbuk7L2JzAjJ/P513n3vOe4579z7ed97FfBSHogOaRXVh2KQVlPXEIO0ppbod9bWEV1aV0/fgA9kQ8DI2MSUwUzkj2Bu8djSytpG5LZ29k8cHJ2cXVzd3Jk9nnp6wduHjkXu6wf4B9wbgcCzIEHuYCDkOSFUGGEIfwFERLKRHBWNmFggjiLyy3gkJCKJSE5OAVJf4fWd04D0jMys7JzcPPKbt+z7XX7B+w+FRcXMJaXMZeWoqASqaL+auYa92jpxD9Q3fGz8xHqT8OfmltY2+meltKOjs+sLugk9lPf2oR8YGPz6DUPyHvg+/OPnyOgYeXxiEpiansHs3PwC5YvA0rJY4/srwOqaJL9f3/glwErZ3Pq9vbO7J8ny/YM/ODyS5PvA32PecCJ9+o+3M57/P7+4vLom3wC3JUk5k5jrLekAAAAASUVORK5CYII="
+ProjectileSpriteSheetFrames = 1
+weapon = ExtResource("2_3r8ka")
+pickupSound = ExtResource("3_7meo3")
+shootSound = ExtResource("4_u03db")
+
+[node name="hand" parent="." index="0" unique_id=974286624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.43, -0.302, -0.504)
+
+[node name="hand2" parent="." index="1" unique_id=915277237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.43, -0.3, -1.233)
+
+[node name="gunSprite" parent="." index="2" unique_id=1094739627]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.489, -0.14, -0.899)
+texture = ExtResource("5_3r8ka")

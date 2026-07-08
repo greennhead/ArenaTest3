@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://6atdqoowamm0"]
+
+[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_w5jb6"]
+[ext_resource type="Texture2D" uid="uid://rojg6p7kieko" path="res://mods-unpacked/arenatest-LegacyMod/sprites/arcabe_shotgunSingular.png" id="2_w5jb6"]
+
+[resource]
+script = ExtResource("1_w5jb6")
+name = "Stout Lord"
+attackSpeed = 30
+autofire = true
+projectile = "uid://btxit2c61roca"
+projectileSpread = 5
+projectileAmount = 5
+Ammo = 5
+selfKnockback = -23
+singularSprite = ExtResource("2_w5jb6")
+legacyName = "arcabe_shotgun"

@@ -9,7 +9,7 @@ signal changedSkin(id)
 signal taunted(id)
 signal untaunted(id)
 @onready var pause_vbox: VBoxContainer = $PAUSE/VBoxContainer
-
+var spawnPoint := Vector3.ZERO
 var tabdictold = {}
 @export var animationSpeed := 0.18
 @onready var head: Node3D = $head
@@ -113,7 +113,7 @@ var tookDamageFrom
 var tookDamageType := 0
 
 @export var team := -1 #team -1 can damage any team and own team
-
+@export var respawnFall := false
 func _ready() -> void:
 	GameManager.connect("messageSent",self.addChatMessage)
 	hp = maxhp
@@ -401,6 +401,7 @@ func respawn():
 	state = STATES.NORMAL
 	dead = false
 	velocity = Vector3.ZERO
+	spawnPoint = global_position
 
 func doState(state,delta):
 	if taunting || dead:
@@ -491,7 +492,11 @@ func normalState(delta):
 		animation = tauntAnim
 	watchForDeath()
 	if position.y < DEATH_ZONE:
-		hurt(3,0)
+		if respawnFall:
+			global_position = spawnPoint
+			respawn()
+		else:
+			hurt(3,0)
 	rotation = Vector3.ZERO
 	if !moving && Input.is_action_just_pressed("taunt"):
 		taunting = true

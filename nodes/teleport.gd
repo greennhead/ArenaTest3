@@ -32,9 +32,11 @@ func _on_body_entered(body: Node3D) -> void:
 			if i.exit == true && i.id == id:
 				myExits.append(i)
 	if body is Player && myExit != null && !randomExit:
-		#TODO play sound
+		if body == GameManager.myPlayer:
+			body.emitSound.rpc(sound,position)
 		body.position = myExit.position
 	if body is Player && myExits.size() > 0 && randomExit:
-		#TODO play sound
+		if body == GameManager.myPlayer:
+			body.emitSound.rpc(sound,position)
 		myExits.shuffle()
 		body.position = myExits[0].position

@@ -20,6 +20,7 @@ func spawnPlayers():
 		if idx > order.size():
 			idx = 0
 		i.global_position = order[idx].global_position
+		i.respawnFall = true
 		i.respawn()
 		idx += 1
 	for i in get_tree().get_nodes_in_group("spawnPoint"):

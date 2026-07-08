@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://01ji418jb4vk"]
+
+[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_735xy"]
+[ext_resource type="Texture2D" uid="uid://cshu2qu1rp0gy" path="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_shotgun.png" id="2_qt543"]
+
+[resource]
+script = ExtResource("1_735xy")
+name = "Shotgun"
+attackSpeed = 36
+autofire = true
+projectile = "uid://btxit2c61roca"
+projectileSpread = 45
+projectileAmount = 12
+Ammo = 3
+singularSprite = ExtResource("2_qt543")
+legacyName = "nik_hl2_shotgun_db"
+metadata/_custom_type_script = "uid://5u6ynrpschfs"

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="mapObject" format=3 uid="uid://prbwsrqelvdl"]
+
+[ext_resource type="Script" uid="uid://bld5rh45v32di" path="res://resources/mapObject.gd" id="1_xpe1a"]
+[ext_resource type="Script" uid="uid://ck7rara5dub31" path="res://resources/specialProperty.gd" id="2_p18qr"]
+
+[resource]
+script = ExtResource("1_xpe1a")
+properties = {
+"animTime": 0,
+"frames": 0,
+"rotation": Vector3(0, 0, 0),
+"scrollToCamera": false,
+"speed": 0.0,
+"texture": "",
+"trueFrame": 0
+}
+node = "uid://c74pdlwvgyvxo"
+name = "billboard"
+unlisted = true
+metadata/_custom_type_script = "uid://bld5rh45v32di"

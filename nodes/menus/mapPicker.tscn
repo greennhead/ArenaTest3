@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://mkskym32lc1d" path="res://nodes/menus/map_picker.gd" id="1_tsjke"]
 [ext_resource type="Texture2D" uid="uid://dr2nuk3x1w76x" path="res://images/preview.png" id="3_5rip4"]
 [ext_resource type="Script" uid="uid://cmm41ger35g33" path="res://nodes/menus/map.gd" id="3_hwcr0"]
+[ext_resource type="Script" uid="uid://tmuspipk2dd8" path="res://nodes/menus/preview.gd" id="4_xbs61"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hwcr0"]
 properties/0/path = NodePath("Toggle:button_pressed")
@@ -62,7 +63,7 @@ layout_mode = 2
 
 [node name="map" type="Panel" parent="ScrollContainer/VBoxContainer" unique_id=485330672]
 visible = false
-custom_minimum_size = Vector2(360, 64)
+custom_minimum_size = Vector2(344, 48)
 layout_mode = 2
 theme = ExtResource("1_h08s0")
 script = ExtResource("3_hwcr0")
@@ -76,34 +77,42 @@ offset_bottom = 16.0
 theme = ExtResource("1_h08s0")
 text = "Map Name"
 
+[node name="previewHover" type="Container" parent="ScrollContainer/VBoxContainer/map" unique_id=253580791]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 18.0
+offset_right = 49.0
+offset_bottom = 58.0
+script = ExtResource("4_xbs61")
+
 [node name="Preview" type="Sprite2D" parent="ScrollContainer/VBoxContainer/map" unique_id=1399440478]
-position = Vector2(30, 35)
-scale = Vector2(0.1375, 0.11875)
+position = Vector2(17, 29)
+scale = Vector2(0.08, 0.08)
 texture = ExtResource("3_5rip4")
 
 [node name="SwitchTo" type="Button" parent="ScrollContainer/VBoxContainer/map" unique_id=1152529285]
 layout_mode = 0
-offset_left = 60.0
-offset_top = 38.0
-offset_right = 164.0
-offset_bottom = 54.0
+offset_left = 240.0
+offset_top = 32.0
+offset_right = 344.0
+offset_bottom = 48.0
 text = "MENU_Switch"
 
 [node name="Toggle" type="CheckButton" parent="ScrollContainer/VBoxContainer/map" unique_id=1378565597]
 layout_mode = 0
-offset_left = 252.0
-offset_top = 38.0
-offset_right = 356.0
-offset_bottom = 54.0
+offset_left = 240.0
+offset_top = 32.0
+offset_right = 344.0
+offset_bottom = 48.0
 theme = ExtResource("1_h08s0")
 text = "MENU_ToggleInPool"
 
 [node name="author" type="Label" parent="ScrollContainer/VBoxContainer/map" unique_id=1133134035]
 layout_mode = 0
-offset_left = 60.0
-offset_top = 18.0
-offset_right = 332.0
-offset_bottom = 38.0
+offset_left = 33.0
+offset_top = 16.0
+offset_right = 305.0
+offset_bottom = 36.0
 text = "MENU_Author:
 MENU_Gamemode:"
 
@@ -117,4 +126,6 @@ offset_right = 376.0
 offset_bottom = 13.0
 text = "X"
 
+[connection signal="mouse_entered" from="ScrollContainer/VBoxContainer/map/previewHover" to="ScrollContainer/VBoxContainer/map/previewHover" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="ScrollContainer/VBoxContainer/map/previewHover" to="ScrollContainer/VBoxContainer/map/previewHover" method="_on_mouse_exited"]
 [connection signal="pressed" from="close" to="." method="_on_close_pressed"]

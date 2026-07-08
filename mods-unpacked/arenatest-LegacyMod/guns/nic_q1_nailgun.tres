@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://dvru30o5grt1o"]
+
+[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_ble53"]
+[ext_resource type="Texture2D" uid="uid://c2sgmcc2kp8sm" path="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_nailgun.png" id="2_xo4su"]
+
+[resource]
+script = ExtResource("1_ble53")
+name = "Nailgun"
+attackSpeed = 8
+autofire = true
+projectile = "uid://btxit2c61roca"
+Ammo = 30
+singularSprite = ExtResource("2_xo4su")
+legacyName = "nik_q1_nailgun"
+metadata/_custom_type_script = "uid://5u6ynrpschfs"
