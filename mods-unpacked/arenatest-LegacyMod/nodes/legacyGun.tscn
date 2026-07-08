@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://cvlax7d10oj0v"]
+
+[ext_resource type="PackedScene" uid="uid://c0k3c4rn8gi4n" path="res://nodes/weapons/pistol.tscn" id="1_f60bl"]
+[ext_resource type="Script" uid="uid://bpimaxjrv8cqm" path="res://mods-unpacked/arenatest-LegacyMod/nodes/legacy_gun.gd" id="2_d3ykv"]
+[ext_resource type="AudioStream" uid="uid://b4ujgee5ae7ij" path="res://mods-unpacked/arenatest-LegacyMod/sounds/hl2_magnum_hit.ogg" id="4_s2lfe"]
+
+[node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_f60bl")]
+script = ExtResource("2_d3ykv")
+damageType = 0
+oldPhysics = true
+damage = 0
+damageSpread = false
+knockback = 0.0
+FireAnimationRotation = 0.0
+tracerColor = Color(0, 0, 0, 1)
+speed = 0.0
+onHitExplosion = false
+onKillExposion = false
+grav = 0
+Lifetime = 0
+acceleration = 0.0
+hitbox = Vector3(0.2, 0.2, 0.2)
+phantom = false
+piercing = false
+Bounce = false
+Stick = false
+MaxBounceAmount = 0
+BounceAcceleration = 0.0
+Sprite = ""
+ProjectileSpriteSheetAnimationSpeed = 0.0
+ProjectileSpriteSheetFrames = 0
+raycast = false
+raycast_dist = 0
+explosive = false
+explosionDamage = 0.0
+explosionKnockback = 0.0
+explosionRadius = 0.0
+explodeSound = ""
+explosionSprite = ""
+explosionSpriteSpeed = 0.0
+explosionSpriteFrames = 0.0
+ExplodeOnHitPlayer = true
+ExplodeOnHitBlock = true
+ExplodeOnLifetimeEnd = true
+explosionDestroyTiles = false
+explosionAffectsShooterOnly = false
+eightRotational = false
+weapon = null
+shootSound = ExtResource("4_s2lfe")
+
+[node name="hand" parent="." index="0" unique_id=974286624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.436636, -0.166306, -0.6948898)

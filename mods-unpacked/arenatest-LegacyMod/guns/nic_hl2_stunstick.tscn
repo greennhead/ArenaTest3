@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dlco11042a2ex"]
+
+[ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://mods-unpacked/arenatest-LegacyMod/nodes/legacyGun.tscn" id="1_1t2w7"]
+[ext_resource type="Resource" uid="uid://bxun25ntwrcq1" path="res://mods-unpacked/arenatest-LegacyMod/guns/nic_hl2_stunstick.tres" id="2_fi7ju"]
+[ext_resource type="AudioStream" uid="uid://cvpyqnerib6t5" path="res://mods-unpacked/arenatest-LegacyMod/sounds/hl2_pickup.ogg" id="3_nxih4"]
+[ext_resource type="AudioStream" uid="uid://c8o3v1gwxu0j8" path="res://mods-unpacked/arenatest-LegacyMod/sounds/stunstick_hit.ogg" id="4_47lxb"]
+[ext_resource type="Texture2D" uid="uid://dnaoskp6dldal" path="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_stunstick.png" id="5_nxih4"]
+
+[node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_1t2w7")]
+damage = 40
+FireAnimationRotation = -45.0
+tracerColor = Color(0, 0, 0, 0)
+speed = 2.0
+Lifetime = 1
+hitbox = Vector3(0.8, 0.8, 0.8)
+piercing = true
+ProjectileSpriteSheetFrames = 1
+ExplodeOnHitPlayer = false
+ExplodeOnHitBlock = false
+ExplodeOnLifetimeEnd = false
+weapon = ExtResource("2_fi7ju")
+pickupSound = ExtResource("3_nxih4")
+shootSound = ExtResource("4_47lxb")
+
+[node name="hand" parent="." index="0" unique_id=974286624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, -0.202, -0.699)
+
+[node name="hand2" parent="." index="1" unique_id=915277237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.43, -0.2, -0.333)
+
+[node name="gunSprite" parent="." index="2" unique_id=1094739627]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.489, 0.14, -0.7)
+texture = ExtResource("5_nxih4")

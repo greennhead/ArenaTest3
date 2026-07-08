@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://duo5hno75kjvv"]
+
+[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_wfcf4"]
+[ext_resource type="Texture2D" uid="uid://cd8giqacv3bwp" path="res://mods-unpacked/arenatest-LegacyMod/sprites/ghd352_knife.png" id="2_wfcf4"]
+
+[resource]
+script = ExtResource("1_wfcf4")
+name = "Hunting Knife"
+attackSpeed = 30
+projectile = "uid://btxit2c61roca"
+Ammo = 2
+singularSprite = ExtResource("2_wfcf4")
+legacyName = "ghd352_crabknife"

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://ijpp10eacpwk"]
+
+[ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://mods-unpacked/arenatest-LegacyMod/nodes/legacyGun.tscn" id="1_gnmhm"]
+[ext_resource type="Resource" uid="uid://caxdbjb3h10lx" path="res://mods-unpacked/arenatest-LegacyMod/guns/tristone_homestuck_deudly.tres" id="2_gnmhm"]
+[ext_resource type="AudioStream" uid="uid://bo45wjpdvw7ul" path="res://mods-unpacked/arenatest-LegacyMod/sounds/hs_deudlyfirearms_pickaup.ogg" id="3_nfhb1"]
+[ext_resource type="AudioStream" uid="uid://jtx6n4hnpoap" path="res://mods-unpacked/arenatest-LegacyMod/sounds/hs_deudlyfirearms_shoot.ogg" id="4_ljqli"]
+[ext_resource type="Texture2D" uid="uid://clcw5jjxbqvd2" path="res://mods-unpacked/arenatest-LegacyMod/sprites/tristone_deudly.png" id="5_gnmhm"]
+
+[node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_gnmhm")]
+damage = 9
+FireAnimationRotation = 2.0
+tracerColor = Color(1, 1, 1, 1)
+speed = 10.0
+Lifetime = 32
+piercing = true
+MaxBounceAmount = 100
+BounceAcceleration = 100.0
+Sprite = "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAFBhaW50Lk5FVCA1LjEuNBLfpoMAAAC2ZVhJZklJKgAIAAAABQAaAQUAAQAAAEoAAAAbAQUAAQAAAFIAAAAoAQMAAQAAAAIAAAAxAQIAEAAAAFoAAABphwQAAQAAAGoAAAAAAAAAYAAAAAEAAABgAAAAAQAAAFBhaW50Lk5FVCA1LjEuNAADAACQBwAEAAAAMDIzMAGgAwABAAAAAQAAAAWgBAABAAAAlAAAAAAAAAACAAEAAgAEAAAAUjk4AAIABwAEAAAAMDEwMAAAAADX5rshveZftAAAAHFJREFUKFNjZICC/zcY/kOZKIBRgwGsBkzgUgQDIMWMYEWynRCRx+UQGgtgApMzmsEUGGzlgdAgzTADgACi0PsLxDSQIhAbBJA1AwHEamSArBgJIBTCrIQBNMXYTUQGUA2owYOsCMlEcPBA2QQCnIEBANY+KkGQJwynAAAAAElFTkSuQmCC"
+weapon = ExtResource("2_gnmhm")
+pickupSound = ExtResource("3_nfhb1")
+shootSound = ExtResource("4_ljqli")
+
+[node name="hand" parent="." index="0" unique_id=974286624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.436636, -0.166306, -0.83309853)
+
+[node name="gunSprite" parent="." index="2" unique_id=1094739627]
+texture = ExtResource("5_gnmhm")
+
+[node name="shootPoint" parent="." index="3" unique_id=762613811]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46022153, 0.33332396, -0.7237188)
