@@ -2,8 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://mods-unpacked/arenatest-LegacyMod/nodes/legacyGun.tscn" id="1_gl2vd"]
 [ext_resource type="Resource" uid="uid://4lluthghuqpa" path="res://mods-unpacked/arenatest-LegacyMod/guns/nic_race_epicwin.tres" id="2_gl2vd"]
-[ext_resource type="AudioStream" uid="uid://cbbsrik4s4cw7" path="res://mods-unpacked/arenatest-LegacyMod/sounds/q1_pickup.ogg" id="3_33hid"]
-[ext_resource type="AudioStream" uid="uid://cnv61c5d3j8pj" path="res://mods-unpacked/arenatest-LegacyMod/sounds/q1_rocket_hit.ogg" id="4_ut1hg"]
 [ext_resource type="Texture2D" uid="uid://bui6gopg1pytm" path="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_youwin.png" id="5_m0jxm"]
 
 [node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_gl2vd")]
@@ -16,9 +14,7 @@ Lifetime = 5
 hitbox = Vector3(500, 500, 500)
 phantom = true
 piercing = true
-Sprite = "iVBORw0KGgoAAAANSUhEUgAAACMAAAAGCAMAAAB+ZtfuAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADwUExURX9/fwoKCgAAAAwMDEBAQCAgIAsLCzY2NllZWUxMTEtLSzk5OWRkZGJiYmBgYF5eXl1dXVtbW1paWmdnZxUVFQICAggICA8PD0VFRXR0dH5+foeHh3FxcWpqamxsbFhYWEpKSmtra3BwcG5ubm1tbXZ2dmlpaXt7ewMDA01NTZeXl1FRUUFBQQQEBIaGhouLi3Jyck5OTjw8PH19fYGBgW9vb3Nzc19fX2ZmZlVVVaGhoQ4ODjMzMzQ0NBcXFxMTE0ZGRjAwMFxcXGFhYWhoaGNjYwcHB1JSUiQkJCkpKTo6OlRUVE9PTx4eHlBQUAAAAFnmV04AAABQdFJOU/////////////////////////////////////////////////////////////////////////////////////////////////////////8AE3OmeQAAAAlwSFlzAAAOwgAADsIBFShKgAAAAK1JREFUGFdFjlcWgjAABCEqIRjAWIhYAI2KXWPvvdf730bFNr87b3eFu4cggh+izx8AQILvCD7DryAjJYhVrOkhnZBwhIBoDBgQ0jh9OWYimUqblu04GTXLchbL5HMFzS2WypSWKtWaV1hv5FNNi/BWWm93ur0C67tZawCGI2M8QdOZ57y25oQvlitZW6t9vEGbLZOwM95xBe3B59j/8+EYP/GzfbneKIQ6fALvD/ZMG8YGDlOKAAAAAElFTkSuQmCC"
 ProjectileSpriteSheetFrames = 1
-explosive = true
 explosionKnockback = -15.0
 explosionRadius = 5.0
 explodeSound = "uid://c2ivunmagfs5i"
@@ -27,8 +23,6 @@ explosionSpriteSpeed = 0.4
 explosionSpriteFrames = 17.0
 explosionAffectsShooterOnly = true
 weapon = ExtResource("2_gl2vd")
-pickupSound = ExtResource("3_33hid")
-shootSound = ExtResource("4_ut1hg")
 
 [node name="hand" parent="." index="0" unique_id=974286624]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.302, -0.6)
