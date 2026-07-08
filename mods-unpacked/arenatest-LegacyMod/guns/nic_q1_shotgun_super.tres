@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://t5i8j5mp7i3a"]
+
+[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_11is1"]
+[ext_resource type="Texture2D" uid="uid://n05xw6sr8tw6" path="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_super_shotgun.png" id="2_iby3d"]
+
+[resource]
+script = ExtResource("1_11is1")
+name = "Super Shotgun"
+attackSpeed = 36
+autofire = true
+projectile = "uid://btxit2c61roca"
+projectileSpread = 8
+projectileAmount = 14
+Ammo = 3
+singularSprite = ExtResource("2_iby3d")
+legacyName = "nik_q1_shotgun_super"
+metadata/_custom_type_script = "uid://5u6ynrpschfs"

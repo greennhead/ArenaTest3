@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://5y2ja5ylhu6f"]
+
+[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_rnrlc"]
+[ext_resource type="Texture2D" uid="uid://c6cfgklthl8gf" path="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_usp.png" id="2_ilg5h"]
+
+[resource]
+script = ExtResource("1_rnrlc")
+name = "USP"
+attackSpeed = 36
+projectile = "uid://btxit2c61roca"
+Ammo = 18
+singularSprite = ExtResource("2_ilg5h")
+legacyName = "nik_hl2_usp_headshot"
+metadata/_custom_type_script = "uid://5u6ynrpschfs"

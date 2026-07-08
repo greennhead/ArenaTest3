@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cciu5bo7t0ga"]
+
+[ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://mods-unpacked/arenatest-LegacyMod/nodes/legacyGun.tscn" id="1_g7tex"]
+[ext_resource type="Resource" uid="uid://5y2ja5ylhu6f" path="res://mods-unpacked/arenatest-LegacyMod/guns/nic_hl2_usp_headshot.tres" id="2_g7tex"]
+[ext_resource type="Texture2D" uid="uid://c6cfgklthl8gf" path="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_usp.png" id="3_o2khb"]
+[ext_resource type="AudioStream" uid="uid://cvpyqnerib6t5" path="res://mods-unpacked/arenatest-LegacyMod/sounds/hl2_pickup.ogg" id="4_keebx"]
+[ext_resource type="AudioStream" uid="uid://cukylph7d6aqr" path="res://mods-unpacked/arenatest-LegacyMod/sounds/hl2_pistol_hit.ogg" id="5_gffn0"]
+
+[node name="legacyGun" unique_id=1685750730 instance=ExtResource("1_g7tex")]
+damage = 25
+knockback = -1.0
+FireAnimationRotation = 10.0
+tracerColor = Color(1, 0.8980392, 0.4, 1)
+speed = 10.0
+Lifetime = 600
+hitbox = Vector3(0.5, 0.5, 0.5)
+ProjectileSpriteSheetFrames = 1
+raycast = true
+raycast_dist = 200
+weapon = ExtResource("2_g7tex")
+pickupSound = ExtResource("4_keebx")
+shootSound = ExtResource("5_gffn0")
+
+[node name="hand" parent="." index="0" unique_id=974286624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.202, -0.8)
+
+[node name="hand2" parent="." index="1" unique_id=915277237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.43, -0.2, -0.333)
+
+[node name="gunSprite" parent="." index="2" unique_id=1094739627]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.489, -0.14, -0.899)
+texture = ExtResource("3_o2khb")

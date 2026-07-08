@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://bamb6c11sa6ps"]
+
+[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_7jc53"]
+[ext_resource type="Texture2D" uid="uid://wnwwj68kms0j" path="res://images/weaponry/legacyMod/ghd352_pingas.png" id="2_lroyl"]
+
+[resource]
+script = ExtResource("1_7jc53")
+name = "Pingas Rifle"
+attackSpeed = 12
+autofire = true
+projectile = "uid://btxit2c61roca"
+Ammo = 9
+selfKnockback = -5
+canZoom = true
+zoomFOV = 25
+singularSprite = ExtResource("2_lroyl")
+legacyName = "ghd352_pingasrifle"
+metadata/_custom_type_script = "uid://5u6ynrpschfs"

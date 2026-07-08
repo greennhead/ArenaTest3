@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://1xf0562dhgjm"]
+
+[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_332tp"]
+[ext_resource type="Texture2D" uid="uid://b0vwiknb33lbk" path="res://mods-unpacked/arenatest-LegacyMod/sprites/mbx_bomb.png" id="2_332tp"]
+
+[resource]
+script = ExtResource("1_332tp")
+name = "DA BOMB"
+autofire = true
+projectile = "uid://btxit2c61roca"
+Ammo = 1
+singularSprite = ExtResource("2_332tp")
+legacyName = "mbx_da_bomb"
+metadata/_custom_type_script = "uid://5u6ynrpschfs"

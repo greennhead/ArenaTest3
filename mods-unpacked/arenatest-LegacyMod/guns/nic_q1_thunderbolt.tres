@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://b7iox8n5je6uy"]
+
+[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_acwfg"]
+[ext_resource type="Texture2D" uid="uid://cifp2hlte66ec" path="res://mods-unpacked/arenatest-LegacyMod/sprites/nic_thunder.png" id="2_clbxs"]
+
+[resource]
+script = ExtResource("1_acwfg")
+name = "Thunderbolt"
+attackSpeed = 2
+autofire = true
+projectile = "uid://btxit2c61roca"
+Ammo = 45
+singularSprite = ExtResource("2_clbxs")
+legacyName = "nik_q1_thunderbolt"
+consideredOverpowered = true
+metadata/_custom_type_script = "uid://5u6ynrpschfs"

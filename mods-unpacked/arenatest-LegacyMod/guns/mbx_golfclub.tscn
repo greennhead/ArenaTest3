@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://5tavc8h1rn7b"]
+
+[ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://mods-unpacked/arenatest-LegacyMod/nodes/legacyGun.tscn" id="1_wdqq1"]
+[ext_resource type="Resource" uid="uid://bg7nc57rscn5" path="res://mods-unpacked/arenatest-LegacyMod/guns/mbx_golfclub.tres" id="2_wdqq1"]
+[ext_resource type="AudioStream" uid="uid://cqky704mmq1w2" path="res://mods-unpacked/arenatest-LegacyMod/sounds/mbx_sfxSlideWhistle.ogg" id="3_wdqq1"]
+[ext_resource type="AudioStream" uid="uid://cht8quxtu7g2a" path="res://mods-unpacked/arenatest-LegacyMod/sounds/mbx_sfxDeepBoing.ogg" id="4_psy0u"]
+[ext_resource type="Texture2D" uid="uid://cdvwf5fbbwt2w" path="res://mods-unpacked/arenatest-LegacyMod/sprites/mbx_golf_club.png" id="5_psy0u"]
+
+[node name="legacyGun" unique_id=15249170 instance=ExtResource("1_wdqq1")]
+damageType = 2
+damage = 25
+knockback = 16.0
+FireAnimationRotation = -40.0
+tracerColor = Color(0, 0, 0, 0)
+speed = 10.0
+Lifetime = 4
+hitbox = Vector3(1, 1, 1)
+phantom = true
+piercing = true
+weapon = ExtResource("2_wdqq1")
+pickupSound = ExtResource("3_wdqq1")
+shootSound = ExtResource("4_psy0u")
+
+[node name="hand" parent="." index="0" unique_id=974286624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.544965, -0.049526557, -1.0140951)
+
+[node name="hand2" parent="." index="1" unique_id=915277237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5391071, -0.080212474, -0.76706815)
+
+[node name="gunSprite" parent="." index="2" unique_id=1094739627]
+texture = ExtResource("5_psy0u")
+
+[node name="shootPoint" parent="." index="3" unique_id=762613811]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38290846, 0.1606412, -0.96002436)

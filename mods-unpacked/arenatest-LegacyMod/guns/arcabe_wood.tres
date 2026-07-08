@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://bf2a0nro8iwu2"]
+
+[ext_resource type="Script" uid="uid://5u6ynrpschfs" path="res://resources/Weapon.gd" id="1_txua8"]
+[ext_resource type="Texture2D" uid="uid://1hbekefa55u5" path="res://mods-unpacked/arenatest-LegacyMod/sprites/arcabe_wood.png" id="2_txua8"]
+
+[resource]
+script = ExtResource("1_txua8")
+name = "woodboy"
+attackSpeed = 13
+autofire = true
+projectile = "uid://btxit2c61roca"
+Ammo = 40
+selfKnockback = -4
+singularSprite = ExtResource("2_txua8")
+legacyName = "arcabe_wood"

@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://julwcttwps27"]
+
+[ext_resource type="PackedScene" uid="uid://cvlax7d10oj0v" path="res://mods-unpacked/arenatest-LegacyMod/nodes/legacyGun.tscn" id="1_hdtcn"]
+[ext_resource type="Resource" uid="uid://bf2a0nro8iwu2" path="res://mods-unpacked/arenatest-LegacyMod/guns/arcabe_wood.tres" id="2_hdtcn"]
+[ext_resource type="AudioStream" uid="uid://cdlhoopnwa387" path="res://mods-unpacked/arenatest-LegacyMod/sounds/arcabe_woodboy.ogg" id="3_s560n"]
+[ext_resource type="AudioStream" uid="uid://nkbf78bpdgjq" path="res://mods-unpacked/arenatest-LegacyMod/sounds/arcabe_woodshoot.ogg" id="4_3sy7c"]
+[ext_resource type="Texture2D" uid="uid://1hbekefa55u5" path="res://mods-unpacked/arenatest-LegacyMod/sprites/arcabe_wood.png" id="5_ylbxh"]
+
+[node name="legacyGun" unique_id=15249170 instance=ExtResource("1_hdtcn")]
+damage = 8
+knockback = -2.0
+FireAnimationRotation = 8.0
+tracerColor = Color(1, 1, 1, 1)
+speed = 30.0
+grav = -1
+Lifetime = 119
+weapon = ExtResource("2_hdtcn")
+pickupSound = ExtResource("3_s560n")
+shootSound = ExtResource("4_3sy7c")
+
+[node name="hand" parent="." index="0" unique_id=974286624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.544965, -0.166306, -0.7736475)
+
+[node name="hand2" parent="." index="1" unique_id=915277237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20988512, -0.080212474, -1.2045224)
+
+[node name="gunSprite" parent="." index="2" unique_id=1094739627]
+texture = ExtResource("5_ylbxh")
+
+[node name="shootPoint" parent="." index="3" unique_id=762613811]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38290846, 0.1606412, -0.96002436)
