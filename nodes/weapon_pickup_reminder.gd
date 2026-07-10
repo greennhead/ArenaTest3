@@ -11,6 +11,7 @@ func post_ready():
 	for path in GameManager.gunPaths:
 		for i in ResourceLoader.list_directory(path):
 			if i.ends_with(".tscn"):
+				print(path.path_join(i))
 				var wep = load(path.path_join(i)).instantiate()
 				##if the line below gives you an error then you messed up your weapon 
 				if wep.weapon != null:

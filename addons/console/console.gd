@@ -155,6 +155,17 @@ func die():
 	if GameManager.myPlayer != null:
 		GameManager.myPlayer.hp -= 999
 
+func printContentDirs():
+	print_line("### Guns:")
+	for i in GameManager.gunPaths:
+		print_line(i)
+	print_line("### Maps:")
+	for i in GameManager.mapPaths:
+		print_line(i)
+	print_line("### Mods:")
+	for i in DirAccess.get_directories_at("res://mods-unpacked/"):
+		print_line(i)
+
 func setsetting(setting,value):
 	if Settings.editableVars.has(setting.to_lower()):
 		Settings.set(setting,str(value))
@@ -223,6 +234,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.")
 
 func _ready() -> void:
+	add_command("contentInfo",printContentDirs,0,0,"Prints custom stuff")
 	add_command("disconnect",disconnectToMenu,0,0,"Quits back to main menu.")
 	add_command("setrule",setRule,["Rule", "Value"],2, "Sets a game rule for the current server")
 	add_command("setsetting",setsetting,["Setting","Value"],2,"Sets a setting.")
@@ -449,6 +461,7 @@ func print_line(text : Variant, print_godot := false) -> void:
 		rich_label.append_text("\n")
 		if (print_godot):
 			print_rich(text.dedent())
+
 
 
 func parse_line_input(text : String) -> PackedStringArray:
