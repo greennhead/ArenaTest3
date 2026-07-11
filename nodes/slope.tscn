@@ -4,14 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://dmso3r0cho4s5" path="res://images/brick.png" id="2_fpkf5"]
 [ext_resource type="Shape3D" uid="uid://bkb66p6tb081g" path="res://resources/slopeCollision.tres" id="3_mbc2i"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fpkf5"]
-load_path = "res://.godot/imported/brick.png-137a16d4d3f8360d4ac0907b7770d851.s3tc.ctex"
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_srj8m"]
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
-albedo_texture = SubResource("CompressedTexture2D_fpkf5")
+albedo_texture = ExtResource("2_fpkf5")
+uv1_offset = Vector3(0.5, 0, 0)
 uv1_triplanar = true
 texture_filter = 0
 

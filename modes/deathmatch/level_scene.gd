@@ -18,7 +18,7 @@ func spawnPlayers():
 	order.shuffle()
 	await get_tree().create_timer(0.1).timeout
 	for i in get_tree().get_nodes_in_group("player"):
-		if idx > order.size():
+		if idx > order.size()-1:
 			idx = 0
 		i.global_position = order[idx].global_position
 		i.respawn()

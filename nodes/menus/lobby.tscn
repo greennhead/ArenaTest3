@@ -72,9 +72,9 @@ snapToCenter = false
 
 [node name="ToggleAll" parent="Panel/MapPicker" index="1" unique_id=587497183 groups=["disableIfClient"]]
 
-[node name="SwitchTo" parent="Panel/MapPicker/ScrollContainer/VBoxContainer/map" parent_id_path=PackedInt32Array(413486018, 485330672) index="2" unique_id=1152529285 groups=["disableIfClient"]]
+[node name="SwitchTo" parent="Panel/MapPicker/ScrollContainer/VBoxContainer/map" parent_id_path=PackedInt32Array(413486018, 485330672) index="3" unique_id=1152529285 groups=["disableIfClient"]]
 
-[node name="Toggle" parent="Panel/MapPicker/ScrollContainer/VBoxContainer/map" parent_id_path=PackedInt32Array(413486018, 485330672) index="3" unique_id=1378565597 groups=["disableIfClient"]]
+[node name="Toggle" parent="Panel/MapPicker/ScrollContainer/VBoxContainer/map" parent_id_path=PackedInt32Array(413486018, 485330672) index="4" unique_id=1378565597 groups=["disableIfClient"]]
 
 [node name="close" parent="Panel/MapPicker" index="4" unique_id=2103337389]
 disabled = true

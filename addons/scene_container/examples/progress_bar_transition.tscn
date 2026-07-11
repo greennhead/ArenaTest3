@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dun53pwhyqhbb"]
+[gd_scene format=3 uid="uid://dun53pwhyqhbb"]
 
 [ext_resource type="Script" uid="uid://d0dhkqsqinsxi" path="res://addons/scene_container/examples/progress_bar_transition.gd" id="1_n6top"]
 
@@ -54,29 +54,27 @@ _data = {
 &"fadeout": SubResource("Animation_7bvhc")
 }
 
-[node name="ProgressBarTransition" type="CanvasLayer"]
+[node name="ProgressBarTransition" type="CanvasLayer" unique_id=1250293065]
 script = ExtResource("1_n6top")
 metadata/_custom_type_script = "uid://75mrqcovjgyr"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_vkdx5")
-}
-autoplay = "RESET"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=963725747]
+libraries/ = SubResource("AnimationLibrary_vkdx5")
+autoplay = &"RESET"
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1674618620]
 modulate = Color(1, 1, 1, 0)
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 1)
 
-[node name="Label" type="Label" parent="ColorRect"]
+[node name="Label" type="Label" parent="ColorRect" unique_id=21514820]
 layout_mode = 0
 offset_right = 73.0
 offset_bottom = 23.0
 text = "LOADING"
 
-[node name="LabelProgress" type="Label" parent="ColorRect"]
+[node name="LabelProgress" type="Label" parent="ColorRect" unique_id=395932001]
 layout_mode = 0
 offset_top = 21.0
 offset_right = 73.0

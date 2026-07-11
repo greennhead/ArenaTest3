@@ -1,13 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://c6q48uye3ynvu"]
+[gd_scene format=3 uid="uid://c6q48uye3ynvu"]
 
 [ext_resource type="Script" uid="uid://c0ggisiyxwvym" path="res://addons/scene_container/examples/switching_progress_bar.gd" id="1_0be45"]
 [ext_resource type="Script" uid="uid://blhtmeuo5dqnc" path="res://addons/scene_container/scenes/scene_container.gd" id="2_lwgbj"]
 [ext_resource type="PackedScene" uid="uid://dun53pwhyqhbb" path="res://addons/scene_container/examples/progress_bar_transition.tscn" id="3_0be45"]
 
-[node name="SwitchingProgressBar" type="Node"]
+[node name="SwitchingProgressBar" type="Node" unique_id=120520348]
 script = ExtResource("1_0be45")
 
-[node name="SceneContainer" type="SubViewportContainer" parent="." node_paths=PackedStringArray("main_node", "transition")]
+[node name="SceneContainer" type="SubViewportContainer" parent="." unique_id=870676228 node_paths=PackedStringArray("main_node", "transition")]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_lwgbj")
@@ -15,21 +15,21 @@ main_node = NodePath("SubViewport/Scene")
 transition = NodePath("SubViewport/ProgressBarTransition")
 metadata/_custom_type_script = "uid://blhtmeuo5dqnc"
 
-[node name="SubViewport" type="SubViewport" parent="SceneContainer"]
+[node name="SubViewport" type="SubViewport" parent="SceneContainer" unique_id=641425537]
 handle_input_locally = false
 size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
-[node name="ProgressBarTransition" parent="SceneContainer/SubViewport" instance=ExtResource("3_0be45")]
+[node name="ProgressBarTransition" parent="SceneContainer/SubViewport" unique_id=1932111806 instance=ExtResource("3_0be45")]
 
-[node name="Scene" type="Node" parent="SceneContainer/SubViewport"]
+[node name="Scene" type="Node" parent="SceneContainer/SubViewport" unique_id=186019590]
 
-[node name="ColorRect" type="ColorRect" parent="SceneContainer/SubViewport/Scene"]
+[node name="ColorRect" type="ColorRect" parent="SceneContainer/SubViewport/Scene" unique_id=1145548675]
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0.08763353, 0.20569843, 0.4550928, 1)
 
-[node name="Label" type="Label" parent="SceneContainer/SubViewport/Scene"]
+[node name="Label" type="Label" parent="SceneContainer/SubViewport/Scene" unique_id=534000158]
 offset_right = 385.0
 offset_bottom = 240.0
 text = "Press Enter (\"ui_accept\") to switch to a scene that will take some time before fully loading"

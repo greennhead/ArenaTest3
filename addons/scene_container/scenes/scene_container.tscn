@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dj2qc5ayer61n"]
+[gd_scene format=3 uid="uid://dj2qc5ayer61n"]
 
 [ext_resource type="Script" uid="uid://blhtmeuo5dqnc" path="res://addons/scene_container/scenes/scene_container.gd" id="1_kyrkd"]
 
-[node name="SceneContainer" type="SubViewportContainer"]
+[node name="SceneContainer" type="SubViewportContainer" unique_id=1566542309]
 script = ExtResource("1_kyrkd")

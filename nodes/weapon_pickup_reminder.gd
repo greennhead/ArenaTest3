@@ -10,22 +10,21 @@ func post_ready():
 	$name.text = weaponName 
 	for path in GameManager.gunPaths:
 		for i in ResourceLoader.list_directory(path):
-			if i.ends_with(".tscn"):
+			if i.ends_with(".tres"):
 				print(path.path_join(i))
-				var wep = load(path.path_join(i)).instantiate()
-				##if the line below gives you an error then you messed up your weapon 
-				if wep.weapon != null:
-					if wep.weapon.legacyName == weaponName:
-						print_rich("[color=lime]Found legacy weapon: " + weaponName)
-						queue_free()
-						var p = trueWeaponPickup.instantiate()
-						p.position = position
-						p.weapon = path.path_join(i)
-						p.name = "converted_" + name
-						p.delay = delay
-						p.currdelay = currdelay
-						get_parent().add_child(p)
-						return
+				var wep = load(path.path_join(i))
+				##if the line below gives you an error then you messed up your legacyweapon 
+				if wep.legacyName == weaponName:
+					print_rich("[color=lime]Found legacy weapon: " + weaponName)
+					queue_free()
+					var p = trueWeaponPickup.instantiate()
+					p.position = position
+					p.weapon = path.path_join(i).replace(".tres",".tscn") # if this gives an error then make the tscn name the same as tres
+					p.name = "converted_" + name
+					p.delay = delay
+					p.currdelay = currdelay
+					get_parent().add_child(p)
+					return
 	print_rich("[color=red]No legacy weapon: " + weaponName)
 	#var dir = DirAccess.open(path)
 	#if dir:

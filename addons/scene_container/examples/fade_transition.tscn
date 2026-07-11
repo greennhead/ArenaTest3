@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://kql4k3aqikmd"]
+[gd_scene format=3 uid="uid://kql4k3aqikmd"]
 
 [ext_resource type="Script" uid="uid://g67isxk4hful" path="res://addons/scene_container/examples/fade_transition.gd" id="1_0ovas"]
 
@@ -54,17 +54,15 @@ _data = {
 &"fadeout": SubResource("Animation_7bvhc")
 }
 
-[node name="FadeTransition" type="CanvasLayer"]
+[node name="FadeTransition" type="CanvasLayer" unique_id=1186432228]
 script = ExtResource("1_0ovas")
 metadata/_custom_type_script = "uid://75mrqcovjgyr"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_vkdx5")
-}
-autoplay = "RESET"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=901089080]
+libraries/ = SubResource("AnimationLibrary_vkdx5")
+autoplay = &"RESET"
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1678638836]
 modulate = Color(1, 1, 1, 0)
 offset_right = 1152.0
 offset_bottom = 648.0
