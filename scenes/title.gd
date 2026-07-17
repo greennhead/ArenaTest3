@@ -23,6 +23,7 @@ func _ready() -> void:
 	camera.position.y += 1
 	for i in get_tree().get_nodes_in_group("spawnPoint"):
 		i.queue_free()
+	GameManager.clearWindows()
 	#GameManager.popup("Info","This is still a beta of the full ARENATEST3 release! Stuff is missing and subject to change.")
 
 func _physics_process(delta: float) -> void:

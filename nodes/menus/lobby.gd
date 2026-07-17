@@ -95,6 +95,7 @@ func _ready() -> void:
 	multiplayer.connection_failed.connect(connection_failed)
 	started = false
 	await get_tree().create_timer(2.0).timeout
+	started = false
 	if joining == true:
 		var p = errorWindow.instantiate()
 		get_tree().current_scene.add_child(p)

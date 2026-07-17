@@ -3,6 +3,7 @@ class_name MenuWindow
 @export var snapToCenter := true
 @export var sizePanel : Panel
 @export var disposable := true
+@export var clearable := true
 func snap():
 	if snapToCenter && sizePanel != null:
 		global_position = get_viewport_rect().size/2 - sizePanel.size/2

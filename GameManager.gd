@@ -15,6 +15,8 @@ var preloadskin := ""
 var globalMaplist := []
 var trackNum := true
 
+var windows = []
+
 var num := 0:
 	set(value):
 		num = value
@@ -53,6 +55,15 @@ enum deathAnimation {
 }
 
 @onready var errorWindow = preload("uid://bp8lkc3ukjnna")
+
+func clearWindows():
+	if main == null:
+		return
+	for i in main.get_children():
+		if i is MenuWindow:
+			if i.clearable:
+				i.queue_free()
+
 func _ready() -> void:
 	var path = "res://objects/"
 	var resources = ResourceLoader.list_directory(path)

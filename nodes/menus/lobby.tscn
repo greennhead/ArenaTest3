@@ -69,6 +69,7 @@ gamemodeRestriction = " "
 canLoad = false
 doRespawn = false
 snapToCenter = false
+clearable = false
 
 [node name="ToggleAll" parent="Panel/MapPicker" index="1" unique_id=587497183 groups=["disableIfClient"]]
 
@@ -205,6 +206,7 @@ offset_right = 480.0
 offset_bottom = 312.0
 script = ExtResource("6_q755k")
 sizePanel = NodePath("Panel")
+clearable = false
 metadata/_custom_type_script = "uid://d3afr87rvcnap"
 
 [node name="Panel" type="Panel" parent="chat" unique_id=795471732]
